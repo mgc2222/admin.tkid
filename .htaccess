@@ -1,0 +1,42 @@
+#php_flag display_errors on
+#php_value error_reporting 7
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^.well-known(.*)$ - [L,NC] 
+RewriteBase /
+
+#RewriteCond %{HTTPS} !^on$
+#RewriteRule (.*) https://www.admin.tkid.ro/$1 [R=301,L]
+
+#RewriteCond %{HTTP_HOST} !^www\.
+#RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+
+RewriteCond $1 !^(index\.php|images|js|style|files|admin/langs|front_html|robots\.txt|google6b11984684b9bc29\.html)
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+</IfModule>
+
+<filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+#Header set Expires "11/02/2018 20:00:00"
+</filesMatch>
+
+#<IfModule mod_charset_lite.c>
+#AddDefaultCharset ISO-8859-1
+#AddDefaultCharset UTF-8
+#</IfModule>
+
+<ifmodule mod_deflate.c>
+# Insert filter
+SetOutputFilter DEFLATE
+# Netscape 4.x has some problems...
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+# Netscape 4.06-4.08 have some more problems
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+# MSIE masquerades as Netscape, but it is fine
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+# Don't compress images
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+# Make sure proxies don't deliver the wrong content
+Header append Vary User-Agent env=!dont-vary
+</ifmodule>

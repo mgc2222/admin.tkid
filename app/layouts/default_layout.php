@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<?php include(_APPLICATION_FOLDER.'blocks/html_head_block.php'); ?>
+<body>
+<?php include(_APPLICATION_FOLDER.'blocks/header.php')?>
+<?php include(_APPLICATION_FOLDER.'blocks/menu.php'); ?>
+<div class="page_wrapper">
+	<div class="content_wrapper">
+		<?php if ($webpage->ContentInclude != null)
+		{
+			foreach ($webpage->ContentInclude as $contentInclude)
+			{
+				include($contentInclude);
+			}
+		}
+		?>
+	</div>
+</div>
+<?php include(_APPLICATION_FOLDER.'blocks/footer.php')?>
+<?php include(_APPLICATION_FOLDER.'blocks/html_footer_scripts.php'); ?>
+</body>
+</html>
