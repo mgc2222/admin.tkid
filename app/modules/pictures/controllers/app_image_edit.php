@@ -122,8 +122,14 @@ class AppImageEdit extends AdminController
 	}
 
 	function SetMapping($formData){
-		$mapping = array('image_alt'=>$formData->txtAlt,'image_title'=>$formData->txtTitle,'image_caption'=>$formData->txtCaption,'image_description'=>$formData->txtDescription,
-			'image_button_link_text'=>$formData->txtButtonText,'image_button_link_href'=>$formData->txtButtonHref,'order_index'=>$formData->txtOrder);
+		$mapping = array(
+			'image_alt'=>$formData->txtAlt,
+			'image_title'=>$formData->txtTitle,
+			'image_caption'=>$formData->txtCaption,
+			'image_description'=>$formData->txtDescription);
+			//'image_button_link_text'=>$formData->txtButtonText,
+			//'image_button_link_href'=>$formData->txtButtonHref,
+			//'order_index'=>$formData->txtOrder);
 		$this->appImagesModel->MakeSafeData($mapping);
 		return $mapping;
 	}
