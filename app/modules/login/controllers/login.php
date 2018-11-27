@@ -21,7 +21,7 @@ class Login extends AdminController
 		// if admin already logged in, redirect to first page
 		if ($this->auth->AuthenticateUser())
 		{
-			$this->webpage->Redirect($this->GetRelativePath('products'));
+			$this->webpage->Redirect($this->GetRelativePath('app_images'));
 		}
 		
 		$formData = $form->data;
@@ -34,7 +34,7 @@ class Login extends AdminController
 					if (!$this->CheckUserIP($this->auth->User->ip_address))
 						$this->webpage->SetMessage($this->trans['login.ip_restricted'], 'error', false);
 					else
-						$this->webpage->Redirect($this->GetRelativePath('products'));
+						$this->webpage->Redirect($this->GetRelativePath('app_images'));
 				}
 				else 
 					$this->webpage->SetMessage($this->auth->Message, 'error', false);
