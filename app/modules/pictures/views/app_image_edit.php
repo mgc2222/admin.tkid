@@ -43,11 +43,11 @@
 	<tr>
 		<td><label for="txtButtonHref"><?php /*echo $trans['app_image.button_link_hfer']*/?></td>
 		<td><input type="text" class="form-control" id="txtButtonHref" name="txtButtonHref" value="<?php /*echo $dataView->txtButtonHref; */?>" /></td>
-	</tr>
-	<tr>
-		<td><label for="txtOrder"><?php /*echo $trans['app_image.order_index']*/?></td>
-		<td><input type="text" class="form-control" id="txtOrder" name="txtOrder" value="<?php /*echo $dataView->txtOrder; */?>" /></td>
 	</tr>-->
+	<tr>
+		<td><label for="txtOrder"><?php echo $trans['app_image.order_index']?></td>
+		<td><input type="text" class="form-control" id="txtOrder" name="txtOrder" value="<?php echo $dataView->txtOrder; ?>" /></td>
+	</tr>
         <input type="hidden" id="appCategoryId" name="appCategoryId" value="<?php echo $dataView->row->app_category_id; ?>" />
 	</table>
 </div>

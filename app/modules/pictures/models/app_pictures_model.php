@@ -87,11 +87,12 @@ class AppPicturesModel extends AbstractModel
 		return $row;
 	}
 
-	function GetAppImages($appCategoryId)
+	function GetAppImages($appCategoryId, $order='')
 	{
 		//echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
+        $order = ($order) ?: 'id';
 		$cond = 'app_category_id='.$appCategoryId;
-		$sql = "SELECT * FROM {$this->tableImages} WHERE {$cond}"; 
+		$sql = "SELECT * FROM {$this->tableImages} WHERE {$cond} ORDER BY {$order}";
 		$rows = $this->dbo->GetRows($sql);
 			
 		return $rows;
