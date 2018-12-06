@@ -91,8 +91,8 @@ class AppPicturesModel extends AbstractModel
 	{
 		//echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
         $order = ($order) ?: 'id';
-		$cond = 'app_category_id='.$appCategoryId;
-		$sql = "SELECT * FROM {$this->tableImages} WHERE {$cond} ORDER BY {$order}";
+		$cond = 'ti.app_category_id='.$appCategoryId;
+		$sql = "SELECT * FROM {$this->tableImages} ti LEFT JOIN {$this->table} t ON ti.id=t.app_image_id WHERE {$cond} ORDER BY {$order}";
 		$rows = $this->dbo->GetRows($sql);
 			
 		return $rows;

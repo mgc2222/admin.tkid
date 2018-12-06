@@ -132,7 +132,6 @@ class Pictures extends AdminController
 		$data->appCategoriesListContent = HtmlControls::GenerateDropDownList($this->appImagesModel->GetAppCategoriesForDropDown(), 'id', 'name', $data->appCategoryId);
 		//echo'<pre>';print_r($data->appCategoriesListContent);echo'</pre>';die;
 		$data->rows = $this->appImagesModel->GetAppImages($data->appCategoryId, 'order_index');
-
 		
 		$this->FormatAppImagesRows($data->appCategoryId, $data->appCategoryName, $data->rows);
 		//echo'<pre>';print_r($data);echo'</pre>';die;

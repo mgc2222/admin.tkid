@@ -126,10 +126,10 @@ class AppImageEdit extends AdminController
 			'image_alt'=>$formData->txtAlt,
 			'image_title'=>$formData->txtTitle,
 			'image_caption'=>$formData->txtCaption,
-			'image_description'=>$formData->txtDescription);
+			'image_description'=>$formData->txtDescription,
 			//'image_button_link_text'=>$formData->txtButtonText,
 			//'image_button_link_href'=>$formData->txtButtonHref,
-			//'order_index'=>$formData->txtOrder);
+			'order_index'=>$formData->txtOrder);
 		$this->appImagesModel->MakeSafeData($mapping);
 		return $mapping;
 	}
