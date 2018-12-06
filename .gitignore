@@ -12,7 +12,7 @@
 /.cgi-bin
 /.vagrant
 /nbproject
-/app/config
+/app/config/
 /app/config/dbconfig.php
 /app/config/defconfig.php
 
