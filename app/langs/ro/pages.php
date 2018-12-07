@@ -448,8 +448,8 @@ $trans['pictures.choose_default_image'] = 'Seteaza ca poza principala';
 $trans['pictures.set_default_success'] = 'Setarea imaginii reusita !';
 
 $trans['app_image_edit.page_title'] = 'Editare: ';
-$trans['app_image.alt'] = 'Text afisat in lispa pozei: ';
-$trans['app_image.title'] = 'Titlul pozei la mutarea cursorului peste ea: ';
+$trans['app_image.alt'] = 'Indexul din fisierul de traducere pentru atributul "Alt" afisat in lispa pozei: ';
+$trans['app_image.title'] = 'Indexul din fisierul de traducere pentru atributul "Title" afisat la mutarea cursorului peste poza: ';
 $trans['app_image.caption'] = 'Indexul textului din fisierul de traducere. Va fi afisat peste poza: ';
 $trans['app_image.description'] = 'Textul in limba romana afisat peste poza: ';
 $trans['app_image.button_link_text'] = 'Textul din butonul afisat peste poza: ';
