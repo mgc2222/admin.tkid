@@ -19,6 +19,7 @@ $trans['menu.categories'] = 'Categorii';
 $trans['menu.categories_import'] = 'Categorii Import';
 $trans['menu.products'] = 'Produse';
 $trans['menu.products_images'] = 'Imaginile Produselor';
+$trans['menu.events'] = 'Calendar Evenimente';
 
 
 //	===================================================== //
@@ -47,7 +48,7 @@ $trans['general.description'] = 'Descriere';
 $trans['general.image_deleted'] = 'Imaginea a fost stearsa';
 
 $trans['general.attachments'] = 'Ataseaza fisiere';
-$trans['general.url_key'] = 'Url Key';
+$trans['general.url_key'] = 'Url Key (se genereaza automat, dar si manual la apasare)';
 $trans['general.regenerate_url_key'] = 'Regenereaza Url Key';
 
 $trans['general.save_error'] = 'Eroare la salvare';
@@ -468,4 +469,25 @@ $trans['pictures.order_save_success'] = 'Ordinea pozelor a fost modificata';
 //	===================================================== //
 
 $trans['contact.page_title'] = 'Contact Us';
+
+//	===================================================== //
+//		Pagina de vizualizare / events.php
+//	===================================================== //
+
+$trans['events.page_title'] = 'Calendar Evenimente';
+$trans['events.new_item'] = 'Adauga eveniment nou';
+$trans['events.event_name'] = 'Numele Evenimentului (va trebui sa fie unic ex:"eveniment25.12.18")';
+$trans['events.event_title'] = 'Titlul Evenimentului';
+$trans['events.edit_item'] = 'Editare eveniment ';
+$trans['events.items_list'] = 'Lista evenimente';
+$trans['events.save_success'] = 'Evenimentul a fost salvat';
+$trans['events.delete_success'] = 'Evenimentul a fost stears';
+$trans['events.delete_selected_success'] = 'Evenimentele selectate au fost sterse';
+$trans['events.error_selected_elements'] = 'Nu ati ales nici un eveniment';
+$trans['events.delete_selected_items'] = 'Sterge evenimentele selectate';
+$trans['events.item_not_exists'] = 'Evenimentul nu exista';
+$trans['events.description'] = 'Descriere';
+$trans['events.short_description'] = 'Descriere Scurta';
+$trans['events.is_active'] = 'Activa / Inactiva (daca este debifat, nu va fi afisata deloc)';
+$trans['events.image'] = 'Imagine';
 ?>
