@@ -139,7 +139,7 @@ class Categories extends AdminController
 		$data->rows = $this->GetViewList($dataSearch, 'order_index', $data);
 		$data->rowsCount = count($data->rows);
 		$data->categoryId = (int)$this->GetVar('id', 0);
-		//$data->categoriesBlock = $this->GetBlockPath('categories_block');
+		$data->categoriesBlock = $this->GetBlockPath('categories_block');
 				
 		return $data;
 	}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 26, 2018 at 12:29 AM
+-- Generation Time: Dec 17, 2018 at 02:10 AM
 -- Server version: 10.2.18-MariaDB-cll-lve
 -- PHP Version: 5.6.30
 
@@ -32,9 +32,9 @@ CREATE TABLE `app_categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `parent_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `name` varchar(100) NOT NULL,
-  `description` text NOT NULL,
+  `description` mediumtext NOT NULL,
   `order_index` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `app_categories`
@@ -42,9 +42,10 @@ CREATE TABLE `app_categories` (
 
 INSERT INTO `app_categories` (`id`, `parent_id`, `name`, `description`, `order_index`) VALUES
 (1, 0, 'slider', 'Slider Banner', 0),
-(5, 0, 'upcoming events', 'Upcoming Events Banner', 0),
+(5, 0, 'events', 'Events Calendar', 0),
 (10, 0, 'contact', 'Contact Banner', 0),
-(11, 0, 'instagram', 'Instagram Pics', 0);
+(11, 0, 'instagram', 'Instagram Pics', 0),
+(12, 0, 'gallery', 'Foto Galery', 0);
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,28 @@ CREATE TABLE `app_images` (
   `img_width` int(10) UNSIGNED NOT NULL,
   `img_height` int(10) UNSIGNED NOT NULL,
   `extension` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_images`
+--
+
+INSERT INTO `app_images` (`id`, `app_category_id`, `file`, `img_width`, `img_height`, `extension`) VALUES
+(40, 12, 'gallery-40.jpg', 1024, 768, 'jpg'),
+(50, 12, 'gallery-50.jpg', 1024, 1026, 'jpg'),
+(63, 1, 'slider-63.jpg', 1280, 1920, 'jpg'),
+(64, 1, 'slider-64.jpg', 1280, 2147, 'jpg'),
+(69, 12, 'gallery-69.jpg', 1280, 1920, 'jpg'),
+(70, 12, 'gallery-70.jpg', 1024, 520, 'jpg'),
+(76, 1, 'slider-76.jpg', 636, 311, 'jpg'),
+(77, 1, 'slider-77.jpg', 1280, 1920, 'jpg'),
+(81, 1, 'slider-81.jpg', 640, 408, 'jpg'),
+(82, 12, 'gallery-82.jpg', 640, 346, 'jpg'),
+(83, 12, 'gallery-83.jpg', 640, 376, 'jpg'),
+(85, 12, 'gallery-85.jpg', 640, 428, 'jpg'),
+(86, 12, 'gallery-86.jpg', 640, 428, 'jpg'),
+(87, 12, 'gallery-87.jpg', 640, 428, 'jpg'),
+(88, 1, 'slider-88.jpg', 1365, 2160, 'jpg');
 
 -- --------------------------------------------------------
 
@@ -78,7 +100,28 @@ CREATE TABLE `app_images_meta` (
   `image_button_link_text` varchar(200) NOT NULL,
   `image_button_link_href` varchar(250) NOT NULL,
   `order_index` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `app_images_meta`
+--
+
+INSERT INTO `app_images_meta` (`id`, `app_image_id`, `app_category_id`, `image_alt`, `image_title`, `image_caption`, `image_description`, `image_button_link_text`, `image_button_link_href`, `order_index`) VALUES
+(40, 40, 12, 'alt_attribute.kindergarten', 'title_attribute.kindergarten', '', '', '', '', 10),
+(50, 50, 12, 'alt_attribute.sitting_chair_for_outside', 'title_attribute.sitting_chair_for_outside', '', '', '', '', 5),
+(63, 63, 1, 'alt_attribute.lobby', 'title_attribute.lobby', 'quotes.henry_ward_beecher', '„Copiii sunt mainile cu ajutorul carora atingem cerurile.\" Henry Ward Beecher', '', '', 1),
+(64, 64, 1, 'alt_attribute.indoor_fun_room', 'title_attribute.indoor_fun_room', 'quotes.samuel_johnson', '„Permiteti-le copiilor sa fie fericiti in felul lor, caci ce alta modalitate mai buna vor gasi?” Samuel Johnson', '', '', 6),
+(69, 69, 12, 'alt_attribute.kids_playroom', 'title_attribute.kids_playroom', '', '', '', '', 2),
+(70, 70, 12, 'alt_attribute.kinder_slide', 'title_attribute.kinder_slide', '', '', '', '', 6),
+(76, 76, 1, 'alt_attribute.turtle_toy', 'title_attribute.turtle_toy', 'quotes.lucian_blaga', '„Copilaria este inima tuturor varstelor.” Lucian Blaga', '', '', 3),
+(77, 77, 1, 'alt_attribute.indoor_playroom', 'title_attribute.indoor_playroom', 'quotes.stephen_sondheim', '„Ramai copil atata timp cat poti sa fii copil.\"\r\nStephen Sondheim', '', '', 4),
+(81, 81, 1, 'alt_attribute.indoor_playroom', 'title_attribute.indoor_playroom', 'quotes.heidi_kaduson', '„Atunci cand esti liber, te poti juca, iar cand te joci, devii liber\". Heidi Kaduson', '', '', 5),
+(82, 82, 12, 'alt_attribute.indoor_playground', 'title_attribute.indoor_playground', '', '', '', '', 4),
+(83, 83, 12, 'alt_attribute.kinder_toys_room', 'title_attribute.kinder_toys_room', '', '', '', '', 4),
+(85, 85, 12, 'alt_attribute.kids_toy', 'title_attribute.kids_toy', '', '', '', '', 1),
+(86, 86, 12, 'alt_attribute.turtle_toy', 'title_attribute.turtle_toy', '', '', '', '', 3),
+(87, 87, 12, 'alt_attribute.house_toy', 'title_attribute.house_toy', '', '', '', '', 4),
+(88, 88, 1, 'alt_attribute.welcome_room', 'title_attribute.welcome_room', 'quotes.louise_hart', '„Cel mai bun lucru pe care poti sa-l cheltuiesti pentru copiii tai este timpul tau.” Louise Hart', '', '', 2);
 
 -- --------------------------------------------------------
 
@@ -89,7 +132,7 @@ CREATE TABLE `app_images_meta` (
 CREATE TABLE `attributes_names` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `attributes_names`
@@ -109,7 +152,7 @@ CREATE TABLE `attributes_values` (
   `id` int(10) UNSIGNED NOT NULL,
   `attribute_id` int(10) UNSIGNED NOT NULL,
   `value` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `attributes_values`
@@ -134,8 +177,8 @@ CREATE TABLE `categories` (
   `parent_id` int(10) UNSIGNED NOT NULL,
   `url_key` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` text NOT NULL,
-  `short_description` text NOT NULL,
+  `description` mediumtext NOT NULL,
+  `short_description` mediumtext NOT NULL,
   `file` varchar(200) NOT NULL,
   `level` int(11) NOT NULL,
   `seo_title` varchar(150) NOT NULL,
@@ -144,7 +187,7 @@ CREATE TABLE `categories` (
   `status` tinyint(4) NOT NULL,
   `display_separate_status` tinyint(4) NOT NULL,
   `order_index` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -217,17 +260,17 @@ CREATE TABLE `langs` (
   `abbreviation` varchar(2) NOT NULL,
   `name` varchar(60) NOT NULL,
   `is_translated` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `langs`
 --
 
 INSERT INTO `langs` (`id`, `abbreviation`, `name`, `is_translated`) VALUES
-(1, 'ro', 'RomÃ¢nÄƒ', 1),
+(1, 'ro', 'Română', 1),
 (2, 'en', 'English', 0),
-(3, 'es', 'EspaÃ±ol', 1),
-(4, 'fr', 'FranÃ§ais', 1),
+(3, 'es', 'Español', 1),
+(4, 'fr', 'François', 1),
 (5, 'de', 'Deutsch', 1),
 (6, 'it', 'Italiano', 1),
 (7, 'hu', 'Magyar', 1);
@@ -246,7 +289,7 @@ CREATE TABLE `newsletter_subscriber` (
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `status` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `newsletter_subscriber`
@@ -266,10 +309,10 @@ CREATE TABLE `orders` (
   `date_added` datetime NOT NULL,
   `payment_method` tinyint(4) NOT NULL,
   `shipping_type` tinyint(4) NOT NULL,
-  `delivery_comments` text NOT NULL,
+  `delivery_comments` mediumtext NOT NULL,
   `price_products` float NOT NULL,
   `price_shipping` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -304,15 +347,15 @@ CREATE TABLE `order_billing` (
   `phone` varchar(50) NOT NULL,
   `mobile` varchar(50) NOT NULL,
   `address` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_billing`
 --
 
 INSERT INTO `order_billing` (`id`, `order_id`, `client_type`, `company_name`, `unique_registration_code`, `commerce_register_number`, `bank`, `iban`, `email`, `first_name`, `last_name`, `zip`, `country_id`, `city`, `county_id`, `phone`, `mobile`, `address`) VALUES
-(1, 1, 1, '', '', '', '', '', 'alina.timniu@gmail.com', 'Adrian', 'Uta', '', 1, 'Pitesti', 3, '', '074215271001', 'henri coanda'),
-(2, 2, 1, '', '', '', '', '', 'alina.timniu@gmail.com', 'Adrian', 'Uta', '', 1, 'Pitesti', 3, '', '074215271001', 'henri coanda');
+(1, 1, 1, '', '', '', '', '', 'alina.timniu@gmail.com', 'Alina', 'Timniu', '', 1, 'Pitesti', 3, '', '074215271001', 'henri coanda'),
+(2, 2, 1, '', '', '', '', '', 'alina.timniu@gmail.com', 'Alina', 'Timniu', '', 1, 'Pitesti', 3, '', '074215271001', 'henri coanda');
 
 -- --------------------------------------------------------
 
@@ -328,7 +371,7 @@ CREATE TABLE `order_products` (
   `price` float NOT NULL,
   `quantity` int(11) NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_products`
@@ -363,7 +406,7 @@ CREATE TABLE `order_shipping` (
   `phone` varchar(50) NOT NULL,
   `mobile` varchar(50) NOT NULL,
   `address` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_shipping`
@@ -385,7 +428,7 @@ CREATE TABLE `permissions` (
   `parent_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `permissions`
@@ -419,7 +462,7 @@ INSERT INTO `permissions` (`id`, `page_id`, `parent_id`, `name`, `description`) 
 CREATE TABLE `producers` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `producers`
@@ -473,7 +516,7 @@ CREATE TABLE `products` (
   `url_key` varchar(250) NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL,
   `category_ids` varchar(255) NOT NULL,
-  `description` text NOT NULL,
+  `description` mediumtext NOT NULL,
   `default_image` varchar(250) NOT NULL,
   `default_image_id` int(10) UNSIGNED NOT NULL,
   `price` decimal(8,2) NOT NULL,
@@ -483,7 +526,7 @@ CREATE TABLE `products` (
   `amount_unit` varchar(50) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_updated` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -496,7 +539,7 @@ CREATE TABLE `product_attributes` (
   `product_id` int(10) UNSIGNED NOT NULL,
   `attribute_id` int(10) UNSIGNED NOT NULL,
   `attribute_value_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_attributes`
@@ -517,7 +560,7 @@ CREATE TABLE `product_attributes_summary` (
   `product_id` int(10) UNSIGNED NOT NULL,
   `color_ids` varchar(255) NOT NULL,
   `size_ids` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_attributes_summary`
@@ -537,7 +580,7 @@ CREATE TABLE `product_categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_categories`
@@ -681,7 +724,7 @@ CREATE TABLE `product_images` (
   `img_height` int(10) UNSIGNED NOT NULL,
   `extension` varchar(10) NOT NULL,
   `order_index` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -693,7 +736,7 @@ CREATE TABLE `product_images_meta` (
   `id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `images_count` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -706,7 +749,7 @@ CREATE TABLE `product_rating` (
   `product_id` int(10) UNSIGNED NOT NULL,
   `rating` float NOT NULL,
   `users_count` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_rating`
@@ -727,7 +770,7 @@ CREATE TABLE `product_rating_history` (
   `rating` tinyint(4) NOT NULL,
   `date_added` datetime NOT NULL,
   `user_ip` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_rating_history`
@@ -747,7 +790,7 @@ CREATE TABLE `roles` (
   `name` varchar(30) NOT NULL,
   `description` varchar(100) NOT NULL,
   `status` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `roles`
@@ -767,7 +810,7 @@ CREATE TABLE `settings` (
   `id` int(10) UNSIGNED NOT NULL,
   `key_name` varchar(50) NOT NULL,
   `key_value` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `settings`
@@ -807,7 +850,7 @@ CREATE TABLE `users` (
   `allow_invisible` tinyint(4) NOT NULL,
   `is_invisible` tinyint(4) NOT NULL,
   `signature_title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -826,7 +869,7 @@ CREATE TABLE `users_permissions` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `permission_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users_permissions`
@@ -1027,19 +1070,19 @@ ALTER TABLE `users_permissions`
 -- AUTO_INCREMENT for table `app_categories`
 --
 ALTER TABLE `app_categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `app_images`
 --
 ALTER TABLE `app_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `app_images_meta`
 --
 ALTER TABLE `app_images_meta`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `attributes_names`
