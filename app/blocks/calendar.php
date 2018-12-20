@@ -1,11 +1,6 @@
 <?php if (!isset($webpage)) die('Direct access not allowed');  ?>
-<section data-id="dkdnqry" class="page type-page status-publish hentry mhmm">
-    <header class="entry-header">
-        <h2 class="elementor-heading-title elementor-size-large entry-title page-section" id="section-calendar">
-            <?php echo $trans['calendar.section_title'];?>
-        </h2>
-    </header>
-    <div class="elementor-widget">
+<section>
+    <div class="">
         <div class="page-header" id="calendar-page-header">
             <div class="pull-right form-inline text-center">
                 <div class="btn-group">
@@ -27,8 +22,8 @@
             <div class="col-md-12" style="padding: 0">
                 <div id="calendar"></div>
             </div>
-            <div class="col-md-3">
-                <div class="row-fluid">
+            <div class="col-md-3 hidden">
+                <div class="row-fluid ">
                     <select id="first_day" class="span12">
                         <option value="" selected="selected">First day of week language-dependant</option>
                         <option value="2">First day of week is Sunday</option>
@@ -74,25 +69,48 @@
                     </label>
                 </div>
 
-                <h4>Events</h4>
-                <small>This list is populated with events dynamically</small>
+                <h4>Events <small>This list is populated with events dynamically</small></h4>
+
                 <ul id="eventlist" class="nav nav-list"></ul>
             </div>
         </div>
     </div>
 </section>
 <div class="clearfix"></div>
-<div class="modal hide fade" id="events-modal">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Event</h3>
-    </div>
-    <div class="modal-body" style="height: 400px">
-    </div>
-    <div class="modal-footer">
-        <a href="#" data-dismiss="modal" class="btn">Close</a>
-    </div>
-</div>
+<div class="modal fade" tabindex="-1" role="dialog"  id="events-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title form-inline"><span style="width:25%"><?php echo $trans['modal.title_label'] ?></span><input type="text" style="width:75%" class="form-control" id="event-title" name="event-title" value=""/></h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" tabindex="-1" role="dialog"  id="add-events-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title form-inline"><span style="width:25%"><?php echo $trans['modal.title_label'] ?></span><input type="text" style="width:75%" class="form-control" id="add-event-title" name="event-title" value=""/></h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?php if(false){ ?>
 <!--	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="components/underscore/underscore-min.js"></script>

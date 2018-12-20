@@ -64,6 +64,11 @@ class Calendar extends AdminController
         $calendarModalData = file_get_contents('bootstrap_calendar/tmpls/modal.html');
         echo $calendarModalData; die();
     }
+    function GetModalTitleTemplate()
+    {
+        $calendarModalData = file_get_contents('bootstrap_calendar/tmpls/modal-title.html');
+        echo $calendarModalData; die();
+    }
 
     function GetMonthDayTemplate()
     {

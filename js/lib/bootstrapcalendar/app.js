@@ -33,7 +33,10 @@
 			}
 		},
 		modal:"#events-modal",
-		modal_type:"template"
+		modal_type:"template",
+		modal_title: function(obj){
+			return (obj.hasOwnProperty('title')) ? obj.title : 'Event';
+		}
 	};
 
 	var calendar = $('#calendar').calendar(options);

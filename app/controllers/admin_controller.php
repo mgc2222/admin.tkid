@@ -18,14 +18,15 @@ class AdminController extends AbstractController
 		// PreloadImages::WriteContent();
 		$this->auth = new Auth();
 		$this->webpage = new WebPage();
-		
-		$this->defaultLanguageId = $this->GetDefaultLanguageId();
-		$this->SetSelectedLanguage();
-		$selectedLanguage = $this->GetSelectedLanguage();
-		
-		if ($selectedLanguage == null) die('No language exists');
-		$this->languageId = $selectedLanguage->id;
-		$this->LoadLang($selectedLanguage->abbreviation);
+
+        $this->defaultLanguageId = $this->GetDefaultLanguageId();
+        $this->SetSelectedLanguage();
+        $selectedLanguage = $this->GetSelectedLanguage();
+
+        if ($selectedLanguage == null) die('No language exists');
+        $this->languageId = $selectedLanguage->id;
+        $this->webpage->languageAbb = $selectedLanguage->abbreviation;
+        $this->LoadLang($selectedLanguage->abbreviation);
 		$this->GetSessionMessage();
 		$this->SetDefaultData();
 		$this->GenerateJsCache();
@@ -56,7 +57,7 @@ class AdminController extends AbstractController
 		
 		$this->webpage->StyleSheets = Array(
 			//'bootstrap/bootstrap.css',
-            'bootstrap/bootstrap.min.css',
+            //'bootstrap/bootstrap.min.css',
 			'fonts/font-awesome/css/font-awesome.min.css',
 			'admin/admin.css'
 			);
@@ -66,7 +67,7 @@ class AdminController extends AbstractController
 			'lib/form/form.js',
 			//'lib/jquery/jquery-1.7.1.min.js',
 			'lib/jquery/jquery-3.3.1.min.js',
-			'lib/bootstrap/bootstrap.min.js',
+			//'lib/bootstrap/bootstrap.min.js',
 			'lib/lodash/lodash.min.js');
 		$this->AutoLoadJavascript();
 	}
@@ -258,6 +259,7 @@ class AdminController extends AbstractController
 			'var SCRIPTS = "'.implode('|', $this->webpage->ScriptsFooter).'";'.$endLine.
 			"var SITE_RELATIVE_URL = '"._SITE_RELATIVE_URL."';".$endLine.
 			"var SCRIPTS_URL = '"._SITE_URL."js/';".$endLine.
+            "var language = '".$this->webpage->languageAbb."';".$endLine.
 			"var auth = { UserId: '{$userIdJs}' };".$endLine;
 		
 		$this->webpage->JsPageContent .= $js;

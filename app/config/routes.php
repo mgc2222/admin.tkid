@@ -70,6 +70,7 @@
     $routes['tmpls/day.html'] = 'events/calendar/GetDayTemplate';
     $routes['tmpls/month-day.html'] = 'events/calendar/GetMonthDayTemplate';
     $routes['tmpls/modal.html'] = 'events/calendar/GetModalTemplate';
+    $routes['tmpls/modal-title.html'] = 'events/calendar/GetModalTitleTemplate';
     $routes['tmpls/week.html'] = 'events/calendar/GetWeekTemplate';
     $routes['tmpls/week-days.html'] = 'events/calendar/GetWeekDaysTemplate';
     $routes['tmpls/year.html'] = 'events/calendar/GetYearTemplate';
@@ -78,8 +79,7 @@
     $routes['events'] = 'events/calendar/GetJsonData';
 
     $routes['events_calendar'] = 'events/events/GetViewData';
-    $routes['events_calendar.json'] = 'events/events/GetViewData';
-    $routes['events_calendar.json/edit[/{id:\d+}]'] = 'events/events/GetEditData/$1';
+    $routes['events_calendar/edit[/{id:\d+}]'] = 'events/events/GetEditData/$1';
     $routes['events_calendar/{data:.+}'] = 'events/events/GetViewData/$1';
 
 

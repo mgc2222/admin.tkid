@@ -505,4 +505,10 @@ $trans['calendar.button_today'] = 'ASTAZI';
 
 $trans['calendar.section_title'] = 'Calendar';
 
+//	===================================================== //
+//		Calendar Events Modal
+//	===================================================== //
+
+$trans['modal.title_label'] = 'Titlul Evenimentului: ';
+
 ?>

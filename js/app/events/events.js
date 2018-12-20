@@ -24,6 +24,15 @@ function Events()
 		$('#chkAll').click(function() {
 			htmlCtl.ToggleCheckboxes('chkAll','multi_checkbox');
 		});
+        $('#add-events-modal').on('open.bs.modal', function (e) {
+            $(this)
+                .find("input,textarea,select")
+                .val('')
+                .end()
+                .find("input[type=checkbox], input[type=radio]")
+                .prop("checked", "")
+                .end();
+        })
 	}
 	function initPopovers()
 	{

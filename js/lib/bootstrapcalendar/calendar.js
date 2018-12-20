@@ -1118,13 +1118,13 @@ if(!String.prototype.formatNum) {
 							case "template":
 								self._loadTemplate("modal");
 								//	also serve calendar instance to underscore template to be able to access current language strings
-								modal_body.html(self.options.templates["modal"]({"event": event, "calendar": self}))
+								modal_body.html(self.options.templates["modal"]({"event": event, "cal": self}))
 								break;
 						}
 
 						//	set the title of the bootstrap modal
 						if(_.isFunction(self.options.modal_title)) {
-							modal.find(".modal-title").html(self.options.modal_title(event));
+							modal.find("#event-title").attr('value',self.options.modal_title(event));
 						}
 					})
 					.on('shown.bs.modal', function() {
