@@ -24,7 +24,7 @@ class Menu
 	{
 		$this->MenuItems = array(
 			array('id'=>'categories', 'name'=>$trans['menu.categories'], 'class'=>'', 'url'=>'categories','level'=>0,'icon'=>'fa-dashboard'),
-            array('id'=>'events', 'name'=>$trans['menu.events'], 'class'=>'', 'url'=>'events','level'=>0,'icon'=>'fa-user'),
+            array('id'=>'events', 'name'=>$trans['menu.events'], 'class'=>'', 'url'=>'events_calendar','level'=>0,'icon'=>'fa-user'),
 			//array('id'=>'products', 'name'=>$trans['menu.products'], 'class'=>'', 'url'=>'products','level'=>0,'icon'=>'fa-dashboard'),
 			array('id'=>'app_images', 'name'=>$trans['menu.app_images'], 'class'=>'', 'url'=>'app_images','level'=>0,'icon'=>'fa-dashboard'),
 			array('id'=>'users', 'name'=>$trans['menu.users'], 'class'=>'', 'url'=>'users','level'=>0,'icon'=>'fa-user'),

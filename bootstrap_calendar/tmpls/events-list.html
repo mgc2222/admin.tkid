@@ -1,0 +1,32 @@
+<span id="cal-slide-tick" style="display: none"></span>
+<div id="cal-slide-content" class="cal-event-list">
+	<ul class="unstyled list-unstyled">
+		<% _.each(events, function(event) { %>
+			<li>
+				<% if (event.url) { %>&nbsp;
+					<a href="<%= event.url %>"
+					   	data-event-id="<%= event.id %>"
+						data-event-class="<%= event['class'] %>"
+					   	title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
+					  	data-toggle="popover"
+					   	data-content="<%=event.description %>"
+					   	class="calendar-event event-item">
+						<span class="event <%= event['class'] %>"></span>
+						<%= event.title %>
+					</a>
+				<% } else{ %>
+					<a role="button"
+					   data-event-id="<%= event.id %>"
+					   data-event-class="<%= event['class'] %>"
+					   title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
+					   data-toggle="popover"
+					   data-content="<%=event.description %>"
+					   class="calendar-event event-item">
+						<span class="event <%= event['class'] %>"></span>
+						<%= event.title %>
+					</a>
+				<% } %>
+			</li>
+		<% }) %>
+	</ul>
+</div>

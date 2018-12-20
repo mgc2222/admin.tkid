@@ -7,6 +7,7 @@ if ($dataView->rows != null)
 	<?php //include($dataView->categoriesBlock); ?>
 </div>
 <?php 
-} 
+}
+include(_APPLICATION_FOLDER.'blocks/calendar.php');
 ?>
 <div class="grid_buttons"><?php echo HtmlControls::GenerateGridButtons('events', $trans['events.new_item'], $trans['events.delete_selected_items'])?></div>

@@ -2,8 +2,9 @@ function Events()
 {
 	this.Init = function()
 	{
-		initSortable();
+		//initSortable();
 		initControls();
+		//initPopovers();
 	}
 	
 	function initSortable()
@@ -23,6 +24,33 @@ function Events()
 		$('#chkAll').click(function() {
 			htmlCtl.ToggleCheckboxes('chkAll','multi_checkbox');
 		});
+	}
+	function initPopovers()
+	{
+        var popOverSettings = {
+            placement: 'top',
+            container: 'body',
+            //html: true,
+            //trigger: 'manual',
+            selector: '[data-toggle="popover"]', //Specify the selector here
+			/*content: function () {
+			 return $('#popover-content').html();
+			 }*/
+        };
+
+        $('#calendar').popover(popOverSettings);
+		$('body').on('click', function (e) {
+            var calendarCell = $('.calendar-event');
+            var popovers = $('.popover');
+            var tooltips = $('.tooltip');
+            if (calendarCell.has(e.target).length === 0 && !calendarCell.is(e.target) && popovers.length) {
+                $('[data-toggle="popover"]').popover('destroy');
+                popovers.remove();
+            }
+            if(tooltips.length){
+                tooltips.remove();
+            }
+        });
 	}
 }
 var objCategories = new Events();

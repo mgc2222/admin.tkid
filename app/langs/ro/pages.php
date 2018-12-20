@@ -490,4 +490,19 @@ $trans['events.description'] = 'Descriere';
 $trans['events.short_description'] = 'Descriere Scurta';
 $trans['events.is_active'] = 'Activa / Inactiva (daca este debifat, nu va fi afisata deloc)';
 $trans['events.image'] = 'Imagine';
+
+//	===================================================== //
+//		Calendar Buttons
+//	===================================================== //
+
+$trans['calendar.button_previous'] = 'INAPOI';
+$trans['calendar.button_next'] = 'INAINTE';
+$trans['calendar.button_year'] = 'AN';
+$trans['calendar.button_month'] = 'LUNA';
+$trans['calendar.button_week'] = 'SAPTAMANA';
+$trans['calendar.button_day'] = 'ZI';
+$trans['calendar.button_today'] = 'ASTAZI';
+
+$trans['calendar.section_title'] = 'Calendar';
+
 ?>

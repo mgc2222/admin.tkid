@@ -489,4 +489,19 @@ $trans['events.item_not_exists'] = 'Evenimentul nu exista';
 $trans['events.description'] = 'Descriere';
 $trans['events.short_description'] = 'Descriere Scurta';
 $trans['events.is_active'] = 'Activa / Inactiva (daca este debifat, nu va fi afisata deloc)';
+
+//	===================================================== //
+//		Calendar Buttons
+//	===================================================== //
+
+$trans['calendar.button_previous'] = 'PREV';
+$trans['calendar.button_next'] = 'NEXT';
+$trans['calendar.button_year'] = 'YEAR';
+$trans['calendar.button_month'] = 'MONTH';
+$trans['calendar.button_week'] = 'WEEK';
+$trans['calendar.button_day'] = 'DAY';
+$trans['calendar.button_today'] = 'TODAY';
+
+$trans['calendar.section_title'] = 'Calendar';
+
 ?>

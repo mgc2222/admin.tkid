@@ -1,0 +1,24 @@
+<% _.each(events, function(event){ %>
+<div class="cal-row-fluid">
+	<div title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
+		 data-toggle="popover"
+		 data-content="<%=event.description %>"
+		 class="calendar-event cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>"
+		 data-event-class="<%= event['class'] %>">
+		<div class="cal-hours" ><%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> <%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %> </div>
+		<% if (event.url) { %>
+			<a href="<%= event.url %>"
+			   data-event-id="<%= event.id %>"
+			   class="cal-event-week event<%= event.id %>">
+				<%= event.title %>
+			</a>
+		<% } else {%>
+			<a role="button"
+			   data-event-id="<%= event.id %>"
+			   class="cal-event-week event<%= event.id %>">
+				<%= event.title %>
+			</a>
+		<%} %>
+	</div>
+</div>
+<% }); %>

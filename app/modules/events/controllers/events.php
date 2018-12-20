@@ -121,8 +121,24 @@ class Events extends AdminController
 			$dataSearch->parentId = 0;
 		}
 				
-		array_push($this->webpage->StyleSheets, 'jquery/jquery-ui.css', 'toastr/toastr.min.css');
-		array_push($this->webpage->ScriptsFooter, 'lib/jquery/jquery-ui.min.js', 'lib/toastr/toastr.min.js', 'lib/base64/jquery.base64.js', 'lib/wrappers/sortable/sortable_init.js', _JS_APPLICATION_FOLDER.$this->module.'/events.js');
+		array_push($this->webpage->StyleSheets,
+			//'jquery/jquery-ui.css',
+		//'bootstrap/bootstrap3.3.7.min.css',
+			'toastr/toastr.min.css',
+            'bootstrapcalendar/css/calendar.css'
+			);
+		array_push($this->webpage->ScriptsFooter,
+			//'lib/jquery/jquery-ui.min.js',
+			//'lib/toastr/toastr.min.js',
+			//'lib/base64/jquery.base64.js',
+			//'lib/wrappers/sortable/sortable_init.js',
+			//'lib/bootstrap/bootstrap3.3.7.min.js',
+            'lib/underscore/underscore-min.js',
+            'lib/jstimezonedetect/jstz.min.js',
+            'lib/bootstrapcalendar/language/ro-RO.js',
+            'lib/bootstrapcalendar/calendar.js',
+            'lib/bootstrapcalendar/app.js',
+			_JS_APPLICATION_FOLDER.$this->module.'/events.js');
 		parent::SetWebpageData($this->pageId, 'events');
 		
 		
