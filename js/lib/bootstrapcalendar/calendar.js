@@ -148,10 +148,14 @@ if(!String.prototype.formatNum) {
 		onAfterViewLoad: function(view) {
 			// Inside this function 'this' is the calendar instance
 		},
-		onAfterModalShown: function(events) {
+        onBeforeModalShow: function(event, modal){
+            // Inside this function 'this' is the calendar instance
+            objEvents.initEditEventModal(event, modal);
+		},
+		onAfterModalShown: function(event, modal) {
 			// Inside this function 'this' is the calendar instance
 		},
-		onAfterModalHidden: function(events) {
+		onAfterModalHidden: function(event, modal) {
 			// Inside this function 'this' is the calendar instance
 		},
 		// -------------------------------------------------------------
@@ -1116,22 +1120,26 @@ if(!String.prototype.formatNum) {
 								break;
 
 							case "template":
-								self._loadTemplate("modal");
+								//self._loadTemplate("modal");
 								//	also serve calendar instance to underscore template to be able to access current language strings
-								modal_body.html(self.options.templates["modal"]({"event": event, "cal": self}))
+								//modal_body.html(self.options.templates["modal"]({"event": event, "cal": self}))
+                                self.options.onBeforeModalShow.call(self, event, modal);
 								break;
 						}
 
 						//	set the title of the bootstrap modal
 						if(_.isFunction(self.options.modal_title)) {
 							modal.find("#event-title").attr('value',self.options.modal_title(event));
-						}
+						};
+
 					})
 					.on('shown.bs.modal', function() {
-						self.options.onAfterModalShown.call(self, self.options.events);
+						//self.options.onAfterModalShown.call(self, self.options.events);
+						self.options.onAfterModalShown.call(self, event, modal);
 					})
 					.on('hidden.bs.modal', function() {
-						self.options.onAfterModalHidden.call(self, self.options.events);
+						//self.options.onAfterModalHidden.call(self, self.options.events);
+						self.options.onAfterModalHidden.call(self, event, modal);
 					})
 					.data('handled.bootstrap-calendar', true).data('handled.event-id', event.id);
 			}

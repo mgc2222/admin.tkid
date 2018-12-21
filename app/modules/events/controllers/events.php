@@ -129,15 +129,17 @@ class Events extends AdminController
             'daterangepicker/daterangepicker.css'
 			);
 		array_push($this->webpage->ScriptsFooter,
-			//'lib/jquery/jquery-ui.min.js',
+			'lib/jquery/jquery-ui.min.js',
 			//'lib/toastr/toastr.min.js',
 			//'lib/base64/jquery.base64.js',
 			//'lib/wrappers/sortable/sortable_init.js',
 			'lib/bootstrap/bootstrap3.3.7.min.js',
+            'lib/moment/moment.min.js',
             'lib/daterangepicker/daterangepicker.min.js',
             'lib/tinymce/tinymce.min.js',
             'lib/wrappers/tinymce/tinymce.js',
             'lib/underscore/underscore-min.js',
+
             'lib/jstimezonedetect/jstz.min.js',
             'lib/bootstrapcalendar/language/ro-RO.js',
             'lib/bootstrapcalendar/calendar.js',

@@ -17,8 +17,16 @@
 			list.html('');
 
 			$.each(events, function(key, val) {
+				//debugger;
 				$(document.createElement('li'))
-					.html('<a href="' + val.url + '">' + val.title + '</a>')
+					.html('<a data-toggle="modal" ' +
+						'data-target="#edit-events-modal" ' +
+						'data-content="'+val.description+'" ' +
+						'title="'+val.title+'" ' +
+						'data-date-start="'+val.start+'" ' +
+						'data-date-end="'+val.end+'" ' +
+						//'href="' + val.url +
+						'">' + val.title + '</a>')
 					.appendTo(list);
 			});
 		},
@@ -32,7 +40,7 @@
 				general: 'label'
 			}
 		},
-		modal:"#events-modal",
+		modal:"#edit-events-modal",
 		modal_type:"template",
 		modal_title: function(obj){
 			return (obj.hasOwnProperty('title')) ? obj.title : 'Event';
@@ -86,7 +94,7 @@
 		calendar.setOptions({weekbox: val});
 		calendar.view();
 	});
-	$('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
+	$('#edit-events-modal .modal-header, #edit-events-modal .modal-footer').click(function(e){
 		//e.preventDefault();
 		//e.stopPropagation();
 	});
