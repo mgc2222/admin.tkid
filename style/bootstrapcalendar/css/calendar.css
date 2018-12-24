@@ -332,22 +332,22 @@
   margin-top: 3px;
 }
 .event-important {
-  background-color: #ad2121;
+  background-color: #ad2121!important;
 }
 .event-info {
-  background-color: #1e90ff;
+  background-color: #1e90ff!important;
 }
 .event-warning {
-  background-color: #e3bc08;
+  background-color: #e3bc08!important;
 }
 .event-inverse {
-  background-color: #1b1b1b;
+  background-color: #1b1b1b!important;
 }
 .event-success {
-  background-color: #006400;
+  background-color: #006400!important;
 }
 .event-special {
-  background-color: #800080;
+  background-color: #800080!important;
 }
 .day-highlight:hover,
 .day-highlight {
@@ -545,4 +545,30 @@ a.cal-event-week {
 }
 .popover{
   max-width: 600px;
+}
+#section-calendar label {
+  margin: 10px 0 0 0;
+}
+#section-calendar .modal-body {
+  padding: 15px;
+}
+
+.select2-container--default li.select2-results__option:first-child{
+  /*color: unset!important;*/
+  background-color: unset;
+}
+.select2-container .select2-selection--single{
+  height: 34px!important;
+}
+.select2-container{
+  width: 100%!important;
+  height: 34px!important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+  font-weight: 900!important;
+  border: 3px solid #fff;
+}
+.select2-container--default .select2-results>.select2-results__options{
+  max-height: none!important;
+  overflow-y: unset!important;
 }

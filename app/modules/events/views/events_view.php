@@ -10,4 +10,9 @@ if ($dataView->rows != null)
 }
 include(_APPLICATION_FOLDER.'blocks/calendar.php');
 ?>
-<div class="grid_buttons"><?php echo HtmlControls::GenerateGridButtons('events_calendar', $trans['events.new_item'], $trans['events.delete_selected_items'])?></div>
+<div class="grid_buttons">
+    <a role="button" data-toggle="modal" data-target="#new-events-modal" class="calendar-event-toggle-modal">
+        <span class="btn btn-success"><i class="fa fa-fw fa-edit"></i> <?php echo $trans['events.new_item']?></span>
+    </a>
+<?php echo HtmlControls::GenerateDeleteSelected($trans['events.delete_selected_items']);?>
+</div>

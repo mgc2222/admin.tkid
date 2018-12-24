@@ -24,35 +24,64 @@ function Events()
 		$('#chkAll').click(function() {
 			htmlCtl.ToggleCheckboxes('chkAll','multi_checkbox');
 		});
-        $('#new-events-modal').on('show.bs.modal', function (e) {
-            initStartDateTimePickers($(this), null);
-            initEndDateTimePickers($(this), null);
 
-            /*$(this)
-                .find("input,textarea,select")
+        $('#new-events-modal').on('show.bs.modal', function (e) {
+            debugger;
+          $(this)
+                .find("select")
                 .val('')
                 .end()
                 .find("input[type=checkbox], input[type=radio]")
                 .prop("checked", "")
-                .end();*/
-        });
-        $('#edit-events-modal').on('show.bs.modal', function (e) {
-            debugger;
-            ($(e.relatedTarget)[0].attr('data-title')) ? $(this).find("#event-title").attr('value', $(e.relatedTarget)[0].attr('data-title')) : '';
-            ($(e.relatedTarget)[0].attr('data-date-start')) ?  initStartDateTimePickers($(this), $(e.relatedTarget[0]).attr('data-date-start')) : '';
-            ($(e.relatedTarget)[0].attr('data-date-end')) ?  initStartDateTimePickers($(this), $(e.relatedTarget[0]).attr('data-date-end')) : '';
-            ($(e.relatedTarget)[0].attr('data-date-description')) ?  addModalEventDescription($(this), $(e.relatedTarget[0]).attr('data-description')) : '';
+                .end();
+            $(this).find("#new-event-title").attr('value', e.relatedTarget.getAttribute('title'));
+            initStartDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-start'));
+            initEndDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-end'));
+            selectEventCssClass($(this), e.relatedTarget.getAttribute('data-event-css-class'));
+            initSelect2NewEvent($(this));
+            addModalEventDescription($(this), e.relatedTarget.getAttribute('data-description'));
+            addModalEventShortDescription($(this), e.relatedTarget.getAttribute('data-short-description'));
         });
 	}
 
 	this.initEditEventModal = function(event, modal){
+	    debugger;
+        //resetSelect2EditEvent();
         initStartDateTimePickers(modal, event.start);
         initEndDateTimePickers(modal, event.end);
-        addModalEventDescription(modal, event.description)
+        selectEventCssClass(modal, event.class);
+        initSelect2EditEvent(modal, event);
+        addModalEventDescription(modal, event.description);
+        addModalEventShortDescription(modal, event.short_description);
     };
 
     function addModalEventDescription(modal, description){
         $(modal).find('.event-description').val((description) ? description : '');
+    }
+
+    function addModalEventShortDescription(modal, shortDescription){
+        $(modal).find('.event-short-description').val((shortDescription) ? shortDescription : '');
+    }
+
+    function addSelect2SelectedColorEvent(modal, selectedOptionColorCode){
+        debugger;
+        if(selectedOptionColorCode){
+            modal.find('.select2-selection').css({'background-color': selectedOptionColorCode+'!important'});
+            modal.find('.select2-selection__rendered').css({'color': '#fff!important'});
+        }
+        else{
+            modal.find('.select2-selection').removeAttr('style');
+            modal.find('.select2-selection__rendered').removeAttr('style');
+        }
+    }
+
+    function selectEventCssClass(modal, eventCssClass){
+        debugger;
+        $(modal).find('.event-css-classes option').each(function () {
+            if (this.value === eventCssClass) {
+                this.setAttribute('selected', 'selected')
+            }
+        });
     }
 
     function initStartDateTimePickers(modal, startDateInMilliseconds)
@@ -82,7 +111,56 @@ function Events()
         });
     }
 
-	function initPopovers()
+    function initSelect2EditEvent(modal, event){
+        debugger;
+        $('#select-edit-events').select2({
+            templateResult: function (data, container) {
+                if (data.element) {
+                    $(container).addClass($(data.element).attr("class"));
+                }
+                return data.text;
+            },
+            placeholder: "Select a color",
+            templateSelection: function(data){
+                debugger;
+                if(data.selected){
+                    addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-color-code'));
+                }
+                return data.text;
+            }
+        });
+    }
+
+    function resetSelect2EditEvent(){
+        $('#select-edit-events').select2('val', '');
+    }
+
+    function initSelect2NewEvent(modal) {
+        debugger;
+        $('#select-new-events').select2({
+            templateResult: function (data, container) {
+                if (data.element) {
+                    $(container).addClass($(data.element).attr("class"));
+                }
+                return data.text;
+            },
+            placeholder: "Select a color",
+            templateSelection: function(data, container){
+                debugger;
+                if(data.selected){
+                    addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-color-code'));
+                }
+                return data.text;
+            }
+        });
+    }
+
+    function resetSelect2NewEvent(){
+        $('#select-new-events').select2('val', '');
+    }
+
+
+    function initPopovers()
 	{
         var popOverSettings = {
             placement: 'top',

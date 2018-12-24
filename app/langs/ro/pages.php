@@ -513,5 +513,6 @@ $trans['modal.title_label'] = 'Titlul Evenimentului: ';
 $trans['modal.start_date_label'] = 'Data si ora de incepere: ';
 $trans['modal.end_date_label'] = 'Data si ora de sfarsit: ';
 $trans['modal.event_description_label'] = "Descrierea Evenimentului";
+$trans['modal.event_short_description_label'] = "Descriere scurta";
 
 ?>

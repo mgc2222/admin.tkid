@@ -512,5 +512,6 @@ $trans['modal.title_label'] = 'Event Title: ';
 $trans['modal.start_date_label'] = 'Event Start: ';
 $trans['modal.end_date_label'] = 'Event End: ';
 $trans['modal.event_description_label'] = "Event Description";
+$trans['modal.event_short_description_label'] = "Event Short Description";
 
 ?>

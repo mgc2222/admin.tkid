@@ -1,5 +1,5 @@
 <?php if (!isset($webpage)) die('Direct access not allowed');  ?>
-<section>
+<section id="section-calendar">
     <div class="">
         <div class="page-header" id="calendar-page-header">
             <div class="pull-right form-inline text-center">
@@ -75,62 +75,119 @@
             </div>
         </div>
     </div>
+
+    <div class="clearfix"></div>
+
+    <div class="modal fade" tabindex="-1" role="dialog"  id="edit-events-modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div style="height:20px">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h4 class="modal-title form-inline" style="width:100%;display:table;">
+                        <div style="width:25%;display: table-cell;">
+                            <label><?php echo $trans['modal.title_label'] ?></label>
+                        </div>
+                        <div style="width:100%;display: table-cell;">
+                            <input type="text" style="width:100%" class="form-control" id="event-title" name="event-title" value=""/>
+                        </div>
+
+                    </h4>
+                </div>
+                <div class="modal-body" style="width:100%;display:table;">
+                    <div class="" style="width:25%;display: table-cell;vertical-align: top;">
+                        <label class="form-inline"><?php echo $trans['modal.start_date_label']?></label>
+                        <input type="text" name="editEventDateStart" class="form-control event-date-start" value="" />
+                        <label class="form-inline"><?php echo $trans['modal.end_date_label'] ?></label>
+                        <input type="text" name="editEventDateEnd"  class="form-control event-date-end"  value="" />
+                        <label for="sel1">Select list (select one):</label>
+                        <select class="form-control event-css-classes" id="select-edit-events" name="eventsCssClasses[]">
+                            <option></option>
+                            <option data-color-code="#e3bc08" class="event-warning">event-warning</option>
+                            <option data-color-code="#006400" class="event-success">event-success</option>
+                            <option data-color-code="#ad2121" class="event-important">event-important</option>
+                            <option data-color-code="#1e90ff" class="event-info">event-info</option>
+                            <option data-color-code="#800080" class="event-special">event-special</option>
+                            <option data-color-code="#1b1b1b" class="event-inverse">event-inverse</option>
+                        </select>
+                    </div>
+                    <div style="display:table-cell">
+                        <label><?php echo $trans['modal.event_description_label']?></label>
+                        <textarea name="event-description" class="form-control event-description" style="width:100%;min-height:400px;">
+
+                        </textarea>
+                        <label><?php echo $trans['modal.event_short_description_label']?></label>
+                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:200px;">
+
+                        </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog"  id="new-events-modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div style="height:20px">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h4 class="modal-title form-inline" style="width:100%;display:table;">
+                        <div style="width:25%;display: table-cell;">
+                            <label><?php echo $trans['modal.title_label'] ?></label>
+                        </div>
+                        <div style="width:100%;display: table-cell;">
+                            <input type="text" style="width:100%" class="form-control" id="new-event-title" name="event-title" value=""/>
+                        </div>
+
+                    </h4>
+                </div>
+                <div class="modal-body" style="width:100%;display:table;">
+                    <div class="" style="width:25%;display: table-cell;vertical-align: top;">
+                        <label class="form-inline"><?php echo $trans['modal.start_date_label'] ?></label>
+                        <input type="text" name="newEventDateStart" class="form-control event-date-start" value="" />
+                        <label class="form-inline"><?php echo $trans['modal.end_date_label'] ?></label>
+                        <input type="text" name="newEventDateEnd"  class="form-control event-date-end"  value="" />
+                        <label for="sel1">Select list (select one):</label>
+                        <select class="form-control event-css-classes" id="select-new-events" name="eventsCssClasses[]">
+                            <option></option>
+                            <option data-color-code="#e3bc08" class="event-warning">event-warning</option>
+                            <option data-color-code="#006400" class="event-success">event-success</option>
+                            <option data-color-code="#ad2121" class="event-important">event-important</option>
+                            <option data-color-code="#1e90ff" class="event-info">event-info</option>
+                            <option data-color-code="#800080" class="event-special">event-special</option>
+                            <option data-color-code="#1b1b1b" class="event-inverse">event-inverse</option>
+                        </select>
+                    </div>
+                    <div style="display:table-cell">
+                        <label><?php echo $trans['modal.event_description_label']?></label>
+                        <textarea name="event-description" class="form-control event-description" style="width:100%;min-height:400px;">
+
+                        </textarea>
+                        <label><?php echo $trans['modal.event_short_description_label']?></label>
+                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:200px;">
+
+                        </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </section>
-<div class="clearfix"></div>
-
-<div class="modal fade" tabindex="-1" role="dialog"  id="edit-events-modal">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title form-inline"><span style="width:25%"><?php echo $trans['modal.title_label'] ?></span><input type="text" style="width:75%" class="form-control" id="event-title" name="event-title" value=""/></h4>
-            </div>
-            <div class="modal-body" style="width:100%;display:table;">
-               <div class="" style="width:25%;display: table-cell;vertical-align: top;">
-                    <span class="form-inline"><?php echo $trans['modal.start_date_label']?></span><input type="text" name="editEventDateStart" class="form-control event-date-start" value="" />
-                    <span class="form-inline"><?php echo $trans['modal.end_date_label'] ?></span><input type="text" name="editEventDateEnd"  class="form-control event-date-end"  value="" />
-                </div>
-                <div style="display:table-cell">
-                    <span><?php echo $trans['modal.event_description_label']?></span>
-                    <textarea class="form-control event-description" style="width:100%;min-height:400px;">
-
-                    </textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" tabindex="-1" role="dialog"  id="new-events-modal">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title form-inline"><span style="width:25%"><?php echo $trans['modal.title_label'] ?></span><input type="text" style="width:75%" class="form-control" id="new-event-title" name="event-title" value=""/></h4>
-            </div>
-            <div class="modal-body" style="width:100%;display:table;">
-                <div class="" style="width:25%;display: table-cell;vertical-align: top;">
-                    <span class="form-inline"><?php echo $trans['modal.start_date_label'] ?></span><input type="text" name="newEventDateStart" class="form-control event-date-start" value="" />
-                    <span class="form-inline"><?php echo $trans['modal.end_date_label'] ?></span><input type="text" name="newEventDateEnd"  class="form-control event-date-end"  value="" />
-                </div>
-                <div style="display:table-cell">
-                    <span><?php echo $trans['modal.event_description_label']?></span>
-                    <textarea class="form-control event-description" style="width:100%;min-height:400px;">
-
-                    </textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <?php if(false){ ?>
 <!--	<script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="components/underscore/underscore-min.js"></script>

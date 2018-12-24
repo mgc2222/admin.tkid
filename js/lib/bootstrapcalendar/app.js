@@ -19,14 +19,21 @@
 			$.each(events, function(key, val) {
 				//debugger;
 				$(document.createElement('li'))
-					.html('<a data-toggle="modal" ' +
-						'data-target="#edit-events-modal" ' +
-						'data-content="'+val.description+'" ' +
+					.html('<a ' +
+						'data-toggle="modal" ' +
+						'data-target="#new-events-modal" ' +
+						'data-description="'+val.description+'" ' +
+						'data-short-description="'+((val.short_description) ? val.short_description : "")+'" ' +
+						'data-event-css-class="'+((val.class) ? val.class : "")+'" ' +
 						'title="'+val.title+'" ' +
 						'data-date-start="'+val.start+'" ' +
 						'data-date-end="'+val.end+'" ' +
+						'data-event-id="'+val.id+'" ' +
+						'class="calendar-event" ' +
 						//'href="' + val.url +
-						'">' + val.title + '</a>')
+						'>' +
+							val.title +
+						'</a>')
 					.appendTo(list);
 			});
 		},

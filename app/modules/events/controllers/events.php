@@ -122,23 +122,25 @@ class Events extends AdminController
 		}
 				
 		array_push($this->webpage->StyleSheets,
-			//'jquery/jquery-ui.css',
-		'bootstrap/bootstrap3.3.7.min.css',
+			'jquery/jquery-ui.css',
+			//'bootstrap/bootstrap3.3.7.min.css',
 			'toastr/toastr.min.css',
             'bootstrapcalendar/css/calendar.css',
-            'daterangepicker/daterangepicker.css'
+            'daterangepicker/daterangepicker.css',
+            'select2/select2.min.css'
 			);
 		array_push($this->webpage->ScriptsFooter,
 			'lib/jquery/jquery-ui.min.js',
 			//'lib/toastr/toastr.min.js',
 			//'lib/base64/jquery.base64.js',
 			//'lib/wrappers/sortable/sortable_init.js',
-			'lib/bootstrap/bootstrap3.3.7.min.js',
+			//'lib/bootstrap/bootstrap3.3.7.min.js',
             'lib/moment/moment.min.js',
             'lib/daterangepicker/daterangepicker.min.js',
             'lib/tinymce/tinymce.min.js',
             'lib/wrappers/tinymce/tinymce.js',
             'lib/underscore/underscore-min.js',
+            'lib/select2/select2.min.js',
 
             'lib/jstimezonedetect/jstz.min.js',
             'lib/bootstrapcalendar/language/ro-RO.js',
