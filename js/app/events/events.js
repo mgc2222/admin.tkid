@@ -34,6 +34,11 @@ function Events()
             addModalEventDescription($(this), e.relatedTarget.getAttribute('data-description'));
             addModalEventShortDescription($(this), e.relatedTarget.getAttribute('data-short-description'));
         });
+        $('.event-date-end').on('change', function (e) {
+            debugger;
+            (language==='ro') ? new Date(moment($(this).val(), 'DD/M/YYYY').format('YYYY/M/DD')).getTime() : new Date($(this).val()).getTime()
+
+        })
 	}
 
 	this.initEditEventModal = function(event, modal){
@@ -84,23 +89,23 @@ function Events()
             timePicker: true,
             timePicker24Hour: true,
             singleDatePicker: true,
-            startDate: (startDateInMilliseconds) ? new Date(parseInt(startDateInMilliseconds)) : new Date(),
+            startDate: (startDateInMilliseconds) ? new Date(parseInt(startDateInMilliseconds)) : moment().set({hour:18, minute:0}),
             locale: {
-                format: 'DD/MM/YY HH:mm'
+                format: (language==='ro') ? 'DD/M/YYYY HH:mm' : 'YYYY/M/DD HH:mm'
             }
         });
 
     }
 
-    function initEndDateTimePickers(modal, startDateInMilliseconds)
+    function initEndDateTimePickers(modal, endDateInMilliseconds)
     {
         $(modal).find('.event-date-end').daterangepicker({
             timePicker: true,
             timePicker24Hour: true,
             singleDatePicker: true,
-            startDate:  (startDateInMilliseconds) ? new Date(parseInt(startDateInMilliseconds)) : new Date(),
+            startDate:  (endDateInMilliseconds) ? new Date(parseInt(endDateInMilliseconds)) : moment().set({hour:20, minute:0}),
             locale: {
-                format: 'DD/MM/YY HH:mm'
+                format: (language==='ro') ? 'DD/M/YYYY HH:mm' : 'YYYY/M/DD HH:mm'
             }
         });
     }

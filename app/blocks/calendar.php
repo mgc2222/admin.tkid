@@ -126,7 +126,7 @@
 
                         </textarea>
                         <label><?php echo $trans['modal.event_short_description_label']?></label>
-                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:200px;">
+                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:100px;">
 
                         </textarea>
                     </div>
@@ -181,7 +181,7 @@
 
                         </textarea>
                         <label><?php echo $trans['modal.event_short_description_label']?></label>
-                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:200px;">
+                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:100px;">
 
                         </textarea>
                     </div>
