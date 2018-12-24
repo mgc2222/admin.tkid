@@ -12,7 +12,7 @@
 				 title="<%= cal._getHolidayName(start) %>">
 				<%= name %><br>
 				<small>
-					<span data-toggle="modal" data-target="#new-events-modal" class="calendar-event-toggle-modal" data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>"
+					<span data-toggle="modal" data-target="#new-events-modal" class="calendar-new-event-toggle-modal" data-cal-date="<%= start.getFullYear() %>-<%= start.getMonthFormatted() %>-<%= start.getDateFormatted() %>"
 						  data-cal-view="">
 						<%= start.getDate() %> <%= cal.locale['ms' + start.getMonth()] %>
 					</span>

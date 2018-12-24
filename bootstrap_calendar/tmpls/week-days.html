@@ -5,17 +5,18 @@
 		 data-content="<%=event.description %>"
 		 class="calendar-event cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>"
 		 data-event-class="<%= event['class'] %>">
-		<div class="cal-hours" ><%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> <%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %> </div>
 		<% if (event.url) { %>
 			<a href="<%= event.url %>"
 			   data-event-id="<%= event.id %>"
 			   class="cal-event-week event<%= event.id %>">
+				<div class="cal-hours" ><%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> <%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %> </div>
 				<%= event.title %>
 			</a>
 		<% } else {%>
 			<a role="button"
 			   data-event-id="<%= event.id %>"
 			   class="cal-event-week event<%= event.id %>">
+				<div class="cal-hours" ><%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> <%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %> </div>
 				<%= event.title %>
 			</a>
 		<%} %>

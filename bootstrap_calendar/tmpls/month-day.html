@@ -1,5 +1,5 @@
 <div class="cal-month-day <%= cls %>">
-	<span data-toggle="modal" data-target="#new-events-modal" class="pull-right calendar-event-toggle-modal" data-cal-date="<%= data_day %>" data-cal-view="" data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
+	<span data-toggle="modal" data-target="#new-events-modal" class="pull-right calendar-new-event-toggle-modal" data-cal-date="<%= data_day %>" data-cal-view="" data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
 	<% if (events.length > 0) { %>
 		<div class="events-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
 			<% _.each(events, function(event) { %>

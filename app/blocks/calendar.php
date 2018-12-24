@@ -2,6 +2,12 @@
 <section id="section-calendar">
     <div class="">
         <div class="page-header" id="calendar-page-header">
+            <div class="grid_buttons pull-left">
+                <a role="button" data-toggle="modal" data-target="#new-events-modal" class="calendar-new-event-toggle-modal">
+                    <span class="btn btn-success"><i class="fa fa-fw fa-edit"></i> <?php echo $trans['events.new_item']?></span>
+                </a>
+                <?php echo HtmlControls::GenerateDeleteSelected($trans['events.delete_selected_items']);?>
+            </div>
             <div class="pull-right form-inline text-center">
                 <div class="btn-group">
                     <button type="button" class="btn <!--btn-primary-->" style="background-color:#d0f4f0" data-calendar-nav="prev"><< <?php echo $trans['calendar.button_previous'] ?></button>
@@ -22,7 +28,7 @@
             <div class="col-md-12" style="padding: 0">
                 <div id="calendar"></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-12">
                 <div class="row-fluid hidden">
                     <select id="first_day" class="span12">
                         <option value="" selected="selected">First day of week language-dependant</option>

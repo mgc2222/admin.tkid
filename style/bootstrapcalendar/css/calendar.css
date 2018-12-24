@@ -540,8 +540,9 @@ a.cal-event-week {
   color: #333;
   font-weight: 600;
 }
-.popover-content, .tooltip-inner{
-  background-color: #fcf4a8;
+.popover-content, .tooltip-inner, .ui-widget-shadow{
+  background: #fcf4a8;
+  opacity: 1;
 }
 .popover{
   max-width: 600px;
@@ -571,4 +572,7 @@ a.cal-event-week {
 .select2-container--default .select2-results>.select2-results__options{
   max-height: none!important;
   overflow-y: unset!important;
+}
+#eventlist li{
+  display: inline-block;
 }

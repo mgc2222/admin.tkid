@@ -26,18 +26,10 @@ function Events()
 		});
 
         $('#new-events-modal').on('show.bs.modal', function (e) {
-            debugger;
-          $(this)
-                .find("select")
-                .val('')
-                .end()
-                .find("input[type=checkbox], input[type=radio]")
-                .prop("checked", "")
-                .end();
             $(this).find("#new-event-title").attr('value', e.relatedTarget.getAttribute('title'));
             initStartDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-start'));
             initEndDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-end'));
-            selectEventCssClass($(this), e.relatedTarget.getAttribute('data-event-css-class'));
+            selectOrResetEventCssClass($(this), e.relatedTarget.getAttribute('data-event-css-class'));
             initSelect2NewEvent($(this));
             addModalEventDescription($(this), e.relatedTarget.getAttribute('data-description'));
             addModalEventShortDescription($(this), e.relatedTarget.getAttribute('data-short-description'));
@@ -45,12 +37,10 @@ function Events()
 	}
 
 	this.initEditEventModal = function(event, modal){
-	    debugger;
-        //resetSelect2EditEvent();
         initStartDateTimePickers(modal, event.start);
         initEndDateTimePickers(modal, event.end);
-        selectEventCssClass(modal, event.class);
-        initSelect2EditEvent(modal, event);
+        selectOrResetEventCssClass(modal, event.class);
+        initSelect2EditEvent(modal);
         addModalEventDescription(modal, event.description);
         addModalEventShortDescription(modal, event.short_description);
     };
@@ -64,10 +54,9 @@ function Events()
     }
 
     function addSelect2SelectedColorEvent(modal, selectedOptionColorCode){
-        debugger;
         if(selectedOptionColorCode){
-            modal.find('.select2-selection').css({'background-color': selectedOptionColorCode+'!important'});
-            modal.find('.select2-selection__rendered').css({'color': '#fff!important'});
+            modal.find('.select2-selection').attr('style', 'background-color:'+ selectedOptionColorCode+'!important');
+            modal.find('.select2-selection__rendered').attr('style', 'color:#fff!important');
         }
         else{
             modal.find('.select2-selection').removeAttr('style');
@@ -75,13 +64,18 @@ function Events()
         }
     }
 
-    function selectEventCssClass(modal, eventCssClass){
-        debugger;
-        $(modal).find('.event-css-classes option').each(function () {
-            if (this.value === eventCssClass) {
-                this.setAttribute('selected', 'selected')
-            }
-        });
+    function selectOrResetEventCssClass(modal, eventCssClass){
+        if(eventCssClass){
+            $(modal).find('.event-css-classes option').each(function () {
+                if (this.value === eventCssClass) {
+                    this.setAttribute('selected', 'selected')
+                }
+            });
+        }
+        else{
+            $(modal).find('.event-css-classes').val('');
+            $(modal).find('.event-css-classes option:selected').removeAttr('selected');
+        }
     }
 
     function initStartDateTimePickers(modal, startDateInMilliseconds)
@@ -111,8 +105,7 @@ function Events()
         });
     }
 
-    function initSelect2EditEvent(modal, event){
-        debugger;
+    function initSelect2EditEvent(modal){
         $('#select-edit-events').select2({
             templateResult: function (data, container) {
                 if (data.element) {
@@ -122,7 +115,6 @@ function Events()
             },
             placeholder: "Select a color",
             templateSelection: function(data){
-                debugger;
                 if(data.selected){
                     addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-color-code'));
                 }
@@ -131,12 +123,7 @@ function Events()
         });
     }
 
-    function resetSelect2EditEvent(){
-        $('#select-edit-events').select2('val', '');
-    }
-
     function initSelect2NewEvent(modal) {
-        debugger;
         $('#select-new-events').select2({
             templateResult: function (data, container) {
                 if (data.element) {
@@ -146,7 +133,6 @@ function Events()
             },
             placeholder: "Select a color",
             templateSelection: function(data, container){
-                debugger;
                 if(data.selected){
                     addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-color-code'));
                 }
@@ -154,11 +140,6 @@ function Events()
             }
         });
     }
-
-    function resetSelect2NewEvent(){
-        $('#select-new-events').select2('val', '');
-    }
-
 
     function initPopovers()
 	{
