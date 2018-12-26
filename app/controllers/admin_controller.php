@@ -10,6 +10,7 @@ class AdminController extends AbstractController
 	var $languageId; // user selected language id
 	var $defaultLanguageId; // default language id
 	var $propertyInfo;
+	var $laguageModel;
 	
 	function __construct()
 	{
@@ -18,18 +19,24 @@ class AdminController extends AbstractController
 		// PreloadImages::WriteContent();
 		$this->auth = new Auth();
 		$this->webpage = new WebPage();
-
+        $this->laguageModel = $this->LoadModel('languages', 'languages');
         $this->defaultLanguageId = $this->GetDefaultLanguageId();
+
         $this->SetSelectedLanguage();
         $selectedLanguage = $this->GetSelectedLanguage();
 
         if ($selectedLanguage == null) die('No language exists');
         $this->languageId = $selectedLanguage->id;
+        $dataSearch = new StdClass();
+
         $this->webpage->languageAbb = $selectedLanguage->abbreviation;
-        $this->LoadLang($selectedLanguage->abbreviation);
+        $this->webpage->languageAbbIso = $selectedLanguage->abbreviation_iso;
+        $this->webpage->languageDdl = $this->laguageModel->GetRecordsForDropdown($dataSearch, 'id');
+        $this->LoadLang($selectedLanguage->abbreviation_iso);
 		$this->GetSessionMessage();
 		$this->SetDefaultData();
 		$this->GenerateJsCache();
+
 	}
 	
 	function GetWebPageObject() { return $this->webpage; }
@@ -171,21 +178,19 @@ class AdminController extends AbstractController
 	
 	function GetSelectedLanguage()
 	{
-		$langsModel = $this->LoadModel('languages', 'languages');
 		$lang = null;
 		if (isset($_SESSION['language_id']))
-			$lang = $langsModel->GetRecordById($_SESSION['language_id']);
+			$lang = $this->laguageModel->GetRecordById($_SESSION['language_id']);
 		
 		if ($lang == null)
-			$lang = $langsModel->GetDefaultLanguage();
+			$lang = $this->laguageModel->GetDefaultLanguage();
 			
 		return $lang;
 	}
 	
 	function GetDefaultLanguageId()
 	{
-		$langsModel = $this->LoadModel('languages', 'languages');
-		$lang = $langsModel->GetDefaultLanguage();
+		$lang = $this->laguageModel->GetDefaultLanguage();
 			
 		return $lang->id;
 	}
@@ -259,7 +264,8 @@ class AdminController extends AbstractController
 			'var SCRIPTS = "'.implode('|', $this->webpage->ScriptsFooter).'";'.$endLine.
 			"var SITE_RELATIVE_URL = '"._SITE_RELATIVE_URL."';".$endLine.
 			"var SCRIPTS_URL = '"._SITE_URL."js/';".$endLine.
-            "var language = '".$this->webpage->languageAbb."';".$endLine.
+            "var languageAbb = '".$this->webpage->languageAbb."';".$endLine.
+            "var languageAbbIso = '".$this->webpage->languageAbbIso."';".$endLine.
 			"var auth = { UserId: '{$userIdJs}' };".$endLine;
 		
 		$this->webpage->JsPageContent .= $js;

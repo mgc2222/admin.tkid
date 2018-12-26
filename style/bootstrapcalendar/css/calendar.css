@@ -209,7 +209,7 @@
 .cal-week-box [data-event-class] {
   white-space: nowrap;
   /*height: 30px;*/
-  margin: 1px 1px;
+  /* margin: 1px 1px;*/
   line-height: 30px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -218,7 +218,7 @@
 .cal-week-box .cal-column {
   position: absolute;
   height: 100%;
-  z-index: -1;
+  /*z-index: -1;*/
 }
 .cal-week-box .arrow-before,
 .cal-week-box .arrow-after {
@@ -332,22 +332,22 @@
   margin-top: 3px;
 }
 .event-important {
-  background-color: #ad2121!important;
+  background-color: #ad2121;
 }
 .event-info {
-  background-color: #1e90ff!important;
+  background-color: #1e90ff;
 }
 .event-warning {
-  background-color: #e3bc08!important;
+  background-color: #e3bc08;
 }
 .event-inverse {
-  background-color: #1b1b1b!important;
+  background-color: #1b1b1b;
 }
 .event-success {
-  background-color: #006400!important;
+  background-color: #006400;
 }
 .event-special {
-  background-color: #800080!important;
+  background-color: #800080;
 }
 .day-highlight:hover,
 .day-highlight {
@@ -355,34 +355,37 @@
 }
 .day-highlight.dh-event-important:hover,
 .day-highlight.dh-event-important {
-  background-color: #fae3e3;
+  background-color: #fae3e3 !important;
 }
 .day-highlight.dh-event-warning:hover,
 .day-highlight.dh-event-warning {
-  background-color: #fdf1ba;
+  background-color: #fdf1ba !important;
 }
 .day-highlight.dh-event-info:hover,
 .day-highlight.dh-event-info {
-  background-color: #d1e8ff;
+  background-color: #d1e8ff !important;
 }
 .day-highlight.dh-event-inverse:hover,
 .day-highlight.dh-event-inverse {
-  background-color: #c1c1c1;
+  background-color: #c1c1c1 !important;
 }
 .day-highlight.dh-event-success:hover,
 .day-highlight.dh-event-success {
-  background-color: #caffca;
+  background-color: #caffca !important;
 }
 .day-highlight.dh-event-special:hover,
 .day-highlight.dh-event-special {
-  background-color: #ffe6ff;
+  background-color: #ffe6ff !important;
+}
+#eventlist li {
+  display: inline-block;
 }
 .cal-row-head [class*="cal-cell"]:first-child,
 .cal-row-head [class*="cal-cell"] {
   font-weight: bolder;
   text-align: center;
-  border: 0px solid;
-  padding: 5px 1px;
+  border: 0 solid;
+  padding: 5px 0;
 }
 .cal-row-head [class*="cal-cell"] small {
   font-weight: normal;
@@ -404,11 +407,10 @@
   position: relative;
 }
 .cal-year-box [class*="span"] {
- /* min-height: 60px;*/
+  min-height: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: right;
-  /*clear: both;*/
 }
 .cal-year-box .row-fluid [class*="span"]:last-child,
 .cal-month-box .cal-row-fluid [class*="cal-cell"]:last-child {
@@ -432,6 +434,12 @@
   border-right: 1px solid #e1e1e1;
   border-left: 1px solid #e1e1e1;
   border-radius: 2px;
+}
+.cal-context hr {
+  display: none;
+}
+.cal-week-box > div:nth-child(9) {
+  border-top: 1px solid #e1e1e1;
 }
 span[data-cal-date] {
   font-size: 1.2em;
@@ -472,7 +480,7 @@ span[data-cal-date]:hover {
   border: 1px solid #e1e1e1;
   border-right: 0px;
   border-radius: 5px 0 0 5px;
-  background-color: #d0f4f0;
+  background-color: #fafafa;
   text-align: center;
 }
 #cal-day-tick {
@@ -485,9 +493,13 @@ span[data-cal-date]:hover {
 #cal-slide-box {
   border-top: 0px solid #8c8c8c;
 }
+.calendar-event,
+#cal-slide-box li a {
+  cursor: pointer;
+}
 #cal-slide-content {
   padding: 20px;
-  color: #ffffff;
+  /*color: #ffffff;*/
   background-image: url("../img/wood-tile-green.jpg");
   -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
   box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
@@ -499,9 +511,10 @@ span[data-cal-date]:hover {
   background-color: transparent;
 }
 #cal-slide-content a.event-item {
-  color: #165090;
+  /*color: #ffffff;*/
   font-weight: normal;
-  line-height: 40px;
+  line-height: 27px;
+  display: block;
 }
 .events-list {
   max-height: 47px;
@@ -518,61 +531,10 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
-#calendar .col-xs-11 {
-  width: 91.67%;
-}
-#calendar-page-header {
-  border: none;
-}
-.calendar-event, #cal-slide-box li a{
-  cursor: pointer;
-}
-#calendar a>span.event{
+a > span.event {
   display: inline-block;
 }
-#calendar a:hover{
+a:hover {
   text-decoration: none;
 }
-.popover-title{
-  background-color: #d0f4f0;
-}
-.tooltip-inner{
-  color: #333;
-  font-weight: 600;
-}
-.popover-content, .tooltip-inner, .ui-widget-shadow{
-  background: #fcf4a8;
-  opacity: 1;
-}
-.popover{
-  max-width: 600px;
-}
-#section-calendar label {
-  margin: 10px 0 0 0;
-}
-#section-calendar .modal-body {
-  padding: 15px;
-}
-
-.select2-container--default li.select2-results__option:first-child{
-  /*color: unset!important;*/
-  background-color: unset;
-}
-.select2-container .select2-selection--single{
-  height: 34px!important;
-}
-.select2-container{
-  width: 100%!important;
-  height: 34px!important;
-}
-.select2-container--default .select2-results__option--highlighted[aria-selected]{
-  font-weight: 900!important;
-  border: 3px solid #fff;
-}
-.select2-container--default .select2-results>.select2-results__options{
-  max-height: none!important;
-  overflow-y: unset!important;
-}
-#eventlist li{
-  display: inline-block;
-}
+/*test */

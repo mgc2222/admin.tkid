@@ -126,6 +126,7 @@ class Events extends AdminController
 			//'bootstrap/bootstrap3.3.7.min.css',
 			'toastr/toastr.min.css',
             'bootstrapcalendar/css/calendar.css',
+            'bootstrapcalendar/css/custom.css',
             'daterangepicker/daterangepicker.css',
             'select2/select2.min.css'
 			);

@@ -1,7 +1,7 @@
 if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
-window.calendar_languages['lv-LV'] = {
+window.calendar_languages['lv_LV'] = {
 	error_noview:     'Kalendārs: Skats {0} nav atrasts.',
 	error_dateformat: 'Kalendārs: nepareizs datuma formāts {0}. Ir jābūt vai "now" vai "yyyy-mm-dd"',
 	error_loadurl:    'Kalendārs: nav uzstādīts URL priekš notikumu ielādes.',

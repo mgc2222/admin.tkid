@@ -35,7 +35,7 @@ function Events()
             addModalEventShortDescription($(this), e.relatedTarget.getAttribute('data-short-description'));
         });
         $('.event-date-end').on('change', function (e) {
-            debugger;
+            //debugger;
             (language==='ro') ? new Date(moment($(this).val(), 'DD/M/YYYY').format('YYYY/M/DD')).getTime() : new Date($(this).val()).getTime()
 
         })
@@ -58,20 +58,20 @@ function Events()
         $(modal).find('.event-short-description').val((shortDescription) ? shortDescription : '');
     }
 
-    function addSelect2SelectedColorEvent(modal, selectedOptionColorCode){
-        if(selectedOptionColorCode){
-            modal.find('.select2-selection').attr('style', 'background-color:'+ selectedOptionColorCode+'!important');
-            modal.find('.select2-selection__rendered').attr('style', 'color:#fff!important');
-        }
-        else{
-            modal.find('.select2-selection').removeAttr('style');
-            modal.find('.select2-selection__rendered').removeAttr('style');
+    function addSelect2SelectedColorEvent(modal, selectedOptionEventColorClass){
+        var select2Selection = modal.find('.select2-selection');
+        var eventColorClass = select2Selection.attr('data-event-color-class');
+        select2Selection.removeClass(eventColorClass);
+        if(selectedOptionEventColorClass){
+            select2Selection.attr('data-event-color-class',selectedOptionEventColorClass).addClass(selectedOptionEventColorClass);
         }
     }
 
     function selectOrResetEventCssClass(modal, eventCssClass){
+
         if(eventCssClass){
             $(modal).find('.event-css-classes option').each(function () {
+                $(this).removeAttr('selected');
                 if (this.value === eventCssClass) {
                     this.setAttribute('selected', 'selected')
                 }
@@ -114,14 +114,16 @@ function Events()
         $('#select-edit-events').select2({
             templateResult: function (data, container) {
                 if (data.element) {
-                    $(container).addClass($(data.element).attr("class"));
+                    //debugger;
+                    $(container).addClass($(data.element).attr("data-event-color-class"));
+                    $(container).attr("data-event-color-class", $(data.element).attr("data-event-color-class"));
                 }
                 return data.text;
             },
             placeholder: "Select a color",
             templateSelection: function(data){
                 if(data.selected){
-                    addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-color-code'));
+                    addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-event-color-class'));
                 }
                 return data.text;
             }
@@ -132,14 +134,16 @@ function Events()
         $('#select-new-events').select2({
             templateResult: function (data, container) {
                 if (data.element) {
-                    $(container).addClass($(data.element).attr("class"));
+                    //debugger;
+                    $(container).addClass($(data.element).attr("data-event-color-class"));
+                    $(container).attr("data-event-color-class", $(data.element).attr("data-event-color-class"));
                 }
                 return data.text;
             },
             placeholder: "Select a color",
             templateSelection: function(data, container){
                 if(data.selected){
-                    addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-color-code'));
+                    addSelect2SelectedColorEvent(modal, data.element.getAttribute('data-event-color-class'));
                 }
                 return data.text;
             }

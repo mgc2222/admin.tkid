@@ -6,7 +6,7 @@ if(!window.calendar_languages) {
 // Here you define the language and Country code. Replace en-US with your own.
 // First letters: the language code (lower case). See http://www.loc.gov/standards/iso639-2/php/code_list.php
 // Last letters: the Country code (upper case). See http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements.htm
-window.calendar_languages['bg-BG'] = {
+window.calendar_languages['bg_BG'] = {
 	error_noview: 'Календар: Изглед {0} не беше открит',
 	error_dateformat: 'Календар: Грешен формат за дата {0}. Трябва да бъде или "now", или "yyyy-mm-dd"',
 	error_loadurl: 'Календар: URL адресът на събитието не е зададен',

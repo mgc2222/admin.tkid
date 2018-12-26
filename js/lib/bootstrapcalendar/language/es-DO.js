@@ -1,7 +1,7 @@
 if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
-window.calendar_languages['es-DO'] = {
+window.calendar_languages['es_DO'] = {
 	error_noview:     'Calendario: Vista {0} no encontrada',
 	error_dateformat: 'Calendario: Formato de Fecha Inválido {0}. Debe ser "now" o con el formato "yyyy-mm-dd"',
 	error_loadurl:    'Calendario: URL de datos no definida',

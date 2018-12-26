@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2018 at 01:52 PM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Dec 26, 2018 at 04:08 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -51,20 +51,21 @@ CREATE TABLE `events` (
 
 CREATE TABLE `event_css_classes` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `color_code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `event_css_classes`
 --
 
-INSERT INTO `event_css_classes` (`id`, `name`) VALUES
-(1, 'event-important'),
-(2, 'event-success'),
-(3, 'event-warning'),
-(4, 'event-info'),
-(5, 'event-special'),
-(6, 'event-inverse');
+INSERT INTO `event_css_classes` (`id`, `name`, `color_code`) VALUES
+(1, 'day-highlight dh-event-important', '#fae3e3'),
+(2, 'day-highlight dh-event-success', '#caffca'),
+(3, 'day-highlight dh-event-warning', '#fdf1ba'),
+(4, 'day-highlight dh-event-info', '#d1e8ff'),
+(5, 'day-highlight dh-event-special', '#ffe6ff'),
+(6, 'day-highlight dh-event-inverse', '#c1c1c1');
 
 -- --------------------------------------------------------
 

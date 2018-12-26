@@ -2,7 +2,7 @@
 if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
-window.calendar_languages['ro'] = {
+window.calendar_languages['ro_RO'] = {
 	error_noview: 		'Calendar: View-ul {0} nu a fost găsit',
 	error_dateformat: 	'Calendar: Format dată greșit {0}. Ar trebui să fie "now" sau "yyyy-mm-dd"',
 	error_loadurl: 		'Calendar: URL eveniment nu este setat',

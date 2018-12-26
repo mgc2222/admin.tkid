@@ -1,0 +1,53 @@
+.select2-container--default li.select2-results__option:first-child{
+    /*color: unset!important;*/
+    /*background-color: unset;*/
+}
+.select2-container .select2-selection--single{
+    height: 34px!important;
+}
+.select2-container{
+    width: 100%!important;
+    height: 34px!important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected]{
+    font-weight: 900!important;
+    border: 3px solid #000;
+    color: #000!important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container--default .select2-results__option[aria-selected=true]{
+    background-color: unset;
+}
+.select2-container--default .select2-results>.select2-results__options{
+    max-height: none!important;
+    overflow-y: unset!important;
+}
+#calendar-page-header {
+    border: none;
+}
+.popover-title{
+    background-color: #d0f4f0;
+}
+.tooltip-inner{
+    color: #333;
+    font-weight: 600;
+}
+.popover-content, .tooltip-inner, .ui-widget-shadow{
+    background: #fcf4a8;
+    opacity: 1;
+}
+.popover{
+    max-width: 600px;
+}
+#section-calendar label {
+    margin: 10px 0 0 0;
+}
+#section-calendar .modal-body {
+    padding: 15px;
+}
+#calendar .col-xs-11 {
+    width: 91.67%;
+}
+.badge-important {
+    background-color: #b94a48;
+}

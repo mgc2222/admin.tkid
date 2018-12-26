@@ -2,7 +2,7 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 
-window.calendar_languages['zh-TW'] = {
+window.calendar_languages['zh_TW'] = {
 	error_noview:     'Calendar: 找不到圖片 {0} ',
 	error_dateformat: 'Calendar: 日期格式錯誤： {0}. 應該以「now」表示，或「yyyy-mm-dd」',
 	error_loadurl:    'Calendar: 事件網址尚未設定',

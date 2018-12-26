@@ -13,7 +13,7 @@ class LanguagesModel extends AbstractModel
 	
 	function SetMapping()
 	{
-		$this->mapping = array('abbreviation'=>'txtAbbreviation','name'=>'txtName','is_translated'=>'chkIsTranslated');
+		$this->mapping = array('abbreviation_iso'=>'txtAbbreviationIso', 'abbreviation'=>'txtAbbreviation','name'=>'txtName','is_translated'=>'chkIsTranslated');
 	}
 	
 	function GetDataForJson($editId)
@@ -29,25 +29,30 @@ class LanguagesModel extends AbstractModel
 		}
 		return $row;
 	}
-	
-	function GetSqlCondition(&$dataSearch)
-	{
-		if ($dataSearch == null) return '';
-		
-		$cond = ' WHERE 1 ';
-		if (isset($dataSearch->search) && $dataSearch->search != '')
-			$cond .= " AND name LIKE '%{$dataSearch->search}%'";
-		if (isset($dataSearch->abbreviation) && $dataSearch->abbreviation != '')
-			$cond .= " AND abbreviation = {$dataSearch->abbreviation}";
-			
-		return $cond;
-	}
+
+    function GetSqlCondition(&$dataSearch)
+    {
+        if ($dataSearch == null) return '';
+
+        $cond = ' WHERE 1 ';
+        if (isset($dataSearch->search) && $dataSearch->search != '')
+            $cond .= " AND name LIKE '%{$dataSearch->search}%'";
+        if (isset($dataSearch->abbreviation) && $dataSearch->abbreviation != '')
+            $cond .= " AND abbreviation = {$dataSearch->abbreviation}";
+
+        if (isset($dataSearch->abbreviationIso) && $dataSearch->abbreviationIso != '')
+            $cond .= " AND abbreviation_iso = {$dataSearch->abbreviationIso}";
+
+        if (isset($dataSearch->languageId) && $dataSearch->languageId != '')
+            $cond .= " AND id IN ({$dataSearch->languageId})";
+
+        return $cond;
+    }
 	
 	function GetRecordsList($dataSearch, $orderBy)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
-		$sql = "SELECT id, name, abbreviation, is_translated
-				FROM {$this->table}	{$cond}";
+		$sql = "SELECT * FROM {$this->table}	{$cond}";
 		
 		if ($orderBy != null)
 			$sql .= ' ORDER BY '.$orderBy;
@@ -74,8 +79,8 @@ class LanguagesModel extends AbstractModel
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
 		$orderBy = ($orderBy != null)?' ORDER BY '.$orderBy:'';
-		$sql = "SELECT id, name, abbreviation FROM {$this->table}	{$cond} {$orderBy}";
-		
+		$sql = "SELECT * FROM {$this->table}	{$cond} {$orderBy}";
+
 		return $this->dbo->GetRows($sql);
 	}
 		
@@ -101,9 +106,9 @@ class LanguagesModel extends AbstractModel
 	
 	function GetRecordForEdit($recordId)
 	{
-		$sql = "SELECT id, name, is_translated, abbreviation, 
+		$sql = "SELECT t.*, 
 				(SELECT key_value FROM settings WHERE key_name = 'default_language') as default_language_id
-			FROM {$this->table}
+			FROM {$this->table} as t
 			WHERE {$this->primaryKey} = {$recordId}";
 		return $this->dbo->GetFirstRow($sql);
 	}
@@ -114,7 +119,7 @@ class LanguagesModel extends AbstractModel
 		$langId = $this->dbo->GetFieldValue($sql);
 		
 		$cond = ($langId == null)?'':' WHERE id= '.$langId;
-		$sql = "SELECT id, abbreviation FROM {$this->table} {$cond} LIMIT 1";
+		$sql = "SELECT * FROM {$this->table} {$cond} LIMIT 1";
 		$row = $this->dbo->GetFirstRow($sql);
 
 		return $row;

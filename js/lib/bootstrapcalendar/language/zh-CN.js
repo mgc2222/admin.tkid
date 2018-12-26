@@ -2,7 +2,7 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 
-window.calendar_languages['zh-CN'] = {
+window.calendar_languages['zh_CN'] = {
 	error_noview:     'Calendar: 没有发现视图 {0} ',
 	error_dateformat: 'Calendar: 日期格式不正确： {0}. 应当为 "now" 或者 "yyyy-mm-dd"',
 	error_loadurl:    'Calendar: 没有设置事件的 URL',

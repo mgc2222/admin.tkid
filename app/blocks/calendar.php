@@ -112,12 +112,12 @@
                         <label for="sel1">Select list (select one):</label>
                         <select class="form-control event-css-classes" id="select-edit-events" name="eventsCssClasses[]">
                             <option></option>
-                            <option data-color-code="#e3bc08" class="event-warning">event-warning</option>
-                            <option data-color-code="#006400" class="event-success">event-success</option>
-                            <option data-color-code="#ad2121" class="event-important">event-important</option>
-                            <option data-color-code="#1e90ff" class="event-info">event-info</option>
-                            <option data-color-code="#800080" class="event-special">event-special</option>
-                            <option data-color-code="#1b1b1b" class="event-inverse">event-inverse</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-warning">event-warning</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-success">event-success</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-important">event-important</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-info">event-info</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-special">event-special</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-inverse">event-inverse</option>
                         </select>
                     </div>
                     <div style="display:table-cell">
@@ -167,12 +167,12 @@
                         <label for="sel1">Select list (select one):</label>
                         <select class="form-control event-css-classes" id="select-new-events" name="eventsCssClasses[]">
                             <option></option>
-                            <option data-color-code="#e3bc08" class="event-warning">event-warning</option>
-                            <option data-color-code="#006400" class="event-success">event-success</option>
-                            <option data-color-code="#ad2121" class="event-important">event-important</option>
-                            <option data-color-code="#1e90ff" class="event-info">event-info</option>
-                            <option data-color-code="#800080" class="event-special">event-special</option>
-                            <option data-color-code="#1b1b1b" class="event-inverse">event-inverse</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-warning">event-warning</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-success">event-success</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-important">event-important</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-info">event-info</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-special">event-special</option>
+                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-inverse">event-inverse</option>
                         </select>
                     </div>
                     <div style="display:table-cell">

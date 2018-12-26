@@ -2,7 +2,7 @@ if(!window.calendar_languages) {
 	window.calendar_languages = {};
 }
 
-window.calendar_languages['ja-JP'] = {
+window.calendar_languages['ja_JP'] = {
 	error_noview: 'カレンダーのビューが見つかりません： {0}',
 	error_dateformat: '日付のフォーマットが間違っています：{0}。"now" か "yyyy-mm-dd" で指定して下さい。',
 	error_loadurl: 'カレンダーのイベントURLがセットされていません。',
