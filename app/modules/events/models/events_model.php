@@ -4,14 +4,26 @@ class EventsModel extends AbstractModel
 	function __construct()
 	{
 		parent::__construct();
-		$this->table = 'categories';
-		$this->tableProducts = 'products';
+		$this->table = 'events';
+		$this->tableEventTypes = 'event_types';
+		$this->tableEventCssClasses = 'event_css_classes';
+		$this->verifiedTableField = 'id';
 		$this->primaryKey = 'id';
 	}
 	
 	function SetMapping()
 	{
-		$this->mapping = array('parent_id'=>'ddlParentId','name'=>'txtName', 'url_key'=>'txtUrlKey', 'description'=>'txtDescription', 'short_description'=>'txtShortDescription', 'seo_keywords'=>'txtSeoKeywords', 'seo_description'=>'txtSeoDescription', 'seo_title'=>'txtSeoTitle', 'status'=>'chkStatus', 'order_index'=>'txtOrderIndex', 'display_separate_status' => 'chkDisplaySeparateStatus');
+		$this->mapping = array(
+		    'title'=>'textTitle',
+            'file'=>'txtFile',
+            'url_key'=>'txtUrlKey',
+            'description'=>'txtDescription',
+            'short_description'=>'txtShortDescription',
+            'status'=>'chkStatus',
+            'event_type_id'=>'txtEventTypeId',
+            'event_css_class_id'=>'txtEventCssClassId',
+            'event_start_unix_milliseconds'=>'txtEventDateStartInMilliseconds',
+            'event_end_unix_milliseconds'=>'txtEventDateEndInMilliseconds');
 	}
 	
 	function GetSqlCondition(&$dataSearch)
@@ -22,6 +34,10 @@ class EventsModel extends AbstractModel
 		if (isset($dataSearch->search) && $dataSearch->search != '') {
 			$cond = " WHERE name LIKE '%{$dataSearch->search}%'";
 		}
+
+        if (isset($dataSearch->eventType) && $dataSearch->eventType != '') {
+            $cond = " WHERE et.name LIKE '%{$dataSearch->eventType}%'";
+        }
 		
 		return $cond;
 	}
@@ -29,11 +45,13 @@ class EventsModel extends AbstractModel
 	function GetRecordsList($dataSearch, $orderBy)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
-		$sql = "SELECT id,parent_id,name
-				FROM {$this->table}	{$cond}";
-		
-		if ($orderBy != null)
-			$sql .= ' ORDER BY '.$orderBy;
+		$sql = "SELECT e.*, et.name as event_type, ec.name as event_css_class, ec.color_hex_code 
+                FROM {$this->table} e 
+                LEFT JOIN $this->tableEventTypes et ON e.event_type_id=et.id 
+                LEFT JOIN $this->tableEventCssClasses ec ON e.event_css_class_id = ec.id 
+                {$cond}";
+
+        $sql .= ($orderBy != null) ? ' ORDER BY '.$orderBy : ' ORDER BY e.event_start_unix_milliseconds';
 		
 		return $this->dbo->GetRows($sql);
 	}
@@ -49,7 +67,7 @@ class EventsModel extends AbstractModel
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
 		$orderBy = ' ORDER BY name';
-		$sql = "SELECT id, parent_id, name FROM {$this->table}	{$cond} {$orderBy}";
+		$sql = "SELECT * FROM {$this->table}	{$cond} {$orderBy}";
 		
 		return $this->dbo->GetRows($sql);
 	}
@@ -63,15 +81,39 @@ class EventsModel extends AbstractModel
 		return $this->dbo->GetRows($sql);
 	}
 
-	function GetCategoriesByIds($categoriesIds)
+	function GetEventsByIds($eventsIds)
 	{
-		$sql = "SELECT * FROM {$this->table} c WHERE  c.id IN ({$categoriesIds})";
+		$sql = "SELECT * FROM {$this->table} e WHERE  e.id IN ({$eventsIds})";
 		return $this->dbo->GetRows($sql);
 	}
 
-	function GetProductsByIds($productsIds)
+    function GetEventById($eventId)
+    {
+        $sql = "SELECT id FROM {$this->table} e WHERE e.id = {$eventId}";
+
+        return $this->dbo->GetFirstRow($sql);
+    }
+
+    function DeleteEventsById($ids)
+    {
+        $this->DeleteSelectedRecords($ids);
+    }
+
+    function DeleteEventById($id)
+    {
+        $this->DeleteRecord($id);
+    }
+
+    function GetEventsTypes($dataSearch=null)
+    {
+        $cond = $this->GetSqlCondition($dataSearch);
+        $sql = "SELECT * FROM {$this->tableEventTypes} et {$cond}";
+        return $this->dbo->GetRows($sql);
+    }
+
+    function GetEventsCssClassesByIds($eventsCssClassesIds)
 	{
-		$sql = "SELECT * FROM {$this->tableProducts} p WHERE  p.id IN ({$productsIds})";
+		$sql = "SELECT * FROM {$this->tableEventCssClasses} ec WHERE  ec.id IN ({$eventsCssClassesIds})";
 		return $this->dbo->GetRows($sql);
 	}	
 	
@@ -92,8 +134,8 @@ class EventsModel extends AbstractModel
 	function BeforeSaveData(&$data, &$row)
 	{
 		//echo'<pre>';print_r($data);echo'</pre>';die; 
-		$row->status = isset($data->chkStatus)? 1: 0;
-		$row->display_separate_status = isset($data->chkDisplaySeparateStatus)? 1: 0;
+		//$row->status = isset($data->chkStatus)? 1: 0;
+		//$row->display_separate_status = isset($data->chkDisplaySeparateStatus)? 1: 0;
 	}
 	
 	function UpdateFileName($id, $fileName)
@@ -110,5 +152,18 @@ class EventsModel extends AbstractModel
 	{
 		return $this->dbo->InsertRow($this->table, array('name'=>$name, 'url_key'=>$urlKey));
 	}
+    // make additional changes before inserting the data
+    function BeforeInsertData(&$data)
+    {
+        //echo '<pre>'; print_r($data);die();
+        if(intval($data['id']) == 0){
+            $data['event_type_id'] = 1; // if id == 0 means that new event is created from local source event_type_id = 1
+        }
+    }
+
+    function BeforeUpdateData(&$data)
+    {
+       //
+    }
 }
 ?>

@@ -1,22 +1,55 @@
 <% _.each(events, function(event){ %>
 <div class="cal-row-fluid">
-	<div title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
-		 data-toggle="popover"
-		 data-content="<%=event.description %>"
+	<div title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %>
+				<%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> -
+				<%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] +
+				' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
 		 class="calendar-event cal-cell<%= event.days%> cal-offset<%= event.start_day %> day-highlight dh-<%= event['class'] %>"
 		 data-event-class="<%= event['class'] %>">
 		<% if (event.url) { %>
 			<a href="<%= event.url %>"
 			   data-event-id="<%= event.id %>"
+			   data-event-status="<%= event.status %>"
+			   data-event-type="<%= event.event_type %>"
+			   data-event-type-id="<%= event.event_type_id %>"
+			   data-external-event-id="<%= event.external_event_id %>"
+			   data-event-class="<%= event['class'] %>"
+			   data-description="<%= event.description %>"
+			   data-short-description="<%= event.short_description %>"
+			   data-event-css-class="<%= event.class %>"
+			   data-date-start="<%= event.start %>"
+			   data-date-end="<%= event.end %>"
+			   data-toggle="modal"
+			   data-target="#eventsModal"
+			   title="<%= event.title %>"
 			   class="cal-event-week event<%= event.id %>">
-				<div class="cal-hours" ><%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> <%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %> </div>
+				<div class="cal-hours" >
+					<%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %>
+					<%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %>
+				</div>
 				<%= event.title %>
 			</a>
 		<% } else {%>
 			<a role="button"
 			   data-event-id="<%= event.id %>"
+			   data-event-status="<%= event.status %>"
+			   data-event-type="<%= event.event_type %>"
+			   data-event-type-id="<%= event.event_type_id %>"
+			   data-external-event-id="<%= event.external_event_id %>"
+			   data-event-class="<%= event['class'] %>"
+			   data-description="<%= event.description %>"
+			   data-short-description="<%= event.short_description %>"
+			   data-event-css-class="<%= event.class %>"
+			   data-date-start="<%= event.start %>"
+			   data-date-end="<%= event.end %>"
+			   data-toggle="modal"
+			   data-target="#eventsModal"
+			   title="<%= event.title %>"
 			   class="cal-event-week event<%= event.id %>">
-				<div class="cal-hours" ><%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> <%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %> </div>
+				<div class="cal-hours" >
+					<%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %>
+					<%= (event.start_hour !='NaN:NaN' && event.end_hour !='NaN:NaN') ? '- '+event.end_hour : '' %>
+				</div>
 				<%= event.title %>
 			</a>
 		<%} %>

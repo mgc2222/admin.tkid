@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2018 at 04:08 AM
+-- Generation Time: Dec 26, 2018 at 05:38 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -40,7 +40,7 @@ CREATE TABLE `events` (
   `event_id` tinyint(10) DEFAULT NULL,
   `event_css_class_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `event_start_unix_milliseconds` int(10) UNSIGNED NOT NULL,
-  `event_end_unix_miliseconds` int(10) UNSIGNED DEFAULT NULL
+  `event_end_unix_milliseconds` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -52,14 +52,14 @@ CREATE TABLE `events` (
 CREATE TABLE `event_css_classes` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `color_code` varchar(10) NOT NULL
+  `color_hex_code` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `event_css_classes`
 --
 
-INSERT INTO `event_css_classes` (`id`, `name`, `color_code`) VALUES
+INSERT INTO `event_css_classes` (`id`, `name`, `color_hex_code`) VALUES
 (1, 'day-highlight dh-event-important', '#fae3e3'),
 (2, 'day-highlight dh-event-success', '#caffca'),
 (3, 'day-highlight dh-event-warning', '#fdf1ba'),

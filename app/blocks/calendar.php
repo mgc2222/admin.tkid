@@ -3,10 +3,9 @@
     <div class="">
         <div class="page-header" id="calendar-page-header">
             <div class="grid_buttons pull-left">
-                <a role="button" data-toggle="modal" data-target="#new-events-modal" class="calendar-new-event-toggle-modal">
+                <a role="button" data-toggle="modal" data-target="#eventsModal" class="">
                     <span class="btn btn-success"><i class="fa fa-fw fa-edit"></i> <?php echo $trans['events.new_item']?></span>
                 </a>
-                <?php echo HtmlControls::GenerateDeleteSelected($trans['events.delete_selected_items']);?>
             </div>
             <div class="pull-right form-inline text-center">
                 <div class="btn-group">
@@ -25,10 +24,10 @@
             <div class="text-center hidden"><small>To see example with events navigate to march 2013</small></div>
         </div>
         <div class="">
-            <div class="col-md-12" style="padding: 0">
+            <div class="" style="padding: 0">
                 <div id="calendar"></div>
             </div>
-            <div class="col-md-12">
+            <div class="">
                 <div class="row-fluid hidden">
                     <select id="first_day" class="span12">
                         <option value="" selected="selected">First day of week language-dependant</option>
@@ -75,7 +74,21 @@
                     </label>
                 </div>
 
-                <h4>Events <small>This list is populated with events dynamically</small></h4>
+                <h4>Evenimente <small>Aceasta lista de mai jos contine toate evenimentele</small></h4>
+                <h6>
+                    <a href="javascript:;" id="deleteEventsButton" style="display:inline-block;margin-right:20px">
+                        <span class="btn btn-danger"
+                        <i class="fa fa-fw fa-trash-o"></i> <?php echo $trans['events.delete_selected_items'];?>
+                        </span>
+                    </a>
+                    <span style="font-size:larger">Selecteaza toate evenimentele</span>
+                    <span>
+                        <input style="display:inline-table;width:20px;height:20px;vertical-align:top"
+                               class="form-control form-inline" type="checkbox" id="chkAll" name="chkAll" value="1"
+                               onclick="htmlCtl.ToggleCheckboxes('chkAll','multi_checkbox');"
+                        />
+                    </span>
+                </h6>
 
                 <ul id="eventlist" class="nav nav-list"></ul>
             </div>
@@ -84,7 +97,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="modal fade" tabindex="-1" role="dialog"  id="edit-events-modal">
+    <div class="modal fade" tabindex="-1" role="dialog"  id="eventsModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,100 +108,51 @@
                     </div>
                     <h4 class="modal-title form-inline" style="width:100%;display:table;">
                         <div style="width:25%;display: table-cell;">
-                            <label><?php echo $trans['modal.title_label'] ?></label>
+                            <label><?php echo $trans['modal.event_title_label'] ?></label>
                         </div>
                         <div style="width:100%;display: table-cell;">
-                            <input type="text" style="width:100%" class="form-control" id="event-title" name="event-title" value=""/>
+                            <input type="text" style="width:100%" class="form-control" id="eventTitle" name="eventTitle" value=""/>
                         </div>
 
                     </h4>
                 </div>
                 <div class="modal-body" style="width:100%;display:table;">
                     <div class="" style="width:25%;display: table-cell;vertical-align: top;">
-                        <label class="form-inline"><?php echo $trans['modal.start_date_label']?></label>
-                        <input type="text" name="editEventDateStart" class="form-control event-date-start" value="" />
-                        <label class="form-inline"><?php echo $trans['modal.end_date_label'] ?></label>
-                        <input type="text" name="editEventDateEnd"  class="form-control event-date-end"  value="" />
+                        <label class="form-inline"><?php echo $trans['modal.event_start_date_label']?></label>
+                        <input type="text" name="eventDateStart" class="form-control event-date-start" id="eventDateStart" value="" />
+                        <input type="hidden" name="eventDateStartInMilliseconds" class="event-date-start-in-milliseconds" id="eventDateStartInMilliseconds" value="" />
+                        <input type="hidden" name="eventId" id="eventId" value="" />
+                        <label class="form-inline"><?php echo $trans['modal.event_end_date_label'] ?></label>
+                        <input type="text" name="eventDateEnd"  class="form-control event-date-end"  value="" />
+                        <input type="hidden" name="eventDateEndInMilliseconds" class="event-date-end-in-milliseconds" id="eventDateEndInMilliseconds" value="" />
                         <label for="sel1">Select list (select one):</label>
-                        <select class="form-control event-css-classes" id="select-edit-events" name="eventsCssClasses[]">
-                            <option></option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-warning">event-warning</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-success">event-success</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-important">event-important</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-info">event-info</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-special">event-special</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-inverse">event-inverse</option>
+                        <select class="form-control event-css-classes" id="selectEventsCssClasses" name="selectEventsCssClasses">
+
+                            <option data-event-color-id ="" data-event-color-class="event-warning" value="1">event-warning</option>
+                            <option data-event-color-id ="" data-event-color-class="event-success" value="2">event-success</option>
+                            <option data-event-color-id ="" data-event-color-class="event-important" value="3">event-important</option>
+                            <option data-event-color-id ="" data-event-color-class="event-info" value="4">event-info</option>
+                            <option data-event-color-id ="" data-event-color-class="event-special" value="5">event-special</option>
+                            <option data-event-color-id ="" data-event-color-class="event-inverse" value="6">event-inverse</option>
                         </select>
+                        <label class="form-inline"><?php echo $trans['modal.event_status.is_active']?></label>
+                        <input style="display:inline-block;width:20px;height:20px;" type="checkbox" name="eventIsActive" id="eventIsActive" class="form-control form-inline" value="1" />
                     </div>
                     <div style="display:table-cell">
                         <label><?php echo $trans['modal.event_description_label']?></label>
-                        <textarea name="event-description" class="form-control event-description" style="width:100%;min-height:400px;">
+                        <textarea name="eventDescription" id="eventDescription" class="form-control event-description" style="width:100%;min-height:400px;">
 
                         </textarea>
                         <label><?php echo $trans['modal.event_short_description_label']?></label>
-                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:100px;">
+                        <textarea name="eventShortDescription" id="eventShortDescription" class="form-control event-short-description" style="width:100%;min-height:100px;">
 
                         </textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" id="deleteEventButton" data-dismiss="modal">Delete Event</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" tabindex="-1" role="dialog"  id="new-events-modal">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div style="height:20px">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <h4 class="modal-title form-inline" style="width:100%;display:table;">
-                        <div style="width:25%;display: table-cell;">
-                            <label><?php echo $trans['modal.title_label'] ?></label>
-                        </div>
-                        <div style="width:100%;display: table-cell;">
-                            <input type="text" style="width:100%" class="form-control" id="new-event-title" name="event-title" value=""/>
-                        </div>
-
-                    </h4>
-                </div>
-                <div class="modal-body" style="width:100%;display:table;">
-                    <div class="" style="width:25%;display: table-cell;vertical-align: top;">
-                        <label class="form-inline"><?php echo $trans['modal.start_date_label'] ?></label>
-                        <input type="text" name="newEventDateStart" class="form-control event-date-start" value="" />
-                        <label class="form-inline"><?php echo $trans['modal.end_date_label'] ?></label>
-                        <input type="text" name="newEventDateEnd"  class="form-control event-date-end"  value="" />
-                        <label for="sel1">Select list (select one):</label>
-                        <select class="form-control event-css-classes" id="select-new-events" name="eventsCssClasses[]">
-                            <option></option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-warning">event-warning</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-success">event-success</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-important">event-important</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-info">event-info</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-special">event-special</option>
-                            <option data-event-color-id ="" data-event-color-class="day-highlight dh-event-inverse">event-inverse</option>
-                        </select>
-                    </div>
-                    <div style="display:table-cell">
-                        <label><?php echo $trans['modal.event_description_label']?></label>
-                        <textarea name="event-description" class="form-control event-description" style="width:100%;min-height:400px;">
-
-                        </textarea>
-                        <label><?php echo $trans['modal.event_short_description_label']?></label>
-                        <textarea name="event-short-description" class="form-control event-short-description" style="width:100%;min-height:100px;">
-
-                        </textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="saveEventButton" data-dismiss="modal">Save changes</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

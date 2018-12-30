@@ -19,9 +19,12 @@
 			$.each(events, function(key, val) {
 				//debugger;
 				$(document.createElement('li'))
-					.html('<a ' +
+					.html('<span style="display:block;padding-right:20px">' +
+						'<input style="display:inline-table;width:20px;height:20px;margin-right:5px;vertical-align:top" ' +
+						'type="checkbox" name="multipleIds[]" value="'+val.id+'" class="form-control form-inline multi_checkbox" />'+
+						'<a style="line-height: 30px;display: inline-block;font-size:larger" ' +
 						'data-toggle="modal" ' +
-						'data-target="#new-events-modal" ' +
+						'data-target="#eventsModal" ' +
 						'data-description="'+val.description+'" ' +
 						'data-short-description="'+((val.short_description) ? val.short_description : "")+'" ' +
 						'data-event-css-class="'+((val.class) ? val.class : "")+'" ' +
@@ -29,11 +32,15 @@
 						'data-date-start="'+val.start+'" ' +
 						'data-date-end="'+val.end+'" ' +
 						'data-event-id="'+val.id+'" ' +
+						'data-event-status="'+val.status+'" ' +
+						'data-event-type="'+ val.event_type + '" '+
+               		 	'data-event-type-id="'+val.event_type_id +'" '+
+                		'data-external-event-id="'+ val.external_event_id +'" '+
 						'class="calendar-event" ' +
 						//'href="' + val.url +
 						'>' +
-							val.title +
-						'</a>')
+						(key+1)+'. '+val.title +
+						'</a></span>')
 					.appendTo(list);
 			});
 		},
@@ -47,11 +54,11 @@
 				general: 'label'
 			}
 		},
-		modal:"#edit-events-modal",
+		/*modal:"#edit-events-modal",
 		modal_type:"template",
 		modal_title: function(obj){
 			return (obj.hasOwnProperty('title')) ? obj.title : 'Event';
-		}
+		}*/
 	};
 
 	var calendar = $('#calendar').calendar(options);
@@ -105,4 +112,26 @@
 		//e.preventDefault();
 		//e.stopPropagation();
 	});
+    $('#saveEventButton').on('click', function(){
+        //debugger;
+        objEvents.saveEvent();
+        //calendar.view(calendar.options.view);
+    });
+    $('#deleteEventsButton').on('click', function(){
+        //debugger;
+        objEvents.deleteEvents();
+        //debugger;
+        calendar.view(calendar.options.view);
+    });
+    $('#deleteEventButton').on('click', function(){
+        //debugger;
+        objEvents.deleteEvent();
+        //debugger;
+        //calendar.view(calendar.options.view);
+    });
+    $('#eventsModal').on('hide.bs.modal', function (e) {
+    	//debugger;
+        calendar.view(calendar.options.view);
+	});
+
 }(jQuery));

@@ -150,7 +150,7 @@ if(!String.prototype.formatNum) {
 		},
         onBeforeModalShow: function(event, modal){
             // Inside this function 'this' is the calendar instance
-            objEvents.initEditEventModal(event, modal);
+            //objEvents.initEditEventModal(event, modal);
 		},
 		onAfterModalShown: function(event, modal) {
 			// Inside this function 'this' is the calendar instance
@@ -977,8 +977,10 @@ if(!String.prototype.formatNum) {
 						}
 						$.ajax({
 							url: buildEventsUrl(source, params),
+                            data:JSON.stringify({ ajaxAction: 'GetEvents' }),
 							dataType: 'json',
-							type: 'GET',
+                            contentType: "application/json; charset=utf-8",
+							type: 'POST',
 							async: false,
 							headers: self.options.headers,
 						}).done(function(json) {
@@ -1063,11 +1065,10 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._update_modal = function() {
 		var self = this;
 
-		$('a[data-event-id]', this.context).unbind('click touchstart');
-
 		if(!self.options.modal) {
 			return;
 		}
+        $('a[data-event-id]', this.context).unbind('click touchstart');
 
 		var modal = $(self.options.modal);
 
@@ -1129,7 +1130,7 @@ if(!String.prototype.formatNum) {
 
 						//	set the title of the bootstrap modal
 						if(_.isFunction(self.options.modal_title)) {
-							modal.find("#event-title").attr('value',self.options.modal_title(event));
+							modal.find("#eventTitle").attr('value',self.options.modal_title(event));
 						};
 
 					})
@@ -1159,7 +1160,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._update_month = function() {
-		this._update_month_year();
+		//this._update_month_year();
 
 		var self = this;
 
@@ -1230,14 +1231,14 @@ if(!String.prototype.formatNum) {
 			});
 
 		var slider = $(document.createElement('div')).attr('id', 'cal-slide-box');
-        slider.popover({ placement: 'top', container: 'body', selector: '[data-toggle="popover"]'});
-		slider.hide().on('click touchstart',function(event) {
-			/*if(!event.target.classList.contains('calendar-event')){
+        //slider.popover({ placement: 'top', container: 'body', selector: '[data-toggle="popover"]'});
+		/*slider.hide().on('click touchstart',function(event) {
+			if(!event.target.classList.contains('calendar-event')){
                 $('[data-toggle="popover"]').popover('destroy');
                 $('.popover').remove();
-			}*/
+			}
 			event.stopPropagation();
-		});
+		});*/
 
 		this._loadTemplate('events-list');
 
@@ -1285,7 +1286,7 @@ if(!String.prototype.formatNum) {
 			self.activecell = $('[data-cal-date]', cell).text();
 			$('#cal-slide-tick').addClass('tick' + tick_position).show();
 			slider.slideDown('fast', function() {
-				$('body').one('click touchstart', function() {
+				$('body').one('click touchstart', function(e) {
 					slider.slideUp('fast');
 					self.activecell = 0;
 				});
@@ -1293,7 +1294,7 @@ if(!String.prototype.formatNum) {
 		});
 
 		// Wait 400ms before updating the modal & attach the mouseenter&mouseleave(400ms is the time for the slider to fade out and slide up)
-		setTimeout(function() {
+		/*setTimeout(function() {
 			$('a.event-item').mouseenter(function() {
 				$('a[data-event-id="' + $(this).data('event-id') + '"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));
 			});
@@ -1301,7 +1302,7 @@ if(!String.prototype.formatNum) {
 				$('div.cal-cell1').removeClass('day-highlight dh-' + $(this).data('event-class'));
 			});
 			self._update_modal();
-		}, 400);
+		}, 400);*/
 	}
 
 	function getEasterDate(year, offsetDays) {

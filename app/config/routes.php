@@ -66,17 +66,17 @@
 	$routes['render_app_image/{data:.+}'] = 'pictures/render_app_image/RenderImage/$1';
 	$routes['render_product_image/{data:.+}'] = 'pictures/render_product_image/RenderImage/$1';
 
-    $routes['tmpls/month.html'] = 'events/calendar/GetMonthTemplate';
-    $routes['tmpls/day.html'] = 'events/calendar/GetDayTemplate';
-    $routes['tmpls/month-day.html'] = 'events/calendar/GetMonthDayTemplate';
-    $routes['tmpls/modal.html'] = 'events/calendar/GetModalTemplate';
-    $routes['tmpls/modal-title.html'] = 'events/calendar/GetModalTitleTemplate';
-    $routes['tmpls/week.html'] = 'events/calendar/GetWeekTemplate';
-    $routes['tmpls/week-days.html'] = 'events/calendar/GetWeekDaysTemplate';
-    $routes['tmpls/year.html'] = 'events/calendar/GetYearTemplate';
-    $routes['tmpls/year-month.html'] = 'events/calendar/GetYearMonthTemplate';
-    $routes['tmpls/events-list.html'] = 'events/calendar/GetEventsListTemplate';
-    $routes['events'] = 'events/calendar/GetJsonData';
+    $routes['tmpls/month.html'] = 'events/events/GetMonthTemplate';
+    $routes['tmpls/day.html'] = 'events/events/GetDayTemplate';
+    $routes['tmpls/month-day.html'] = 'events/events/GetMonthDayTemplate';
+    $routes['tmpls/modal.html'] = 'events/events/GetModalTemplate';
+    $routes['tmpls/modal-title.html'] = 'events/events/GetModalTitleTemplate';
+    $routes['tmpls/week.html'] = 'events/events/GetWeekTemplate';
+    $routes['tmpls/week-days.html'] = 'events/events/GetWeekDaysTemplate';
+    $routes['tmpls/year.html'] = 'events/events/GetYearTemplate';
+    $routes['tmpls/year-month.html'] = 'events/events/GetYearMonthTemplate';
+    $routes['tmpls/events-list.html'] = 'events/events/GetEventsListTemplate';
+    $routes['events'] = 'events/events/HandleAjaxRequest';
 
     $routes['events_calendar'] = 'events/events/GetViewData';
     $routes['events_calendar/edit[/{id:\d+}]'] = 'events/events/GetEditData/$1';

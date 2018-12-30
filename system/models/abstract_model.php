@@ -211,6 +211,18 @@ class AbstractModel
 	{
 		// implement in each extended model
 	}
+
+    // make additional changes before inserting the data
+    protected function BeforeInsertData(&$data)
+    {
+        // implement in each extended model
+    }
+
+    // make additional changes before updating the data
+    protected function BeforeUpdateData(&$data)
+    {
+        // implement in each extended model
+    }
 	
 	public function SaveObjectData($row, $tableName, $primaryKey = null, $primaryKeyValue = 0)
 	{
@@ -225,7 +237,7 @@ class AbstractModel
 	public function SaveData(&$data, $makeSafeValues = true, $stripTags = false, $verifyExists = false)
 	{
 		$editId = $data[$this->primaryKey];
-		unset($data[$this->primaryKey]);
+		//unset($data[$this->primaryKey]);
 		
 		if ($makeSafeValues)
 			$this->MakeSafeData($data, $stripTags);
@@ -236,10 +248,12 @@ class AbstractModel
 		
 		if ($editId == 0)
 		{
+		    $this->BeforeInsertData($data);
 			return $this->dbo->InsertRow($this->table, $data);
 		}
 		else
 		{
+            $this->BeforeUpdateData($data);
 			$this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
 			return $editId;
 		}

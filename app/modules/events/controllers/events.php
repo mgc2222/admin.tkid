@@ -2,42 +2,65 @@
 class Events extends AdminController
 {
 	var $eventsModel;
-	var $productsCategoriesModel;
 	function __construct()
 	{
 		parent::__construct();
 		$this->module = 'events';
 		$this->pageId = 'events';
 		$this->translationPrefix = 'events';
-		
+        $this->verifiedTableField = 'id';
+		$this->events = '';
+
 		$this->Auth();
 		$this->eventsModel = $this->LoadModel('events');
-		$this->productsCategoriesModel = $this->LoadModel('events');
-		
-		$basePath = $this->GetBasePath();
-		//$this->IncludeClasses(array($eventsMapPath, $productCategoriesMapPath));
 
+		$basePath = $this->GetBasePath();
 	}
 
-	// ================= Categories Lists - BEGIN =================== //
+	// ================= Events - BEGIN =================== //
 	
 	function HandleAjaxRequest()
 	{
 		$data = $this->GetAjaxJson();
-		if ($data == null) 
+
+		if ($data == null)
 			return;
+        //print_r($data);die();
 		$ajaxAction = $data['ajaxAction'];
 		unset($data['ajaxAction']);
 
 		$response = null;
 		switch ($ajaxAction)
 		{
-			case 'VerifyCategory': 
-				$response = $this->VerifyCategory($data);
+			case 'VerifyEvents':
+				$response = $this->VerifyEvents($data);
 			break;
-			case 'change_order': $this->CheckSortableAction(); break;
+            case 'GetEvents':
+                $response = $this->GetJsonData();
+			break;
+			case 'SaveEvent':
+				$id = $this->eventsModel->SaveData($data['formValues'], true, false, true);
+                $response = ($id) ? $this->GetDefaultResponse($id, 1) : $this->GetDefaultResponse('error', 0);
+				//echo'<pre>';print_r($id);die();
+			break;
+            case 'DeleteEvents':
+                //echo'<pre>';print_r($data);die();
+                if(is_array($data['formValues']['id'])){
+                	$ids = implode(',', $data['formValues']['id']);
+                    $this->eventsModel->DeleteEventsById($ids);
+				}
+				else{
+                    $this->eventsModel->DeleteEventById($data['formValues']['id']);
+				}
+                $response = $this->GetDefaultResponse('', 1);
+			break;
+            case 'DeleteEvent':
+                //echo'<pre>';print_r($data);die();
+                $this->eventsModel->DeleteEventById($data['formValues']['id']);
+                $response = $this->GetDefaultResponse('', 1);
+			break;
 		}
-		
+        //print_r($response);die();
 		if ($response != null)
 		{
 			$this->WriteResponse($response);
@@ -59,59 +82,6 @@ class Events extends AdminController
 		return $response;
 	}
 	
-	function CheckSortableAction()
-	{
-		$basePath = $this->GetBasePath();
-		$sortTableCategoriesPath = $basePath._APPLICATION_FOLDER.'lib/sort_table/sort_table_events.php';
-		$sortTablePath = $basePath.'system/lib/grid/sort_table.php';
-		$sortTable = $this->LoadClass($sortTableCategoriesPath, 'SortTableCategories', array($sortTablePath));
-		
-		if (!$sortTable->GetAjaxParams()) {
-			return;
-		}
-		
-		$dataSearch = null;
-		$sortTable->itemsCount = $this->eventsModel->GetRecordsListCount($dataSearch);
-		$rowsIds = $this->eventsModel->GetRecordsIds($dataSearch);
-		$rows = $sortTable->GetRowsForOrder($rowsIds, 'id');
-		$data = $sortTable->PerformSort('events','id','order_index', $rows);
-
-		if ($data->isAjaxCall)
-		{
-			if ($data->status == 'error' || !$data->refresh )
-			{
-				echo json_encode($data);
-				exit();
-			}
-			else if ($data->refresh)
-			{
-				// variables for include file
-				$categoryId = isset($_GET['id'])?(int)$_GET['id']:0;
-				$dataView = new stdClass();
-				$webpage = new stdClass();
-				
-				$eventsMap = ProductCategoriesMap::GetInstance();
-				$eventsMap->MapCategories();
-		
-				// $dataView->rows = $this->eventsModel->GetCategoriesListTree($categoryId);
-				$this->webpage->PageDefaultUrl = 'events';
-				$dataView->rows = $eventsMap->GetTreeList($categoryId);
-				$this->FormatRows($dataView->rows);
-				
-				ob_start();
-				
-				$trans = $this->trans;
-				include($this->GetBlockPath('events_block'));
-				$data->content = ob_get_contents();
-				ob_end_clean();
-				
-				$data->content = base64_encode($data->content);
-				echo stripslashes(json_encode($data));
-				exit();
-			}
-		}
-	}
-	
 	function GetViewData($query = '')
 	{
 		$this->HandleAjaxRequest();
@@ -122,7 +92,7 @@ class Events extends AdminController
 		}
 				
 		array_push($this->webpage->StyleSheets,
-			'jquery/jquery-ui.css',
+			//'jquery/jquery-ui.css',
 			//'bootstrap/bootstrap3.3.7.min.css',
 			'toastr/toastr.min.css',
             'bootstrapcalendar/css/calendar.css',
@@ -131,8 +101,8 @@ class Events extends AdminController
             'select2/select2.min.css'
 			);
 		array_push($this->webpage->ScriptsFooter,
-			'lib/jquery/jquery-ui.min.js',
-			//'lib/toastr/toastr.min.js',
+			//'lib/jquery/jquery-ui.min.js',
+			'lib/toastr/toastr.min.js',
 			//'lib/base64/jquery.base64.js',
 			//'lib/wrappers/sortable/sortable_init.js',
 			//'lib/bootstrap/bootstrap3.3.7.min.js',
@@ -150,40 +120,48 @@ class Events extends AdminController
 			_JS_APPLICATION_FOLDER.$this->module.'/events.js'
 			);
 		parent::SetWebpageData($this->pageId, 'events');
-		
-		
+
 		$form = new Form();
 		$formData = $form->data;
 		$this->ProcessFormAction($formData);
 		
 		// $dataSort = $this->GetSortData();
-		
-		$data = new stdClass();
+
+		//$data = new stdClass();
 		// $limit = $this->GetPagingCode($data, $recordsCount);
-		//$data->rows = $this->GetViewList($dataSearch, 'order_index', $data);
-		$data->rows = '';
-		//$data->rowsCount = count($data->rows);
-		$data->categoryId = (int)$this->GetVar('id', 0);
-		//$data->eventsBlock = $this->GetBlockPath('events_block');
-				
-		return $data;
+
+		//return $data;
 	}
-	
-	/*function GetViewList(&$dataSearch, $orderBy, &$data)
-	{
-		$eventsMap = ProductCategoriesMap::GetInstance();
-		$eventsMap->MapCategories();
-		// $limit = $this->GetPagingCode($data, $recordsCount);
-		// return $this->eventsModel->GetRecordsList($dataSearch, $orderBy, $limit);
-		$rows = $eventsMap->GetTreeList($dataSearch->parentId);
-		if ($rows != null) {
-			//echo'<pre>';print_r($rows);echo'</pre>';die;
-			$this->FormatRows($rows);
-			//echo'<pre>';print_r($rows);echo'</pre>';die;
+
+	function GetEvents($dataSearch=null, $orderby=null){
+        $data = new stdClass();
+        $data->rows = $this->eventsModel->GetRecordsList($dataSearch, $orderby);
+        return $data;
+	}
+
+	function FormatEvents($rows){
+        if ($rows == null) {
+            return;
+        }
+        $ret = [];
+        $ret['success'] = 1;
+        //print_r($events);die();
+        foreach ($rows as $key => $row){
+        	$ret['result'][$key]['id'] = $row->id;
+        	$ret['result'][$key]['title'] = $row->title;
+        	$ret['result'][$key]['class'] = $row->event_css_class;
+        	$ret['result'][$key]['start'] = $row->event_start_unix_milliseconds;
+        	$ret['result'][$key]['end'] = $row->event_end_unix_milliseconds;
+        	$ret['result'][$key]['status'] = $row->status;
+        	$ret['result'][$key]['description'] = $row->description;
+        	$ret['result'][$key]['short_description'] = $row->short_description;
+        	$ret['result'][$key]['event_type'] = $row->event_type;
+        	$ret['result'][$key]['event_type_id'] = $row->event_type_id;
+        	$ret['result'][$key]['external_event_id'] = $row->external_event_id;
 		}
-		return $rows;
+		return $ret;
 	}
-	*/
+
 	function GetSearchData()
 	{
 		$objSearchFormObjects = new SearchFormObjects();
@@ -192,15 +170,7 @@ class Events extends AdminController
 		$objSearchFormObjects->SetQueryData($dataSearch);
 		return $dataSearch;
 	}
-	
-	function GetSortData()
-	{
-		$sortGrid = $this->LoadClass('../lib/admin/sort_grid_admin.php', 'SortGridAdmin', array('../lib/grid/sort_grid.php'));
-		$dataSort = $sortGrid->AddSort($_GET, 'events', 'name', 'sc');
-		return $dataSort;
-	}
-	
-	
+
 	function GetPagingCode(&$data, $recordsCount)
 	{
 		$objPaging = new Paging();
@@ -215,118 +185,7 @@ class Events extends AdminController
 		
 		return $objPaging->limit;
 	}
-	
-	function FormatRows(&$rows)
-	{
-		$this->webpage->PageDefaultUrl = $this->webpage->PageUrl;
-		foreach ($rows as &$row)
-		{
-			if ($row->DirectChildrenCount > 0) 
-			{
-				$row->DisplayName = '<a href="'.$this->webpage->PageDefaultUrl.'/parentId='.$row->id.'">'.$row->name.'</a>';
-				$row->DisplayName .= ($row->DirectChildrenCount == 1) 
-									? 
-									'('.sprintf($this->trans['events.subcategory_count'], $row->DirectChildrenCount).')'
-									:
-									'('.sprintf($this->trans['events.subevents_count'], $row->DirectChildrenCount).')';
-			}
-			else{
-				$row->DisplayName = $row->name;
-				$row->DisplayName .= ($row->ArticlesCount == 1) 
-								?
-								' ('.sprintf($this->trans['events.item_count'], $row->ArticlesCount).')'
-								: 
-								' ('.sprintf($this->trans['events.items_count'], $row->ArticlesCount).')';
-			}
-		}
-	}
-	// ================= Categories Lists - END =================== //
 
-	
-	// ================= Category Edit - BEGIN =================== //
-	
-	function GetEditData($editId = 0)
-	{
-		array_push($this->webpage->StyleSheets,
-			'toastr/toastr.min.css',
-			'daterangepicker/daterangepicker.css'
-		);
-		array_push($this->webpage->ScriptsFooter,
-            'lib/jquery/jquery-ui.min.js',
-
-			'lib/validator/jquery.validate.min.js',
-			'lib/wrappers/validator/validator.js',
-			'lib/toastr/toastr.min.js',
-            'lib/moment/moment.min.js',
-			'lib/daterangepicker/daterangepicker.min.js',
-			'lib/tinymce/tinymce.min.js',
-			'lib/wrappers/tinymce/tinymce.js',
-			_JS_APPLICATION_FOLDER.$this->module.'/events_edit.js'
-
-			);
-		
-		parent::SetWebpageData('events_edit', 'events');
-		
-		$form = new Form('Save');
-		$formData = $form->data;
-		$formData->EditId = $editId;
-		$this->ProcessFormAction($formData);
-		
-		$this->webpage->FormAttributes = 'enctype="multipart/form-data"';
-		$this->webpage->FormHtml .= HtmlControls::GenerateHiddenField('sys_EditId', $editId); // add the hidden edit id
-		
-		if (!$this->eventsModel->GetFormData($formData->EditId, $formData)) {
-			Session::SetFlashMessage($this->trans['events.item_not_exists'], 'warning', $this->webpage->PageReturnUrl);
-		}
-		
-		//echo'<pre>';print_r($formData);echo'</pre>';die;
-		$this->SetPageEditTitle($formData);
-		
-		$parentId = $this->GetVar('pid', 0);
-		if ($parentId != 0)
-			$formData->ddlParentId = $parentId;
-
-		$data = $formData;
-		//$data->eventsList = $this->GetCategoriesForDropDown($formData->EditId, $formData->ddlParentId);
-		$data->txtFile = $this->GetImagePath($data->txtFile);
-		
-		return $data;
-	}
-	
-	
-	function SetPageEditTitle(&$formData)
-	{
-		if ($formData->EditId == 0)
-			$this->webpage->PageHeadTitle = $this->trans['events.new_item'];
-		else
-		{
-			$this->webpage->PageHeadTitle =  $this->trans['events.edit_item'].': '.$formData->txtName;
-			$this->webpage->PageUrl .= '/id='.$formData->EditId;
-			$this->webpage->PageReturnUrl .= '/id='.$formData->ddlParentId;
-
-		}
-	}
-	
-	function GetCategoriesForDropDown($editId, $parentId)
-	{
-		$eventsMap = ProductCategoriesMap::GetInstance();
-		$eventsMap->MapCategories($this->trans['events.main_category']);
-		
-		$events = $eventsMap->GetCategoryTreeRecursive(0, $editId, true);
-		if ($events != null)
-		{
-			foreach ($events as &$row)
-			{
-				if ($row->level != 0)
-					$row->displayName = $row->Indent.'|--'.$row->name;
-				else
-					$row->displayName = $row->name;
-			}
-		}
-		
-		return HtmlControls::GenerateDropDownList($events, 'id', 'displayName', $parentId);
-	}
-	
 	function SaveCategory(&$formData)
 	{
 		$urlKey = $this->eventsModel->GetSafeValue($formData->txtUrlKey);
@@ -361,7 +220,6 @@ class Events extends AdminController
 			$this->webpage->SetMessage($this->trans['general.save_error'], 'error');
 		}
 	}
-	// ================= Category Edit - END =================== //
 
 	function ProcessFormAction(&$formData)
 	{
@@ -371,7 +229,7 @@ class Events extends AdminController
 			//echo'<pre>';print_r($formData);echo'</pre>';die;
 				$id = (int)$formData->Params;
 				$this->eventsModel->DeleteRecord($id);
-				$this->productsCategoriesModel->DeleteCategoryProducts($id);
+				$this->eventsModel->DeleteCategoryProducts($id);
 				$this->eventsModel->DeleteDiskFile('../cache/mainmenu.tmp'); // force refresh menu
 				Session::SetFlashMessage($this->trans['events.delete_success'], 'success', $this->webpage->PageUrl);
 			break;
@@ -381,7 +239,7 @@ class Events extends AdminController
 				if ($selectedRecords != '')
 				{
 					$this->eventsModel->DeleteSelectedRecords($selectedRecords);
-					$this->productsCategoriesModel->DeleteCategoryProducts($selectedRecords);
+					$this->eventsModel->DeleteCategoryProducts($selectedRecords);
 					$this->eventsModel->DeleteDiskFile('../cache/mainmenu.tmp'); // force refresh menu
 					Session::SetFlashMessage($this->trans['events.delete_selected_success'], 'success', $this->webpage->PageUrl);
 				}
@@ -448,5 +306,115 @@ class Events extends AdminController
 	{
 		$formData->txtFile = '';
 	}
+    // ================= Events - END =================== //
+
+    // ================= Calendar - BEGIN =================== //
+
+    function GetJsonData()
+    {
+        $facebookevents = _FACEBOOK_GRAPH_API_PATH._FACEBOOK_PAGE_ID."/events/created/?is_draft=true&since=2018&access_token="._FACEBOOK_USER_ACCESS_TOKEN_NEVER_EXPIRE;
+        $calendarData = json_decode($this->GetContentOutsideDomain($facebookevents), true);
+        //echo'<pre>'; print_r($calendarData);die();
+        //return $this->FormatFacebookJsonResponce($calendarData);
+        $events =  $this->GetEvents('', '');
+        return $this->FormatEvents($events->rows);
+        //$content = file_get_contents('bootstrap_calendar/events.json');
+        //echo $content; die();
+
+    }
+    function FormatFacebookJsonResponce($response){
+        if(!isset($response['data'])) return;
+        $ret = [];
+        $ret['success'] = 0;
+        $cssClasses = array("event-important", "event-info", "event-warning", "event-inverse", "event-success", "event-special");
+        foreach ($response['data'] as $key=>$val){
+            (isset($val['description'])) ? $ret['result'][$key]['description'] = $val['description'] : '';
+            (isset($val['start_time'])) ? $ret['result'][$key]['start'] = $this->GetTimestampInMilliseconds($val['start_time']) : '';
+            (isset($val['end_time'])) ? $ret['result'][$key]['end'] = $this->GetTimestampInMilliseconds($val['end_time']) : '';
+            (isset($val['name'])) ? $ret['result'][$key]['title'] = $val['name'] : '';
+            (isset($val['id'])) ? $ret['result'][$key]['id'] = $val['id'] : '';
+            $ret['result'][$key]['class'] = $cssClasses[array_rand($cssClasses, 1)];
+            $ret['result'][$key]['url'] = '';
+        }
+        (isset($ret['result']))? $ret['success'] = 1 : '';
+        return $ret;
+    }
+    function GetTimestampInMilliseconds($dateString){
+        $date = new DateTime($dateString);
+        //$date = new DateTime(DateTime::createFromFormat('Y-m-d H:i:s', $dateString));
+        //print_r($date);die;
+        return strval($date->format('Uu')/1000);//die;
+        //return strval($date->getTimestamp()*1000);
+    }
+
+    private function GetContentOutsideDomain($URL){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $URL);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return $data;
+    }
+
+    function GetMonthTemplate()
+    {
+        $calendarMonthData = file_get_contents('bootstrap_calendar/tmpls/month.html');
+        //die($calendarMonthData);
+        echo $calendarMonthData; die();
+    }
+
+    function GetDayTemplate()
+    {
+        $calendarDayData = file_get_contents('bootstrap_calendar/tmpls/day.html');
+        //die($calendarDayData);
+        echo $calendarDayData; die();
+    }
+
+    function GetModalTemplate()
+    {
+        $calendarModalData = file_get_contents('bootstrap_calendar/tmpls/modal.html');
+        echo $calendarModalData; die();
+    }
+    function GetModalTitleTemplate()
+    {
+        $calendarModalData = file_get_contents('bootstrap_calendar/tmpls/modal-title.html');
+        echo $calendarModalData; die();
+    }
+
+    function GetMonthDayTemplate()
+    {
+        $calendarMonthDayData = file_get_contents('bootstrap_calendar/tmpls/month-day.html');
+        echo $calendarMonthDayData; die();
+    }
+
+    function GetWeekTemplate()
+    {
+        $calendarWeekData = file_get_contents('bootstrap_calendar/tmpls/week.html');
+        echo $calendarWeekData; die();
+    }
+
+    function GetWeekDaysTemplate()
+    {
+        $calendarWeekDaysData = file_get_contents('bootstrap_calendar/tmpls/week-days.html');
+        echo $calendarWeekDaysData; die();
+    }
+
+    function GetYearTemplate()
+    {
+        $calendarYearData = file_get_contents('bootstrap_calendar/tmpls/year.html');
+        echo $calendarYearData; die();
+    }
+
+    function GetYearMonthTemplate()
+    {
+        $calendarYearMonthData = file_get_contents('bootstrap_calendar/tmpls/year-month.html');
+        echo $calendarYearMonthData; die();
+    }
+
+    function GetEventsListTemplate()
+    {
+        $calendarEventsListData = file_get_contents('bootstrap_calendar/tmpls/events-list.html');
+        echo $calendarEventsListData; die();
+    }
 }
 ?>

@@ -62,7 +62,7 @@ window.calendar_languages['ro_RO'] = {
 
 	holidays: {
 		'01-01':     "Anul Nou",
-		'01-01':     "A DOUA ZI DE ANUL NOU",
+		'02-01':     "A doua zi de Anul Nou",
 		'06-01':     "Botezul Domnului – Boboteaza",
 		'07-01':     "Soborul Sfântului Prooroc Ioan Botezătorul şi Înaintemergătorul Domnului",
 		'24-01':     "Ziua UNIRII PRINCIPATELOR ROMÂNE",
@@ -70,8 +70,8 @@ window.calendar_languages['ro_RO'] = {
 		'08-03':     "Ziua Internaţională a Femeii",
 		'09-03':     "Sfiinţii 40 de Mucenici",
 		'25-03':     "Buna-Vestire",
-		'04-04':     "Floriile",
-		'18-04':     "Vinerea Mare",
+		'easter-7':  "Floriile",
+		'easter-2':  "Vinerea Mare",
 		'easter':    "Paști",
 		'easter+1':  "A doua zi de Paşti",
 		'easter+2':  "A treia zi de Paşti",

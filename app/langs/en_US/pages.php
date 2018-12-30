@@ -488,7 +488,7 @@ $trans['events.delete_selected_items'] = 'Sterge evenimentele selectate';
 $trans['events.item_not_exists'] = 'Evenimentul nu exista';
 $trans['events.description'] = 'Descriere';
 $trans['events.short_description'] = 'Descriere Scurta';
-$trans['events.is_active'] = 'Activa / Inactiva (daca este debifat, nu va fi afisata deloc)';
+$trans['events.is_active'] = 'Activ / Inactiv (daca este debifat, nu va fi afisat in calendar)';
 
 //	===================================================== //
 //		Calendar Buttons
@@ -508,10 +508,12 @@ $trans['calendar.section_title'] = 'Calendar';
 //		Calendar Events Modal
 //	===================================================== //
 
-$trans['modal.title_label'] = 'Event Title: ';
-$trans['modal.start_date_label'] = 'Event Start: ';
-$trans['modal.end_date_label'] = 'Event End: ';
+$trans['modal.event_title_label'] = 'Event Title: ';
+$trans['modal.event_start_date_label'] = 'Event Start: ';
+$trans['modal.event_end_date_label'] = 'Event End: ';
 $trans['modal.event_description_label'] = "Event Description";
 $trans['modal.event_short_description_label'] = "Event Short Description";
+$trans['modal.event_status.is_active'] = 'Activ / Inactiv';
+
 
 ?>

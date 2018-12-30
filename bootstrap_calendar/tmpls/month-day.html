@@ -1,23 +1,50 @@
 <div class="cal-month-day <%= cls %>">
-	<span data-toggle="modal" data-target="#new-events-modal" class="pull-right calendar-new-event-toggle-modal" data-date-start="<%= new Date(data_day + ' 18:00').getTime() %>" data-date-end="<%= new Date(data_day + ' 20:00').getTime() %>" data-cal-date="<%= data_day %>" data-cal-view="" data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
+		<span class="pull-right data-cal-date"
+			  data-date-start="<%= new Date(data_day + ' 18:00').getTime() %>"
+			  data-date-end="<%= new Date(data_day + ' 20:00').getTime() %>"
+
+			  data-toggle="modal" data-target="#eventsModal">
+			<!--data-cal-date="<%= data_day %>"-->
+			<span data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
+		</span>
 	<% if (events.length > 0) { %>
 		<div class="events-list" data-cal-start="<%= start %>" data-cal-end="<%= end %>">
 			<% _.each(events, function(event) { %>
 				<% if (event.url) { %>
 					<a href="<%= event.url %>"
+					   	class="cleafix pull-left event <%= event['class'] %>"
 					   	data-event-id="<%= event.id %>"
+					   data-event-status="<%= event.status %>"
+					   	data-event-type="<%= event.event_type %>"
+					   	data-event-type-id="<%= event.event_type_id %>"
+					   	data-external-event-id="<%= event.external_event_id %>"
 					   	data-event-class="<%= event['class'] %>"
-						class="pull-left event <%= event['class'] %>"
-					   	data-toggle="tooltip"
-					   title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>">
+						data-description="<%= event.description %>"
+						data-short-description="<%= event.short_description %>"
+						data-event-css-class="<%= event.class %>"
+						data-date-start="<%= event.start %>"
+						data-date-end="<%= event.end %>"
+					   	data-toggle="modal"
+					   	data-target="#eventsModal"
+						title="<%= event.title %>">
 					</a>
 				<% } else{ %>
 					<a role="button"
+					   class="clearfix pull-left event <%= event['class'] %>"
 					   data-event-id="<%= event.id %>"
+					   data-event-status="<%= event.status %>"
+					   data-event-type="<%= event.event_type %>"
+					   data-event-type-id="<%= event.event_type_id %>"
+					   data-external-event-id="<%= event.external_event_id %>"
 					   data-event-class="<%= event['class'] %>"
-					   class="pull-left event <%= event['class'] %>"
-					   data-toggle="tooltip"
-					   title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>">
+					   data-description="<%= event.description %>"
+					   data-short-description="<%= event.short_description %>"
+					   data-event-css-class="<%= event.class %>"
+					   data-date-start="<%= event.start %>"
+					   data-date-end="<%= event.end %>"
+					   data-toggle="modal"
+					   data-target="#eventsModal"
+					   title="<%= event.title %>">
 					</a>
 				<% }
 			}); %>

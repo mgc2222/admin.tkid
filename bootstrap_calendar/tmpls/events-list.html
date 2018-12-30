@@ -5,23 +5,41 @@
 			<li>
 				<% if (event.url) { %>&nbsp;
 					<a href="<%= event.url %>"
-					   	data-event-id="<%= event.id %>"
-						data-event-class="<%= event['class'] %>"
-					   	title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
-					  	data-toggle="popover"
-					   	data-content="<%=event.description %>"
-					   	class="calendar-event event-item">
+					   class="calendar-event event-item"
+					   data-event-id="<%= event.id %>"
+					   data-event-status="<%= event.status %>"
+					   data-event-type="<%= event.event_type %>"
+					   data-event-type-id="<%= event.event_type_id %>"
+					   data-external-event-id="<%= event.external_event_id %>"
+					   data-event-class="<%= event['class'] %>"
+					   data-description="<%= event.description %>"
+					   data-short-description="<%= event.short_description %>"
+					   data-event-css-class="<%= event.class %>"
+					   data-date-start="<%= event.start %>"
+					   data-date-end="<%= event.end %>"
+					   data-toggle="modal"
+					   data-target="#eventsModal"
+					   title="<%= event.title %>">
 						<span class="event <%= event['class'] %>"></span>
 						<%= event.title %>
 					</a>
 				<% } else{ %>
 					<a role="button"
+					   class="calendar-event event-item"
 					   data-event-id="<%= event.id %>"
+					   data-event-status="<%= event.status %>"
+					   data-event-type="<%= event.event_type %>"
+					   data-event-type-id="<%= event.event_type_id %>"
+					   data-external-event-id="<%= event.external_event_id %>"
 					   data-event-class="<%= event['class'] %>"
-					   title="<%= event.dayStart %> <%= cal.locale['ms' + event.monthStart] %> <%= (event.start_hour !='NaN:NaN') ? event.start_hour : '' %> - <%= (event.dayStart < event.dayEnd) ? event.dayEnd +' '+ cal.locale['ms' + event.monthStart] + ' '+event.end_hour : (event.end_hour !='NaN:NaN') ? event.end_hour : '' %> <%= event.title %>"
-					   data-toggle="popover"
-					   data-content="<%=event.description %>"
-					   class="calendar-event event-item">
+					   data-description="<%= event.description %>"
+					   data-short-description="<%= event.short_description %>"
+					   data-event-css-class="<%= event.class %>"
+					   data-date-start="<%= event.start %>"
+					   data-date-end="<%= event.end %>"
+					   data-toggle="modal"
+					   data-target="#eventsModal"
+					   title="<%= event.title %>">
 						<span class="event <%= event['class'] %>"></span>
 						<%= event.title %>
 					</a>

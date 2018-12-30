@@ -149,7 +149,7 @@ function FormClass()
 	{
 		if (className == null) className = 'multi_checkbox';
 		
-		if (!verifySelectedChecboxesCount(className)) return;
+		if (!_this.verifySelectedChecboxesCount(className)) return;
 		if (confirm('Confirmati stergerea elementelor selectate'))
 			_this.FormSubmitAction('DeleteSelected', '');
 	}
@@ -205,7 +205,7 @@ function FormClass()
 	}
 
 	// verify if any checkbox which has "className" , was selected
-	function verifySelectedChecboxesCount(className)
+	this.verifySelectedChecboxesCount = function(className)
 	{
 		if ($('.'+className+':checked').length == 0)
 		{
