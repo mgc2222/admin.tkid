@@ -20,7 +20,14 @@
 					   data-toggle="modal"
 					   data-target="#eventsModal"
 					   title="<%= event.title %>">
-						<span class="event <%= event['class'] %>"></span>
+						<span class="event <%= event['class'] %>">
+						<% if (event.event_type.toUpperCase() ==='facebook'.toUpperCase()) { %>
+							<i class="fa fa-facebook-f" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+						<% } %>
+						<% if (event.event_type.toUpperCase() ==='google'.toUpperCase()) { %>
+							<i class="fa fa-google" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+						<% } %>
+						</span>
 						<%= event.title %>
 					</a>
 				<% } else{ %>
@@ -40,7 +47,14 @@
 					   data-toggle="modal"
 					   data-target="#eventsModal"
 					   title="<%= event.title %>">
-						<span class="event <%= event['class'] %>"></span>
+						<span class="event <%= event['class'] %>">
+						<% if (event.event_type.toUpperCase() ==='facebook'.toUpperCase()) { %>
+							<i class="fa fa-facebook-f" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+						<% } %>
+						<% if (event.event_type.toUpperCase() ==='google'.toUpperCase()) { %>
+							<i class="fa fa-google" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+						<% } %>
+						</span>
 						<%= event.title %>
 					</a>
 				<% } %>

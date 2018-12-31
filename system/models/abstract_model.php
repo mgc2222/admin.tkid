@@ -103,21 +103,24 @@ class AbstractModel
 	// $recordId : value of the primary key for which to delete 
 	public function DeleteRecord($recordId)
 	{
-		$this->dbo->DeleteRow($this->table, array($this->primaryKey=>$recordId));
+		$pdoStatement = $this->dbo->DeleteRow($this->table, array($this->primaryKey=>$recordId));
+		return $pdoStatement->rowCount();
 	}
 	
 	// Delete the records which match the specified conditions
 	// $arrCondition: array with pair key=>value
 	public function DeleteRecords($arrCondition = null, $limit = null)
 	{
-		$this->dbo->DeleteRows($this->table, $arrCondition, $limit);
+		$pdoStatement = $this->dbo->DeleteRows($this->table, $arrCondition, $limit);
+		return $pdoStatement->rowCount();
 	}
 	
 	// Delete the records which have the primary key within the specified values
 	// $recordIds: string with the primary keys for which to delete, separated by ","
 	public function DeleteSelectedRecords($recordIds)
 	{
-		$this->dbo->DeleteRows($this->table, array($this->primaryKey=>'('.$recordIds.')'));
+		$pdoStatement = $this->dbo->DeleteRows($this->table, array($this->primaryKey=>'('.$recordIds.')'));
+		return $pdoStatement->rowCount();
 	}
 	
 	// Delete the specified filePath from disk
@@ -254,6 +257,7 @@ class AbstractModel
 		else
 		{
             $this->BeforeUpdateData($data);
+            //echo'<pre>';print_r($data);echo'</pre>';die;
 			$this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
 			return $editId;
 		}

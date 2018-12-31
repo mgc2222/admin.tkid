@@ -112,26 +112,33 @@
 		//e.preventDefault();
 		//e.stopPropagation();
 	});
-    $('#saveEventButton').on('click', function(){
+    $('#saveEventButton').on('click', function(e){
         //debugger;
-        objEvents.saveEvent();
+		//e.preventDefault();
+		if(!objEvents.checkForm($('#mainForm'))) {
+			return false;
+		}
+        objEvents.saveEvent(calendar);
         //calendar.view(calendar.options.view);
+        //calendar.view();
+        //calendar._update();
     });
     $('#deleteEventsButton').on('click', function(){
         //debugger;
-        objEvents.deleteEvents();
+        objEvents.deleteEvents(calendar);
         //debugger;
-        calendar.view(calendar.options.view);
+        //calendar.view(calendar.options.view);
+        //calendar.view();
     });
     $('#deleteEventButton').on('click', function(){
         //debugger;
-        objEvents.deleteEvent();
-        //debugger;
+        objEvents.deleteEvent(calendar);
         //calendar.view(calendar.options.view);
+        //calendar.view();
     });
-    $('#eventsModal').on('hide.bs.modal', function (e) {
+    $('#eventsModal').on('hidden.bs.modal', function (e) {
     	//debugger;
-        calendar.view(calendar.options.view);
+        //calendar.view(calendar.options.view);
 	});
 
 }(jQuery));

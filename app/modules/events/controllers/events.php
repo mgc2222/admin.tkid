@@ -39,25 +39,25 @@ class Events extends AdminController
                 $response = $this->GetJsonData();
 			break;
 			case 'SaveEvent':
-				$id = $this->eventsModel->SaveData($data['formValues'], true, false, true);
-                $response = ($id) ? $this->GetDefaultResponse($id, 1) : $this->GetDefaultResponse('error', 0);
+				$id = $this->eventsModel->SaveEvent($data['formValues']);
+                $response = ($id) ? $this->GetDefaultResponse($this->trans['events.save_success'], 1) : $this->GetDefaultResponse($this->trans['events.save_error'], 0);
 				//echo'<pre>';print_r($id);die();
 			break;
             case 'DeleteEvents':
                 //echo'<pre>';print_r($data);die();
                 if(is_array($data['formValues']['id'])){
                 	$ids = implode(',', $data['formValues']['id']);
-                    $this->eventsModel->DeleteEventsById($ids);
+                    $rowsAffected = $this->eventsModel->DeleteEventsById($ids);
 				}
 				else{
-                    $this->eventsModel->DeleteEventById($data['formValues']['id']);
+                    $rowsAffected  = $this->eventsModel->DeleteEventById($data['formValues']['id']);
 				}
-                $response = $this->GetDefaultResponse('', 1);
+                $response = ($rowsAffected) ? $this->GetDefaultResponse($this->trans['events.delete_selected_success'], 1) : $this->GetDefaultResponse($this->trans['events.delete_selected_error'], 0);
 			break;
             case 'DeleteEvent':
                 //echo'<pre>';print_r($data);die();
-                $this->eventsModel->DeleteEventById($data['formValues']['id']);
-                $response = $this->GetDefaultResponse('', 1);
+                $rowsAffected  = $this->eventsModel->DeleteEventById($data['formValues']['id']);
+                $response = ($rowsAffected) ? $this->GetDefaultResponse($this->trans['events.delete_success'], 1) : $this->GetDefaultResponse($this->trans['events.delete_error'], 0);
 			break;
 		}
         //print_r($response);die();

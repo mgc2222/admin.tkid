@@ -111,7 +111,7 @@
                             <label><?php echo $trans['modal.event_title_label'] ?></label>
                         </div>
                         <div style="width:100%;display: table-cell;">
-                            <input type="text" style="width:100%" class="form-control" id="eventTitle" name="eventTitle" value=""/>
+                            <input type="text" style="width:100%" class="form-control" id="eventTitle" name="eventTitle" value="" required="required"/>
                         </div>
 
                     </h4>
@@ -120,7 +120,7 @@
                     <div class="" style="width:25%;display: table-cell;vertical-align: top;">
                         <label class="form-inline"><?php echo $trans['modal.event_start_date_label']?></label>
                         <input type="text" name="eventDateStart" class="form-control event-date-start" id="eventDateStart" value="" />
-                        <input type="hidden" name="eventDateStartInMilliseconds" class="event-date-start-in-milliseconds" id="eventDateStartInMilliseconds" value="" />
+                        <input type="hidden" name="eventDateStartInMilliseconds" class="event-date-start-in-milliseconds" id="eventDateStartInMilliseconds" value="" required="required" />
                         <input type="hidden" name="eventId" id="eventId" value="" />
                         <label class="form-inline"><?php echo $trans['modal.event_end_date_label'] ?></label>
                         <input type="text" name="eventDateEnd"  class="form-control event-date-end"  value="" />
@@ -128,15 +128,17 @@
                         <label for="sel1">Select list (select one):</label>
                         <select class="form-control event-css-classes" id="selectEventsCssClasses" name="selectEventsCssClasses">
 
-                            <option data-event-color-id ="" data-event-color-class="event-warning" value="1">event-warning</option>
+                            <option data-event-color-id ="" data-event-color-class="event-warning" value="3">event-warning</option>
                             <option data-event-color-id ="" data-event-color-class="event-success" value="2">event-success</option>
-                            <option data-event-color-id ="" data-event-color-class="event-important" value="3">event-important</option>
+                            <option data-event-color-id ="" data-event-color-class="event-important" value="1">event-important</option>
                             <option data-event-color-id ="" data-event-color-class="event-info" value="4">event-info</option>
                             <option data-event-color-id ="" data-event-color-class="event-special" value="5">event-special</option>
                             <option data-event-color-id ="" data-event-color-class="event-inverse" value="6">event-inverse</option>
                         </select>
                         <label class="form-inline"><?php echo $trans['modal.event_status.is_active']?></label>
-                        <input style="display:inline-block;width:20px;height:20px;" type="checkbox" name="eventIsActive" id="eventIsActive" class="form-control form-inline" value="1" />
+                        <input style="display:block;width:20px;height:20px;" type="checkbox" name="eventIsActive" id="eventIsActive" class="form-control form-inline" value="1" />
+                        <label><?php echo $trans['modal.event_type'] ?></label>
+                        <div id="eventType"></div>
                     </div>
                     <div style="display:table-cell">
                         <label><?php echo $trans['modal.event_description_label']?></label>

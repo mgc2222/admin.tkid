@@ -26,20 +26,23 @@ function Events()
 		});
 
         $('#eventsModal').on('show.bs.modal', function (e) {
-            //debugger;
-            $("#eventTitle").val(e.relatedTarget.getAttribute('title'));
-            $("#eventId").val(e.relatedTarget.getAttribute('data-event-id'));
+            var eventTitle = $("#eventTitle");
+            var eventId = $("#eventId");
             var eventIsActive = $("#eventIsActive");
             var eventStatus = e.relatedTarget.getAttribute('data-event-status');
+            var eventType = e.relatedTarget.getAttribute('data-event-type');
+            eventTitle.val(e.relatedTarget.getAttribute('title'));
+            eventId.val(e.relatedTarget.getAttribute('data-event-id'));
             (eventStatus) ?  eventIsActive.val(eventStatus) :   eventIsActive.val(1);
-            (eventIsActive.val() > 0 ) ? eventIsActive.attr('checked', 'checked') : eventIsActive.removeAttr('checked');
+            (eventIsActive.val() > 0 ) ? eventIsActive.prop('checked', true) : eventIsActive.prop('checked', false);
+            $('#eventType').html((eventId.val())? eventType : 'Local');
             initStartDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-start'));
             initEndDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-end'));
             selectOrResetEventCssClass($(this), e.relatedTarget.getAttribute('data-event-css-class'));
             initSelect2Event($(this));
             addModalEventDescription($(this), e.relatedTarget.getAttribute('data-description'));
             addModalEventShortDescription($(this), e.relatedTarget.getAttribute('data-short-description'));
-            //debugger;
+            (eventId.val()) ? $('#deleteEventButton').show() : $('#deleteEventButton').hide();
         });
         $('.event-date-start').on('change', function (e) {
             var value = (languageAbbIso==='ro_RO')
@@ -54,6 +57,22 @@ function Events()
             $(this).next('.event-date-end-in-milliseconds').val(value);
         });
 	}
+    this.checkForm = function()
+    {
+        if($('#eventTitle').val() == "") {
+            alert("Titlul evenimentului este obligatoriu!");
+            $('#eventTitle').focus();
+            return false;
+        }
+        if($('#eventDateStartInMilliseconds').val() == "") {
+            alert("Data si ora de inceput a evenimentului este obligatorie!");
+            $('#eventDateStartInMilliseconds').focus();
+            return false;
+        }
+
+        //alert("Success!  The form has been completed, validated and is ready to be submitted...");
+        return true;
+    };
 
     function addModalEventDescription(modal, description){
         $(modal).find('.event-description').val((description) ? description : '');
@@ -78,17 +97,18 @@ function Events()
         var value = '';
         if(eventCssClass){
             $(modal).find('.event-css-classes option').each(function () {
-                $(this).removeAttr('selected');
+                $(this).prop('selected', false);
                 if (this.getAttribute('data-event-color-class') === eventCssClass) {
-                    this.setAttribute('selected', 'selected');
+                    $(this).prop('selected', 'selected');
                     value = this.value;
                 }
             });
         }
         else{
-            $(modal).find('.event-css-classes option:selected').removeAttr('selected');
+            $(modal).find('.event-css-classes option:selected').prop('selected', false);
         }
         $(modal).find('.event-css-classes').val(value);
+        //debugger;
     }
 
     function initStartDateTimePickers(modal, startDateInMilliseconds)
@@ -147,7 +167,7 @@ function Events()
         return values;
     }
 
-    this.saveEvent = function()
+    this.saveEvent = function(objCalendar)
     {
         frm.PostAjaxJson('events_calendar',
             {
@@ -167,6 +187,7 @@ function Events()
             },
             function(response) {
                 //debugger;
+                objCalendar.view();
                 toastr[response.status](response.message);
             },
             function(response) {
@@ -175,7 +196,7 @@ function Events()
         );
     };
 
-    this.deleteEvents = function(className)
+    this.deleteEvents = function(objCalendar, className)
     {
         if (className == null) className = 'multi_checkbox';
 
@@ -191,6 +212,7 @@ function Events()
                 },
                 function (response) {
                     //debugger;
+                    objCalendar.view();
                     toastr[response.status](response.message);
                 },
                 function (response) {
@@ -199,7 +221,7 @@ function Events()
             );
         }
     };
-    this.deleteEvent = function()
+    this.deleteEvent = function(objCalendar)
     {
         if (confirm('Confirmati stergerea evenimentului?')){
             frm.PostAjaxJson('events_calendar',
@@ -213,6 +235,7 @@ function Events()
                 },
                 function(response) {
                     //debugger;
+                    objCalendar.view();
                     toastr[response.status](response.message);
                 },
                 function(response) {

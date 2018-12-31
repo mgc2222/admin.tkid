@@ -2,7 +2,7 @@
 		<span class="pull-right data-cal-date"
 			  data-date-start="<%= new Date(data_day + ' 18:00').getTime() %>"
 			  data-date-end="<%= new Date(data_day + ' 20:00').getTime() %>"
-
+			  data-cal-date="<%= data_day %>"
 			  data-toggle="modal" data-target="#eventsModal">
 			<!--data-cal-date="<%= data_day %>"-->
 			<span data-toggle="tooltip" title="<%= tooltip %>"><%= day %></span>
@@ -14,7 +14,7 @@
 					<a href="<%= event.url %>"
 					   	class="cleafix pull-left event <%= event['class'] %>"
 					   	data-event-id="<%= event.id %>"
-					   data-event-status="<%= event.status %>"
+					   	data-event-status="<%= event.status %>"
 					   	data-event-type="<%= event.event_type %>"
 					   	data-event-type-id="<%= event.event_type_id %>"
 					   	data-external-event-id="<%= event.external_event_id %>"
@@ -27,6 +27,12 @@
 					   	data-toggle="modal"
 					   	data-target="#eventsModal"
 						title="<%= event.title %>">
+					<% if (event.event_type.toUpperCase() ==='facebook'.toUpperCase()) { %>
+						<i class="fa fa-facebook-f" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+					<% } %>
+					<% if (event.event_type.toUpperCase() ==='google'.toUpperCase()) { %>
+						<i class="fa fa-google" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+					<% } %>
 					</a>
 				<% } else{ %>
 					<a role="button"
@@ -45,6 +51,12 @@
 					   data-toggle="modal"
 					   data-target="#eventsModal"
 					   title="<%= event.title %>">
+					<% if (event.event_type.toUpperCase() ==='facebook'.toUpperCase()) { %>
+						<i class="fa fa-facebook-f" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+					<% } %>
+					<% if (event.event_type.toUpperCase() ==='google'.toUpperCase()) { %>
+						<i class="fa fa-google" style="color:#fff;text-align:center;display: table-cell;margin: 0 auto;vertical-align: middle;"></i>
+					<% } %>
 					</a>
 				<% }
 			}); %>

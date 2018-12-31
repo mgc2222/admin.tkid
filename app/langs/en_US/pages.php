@@ -481,8 +481,11 @@ $trans['events.event_title'] = 'Titlul Evenimentului';
 $trans['events.edit_item'] = 'Editare eveniment ';
 $trans['events.items_list'] = 'Lista evenimente';
 $trans['events.save_success'] = 'Evenimentul a fost salvat';
+$trans['events.save_error'] = 'Evenimentul nu a fost salvat';
 $trans['events.delete_success'] = 'Evenimentul a fost stears';
+$trans['events.delete_error'] = 'Evenimentul NU a fost stears';
 $trans['events.delete_selected_success'] = 'Evenimentele selectate au fost sterse';
+$trans['events.delete_selected_error'] = 'Evenimentele selectate NU au fost sterse';
 $trans['events.error_selected_elements'] = 'Nu ati ales nici un eveniment';
 $trans['events.delete_selected_items'] = 'Sterge evenimentele selectate';
 $trans['events.item_not_exists'] = 'Evenimentul nu exista';
@@ -514,6 +517,7 @@ $trans['modal.event_end_date_label'] = 'Event End: ';
 $trans['modal.event_description_label'] = "Event Description";
 $trans['modal.event_short_description_label'] = "Event Short Description";
 $trans['modal.event_status.is_active'] = 'Activ / Inactiv';
+$trans['modal.event_type'] = 'Event Type:';
 
 
 ?>

@@ -96,12 +96,14 @@ class EventsModel extends AbstractModel
 
     function DeleteEventsById($ids)
     {
-        $this->DeleteSelectedRecords($ids);
+        $rowsAffected = $this->DeleteSelectedRecords($ids);
+        return $rowsAffected;
     }
 
     function DeleteEventById($id)
     {
-        $this->DeleteRecord($id);
+        $rowsAffected = $this->DeleteRecord($id);
+        return $rowsAffected;
     }
 
     function GetEventsTypes($dataSearch=null)
@@ -115,7 +117,13 @@ class EventsModel extends AbstractModel
 	{
 		$sql = "SELECT * FROM {$this->tableEventCssClasses} ec WHERE  ec.id IN ({$eventsCssClassesIds})";
 		return $this->dbo->GetRows($sql);
-	}	
+	}
+
+    function SaveEvent($data)
+    {
+        $id = $this->SaveData($data, true, false, true);
+        return $id;
+    }
 	
 	function ExtendGetFormData(&$data, &$row)
 	{
