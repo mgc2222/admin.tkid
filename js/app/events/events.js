@@ -186,7 +186,7 @@ function Events()
 
             },
             function(response) {
-                //debugger;
+                debugger;
                 objCalendar.view();
                 toastr[response.status](response.message);
             },

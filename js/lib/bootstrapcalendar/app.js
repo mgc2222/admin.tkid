@@ -9,6 +9,7 @@
 		tmpl_cache: false,
 		day: 'now',
 		language:languageAbbIso,
+		sort: false,
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;

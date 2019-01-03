@@ -103,6 +103,7 @@ if(!String.prototype.formatNum) {
 				today: 'cal-day-today'
 			}
 		},
+        sort: true,
 		// ID of the element of modal window. If set, events URLs will be opened in modal windows.
 		modal: null,
 		//	modal handling setting, one of "iframe", "ajax" or "template"
@@ -141,9 +142,8 @@ if(!String.prototype.formatNum) {
 		onAfterEventsLoad: function(events) {
 			// Inside this function 'this' is the calendar instance
 		},
-		onBeforeEventsLoad: function(next) {
+		onBeforeEventsLoad: function() {
 			// Inside this function 'this' is the calendar instance
-			next();
 		},
 		onAfterViewLoad: function(view) {
 			// Inside this function 'this' is the calendar instance
@@ -732,25 +732,27 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._getHoliday = function(date) {
-		var result = false;
-		$.each(getHolidays(this, date.getFullYear()), function() {
-			var found = false;
+        var result = '';
+        var count = 1;
+        var holidays = getHolidays(this, date.getFullYear());
+		$.each(holidays, function() {
+            var holiday = this;
 			$.each(this.days, function() {
 				if(this.toDateString() == date.toDateString()) {
-					found = true;
-					return false;
+                    result += count+'.'+holiday.name+'&#010;';
+                    count++;
+					return result;
 				}
 			});
-			if(found) {
-				result = this.name;
-				return false;
-			}
+
 		});
-		return result;
+		return (result) ? (count===2) ? result.substring(2):result : false;
 	};
 
 	Calendar.prototype._getHolidayName = function(date) {
+	    //debugger;
 		var holiday = this._getHoliday(date);
+        //debugger;
 		return (holiday === false) ? "" : holiday;
 	};
 
@@ -795,7 +797,7 @@ if(!String.prototype.formatNum) {
 
 		this._init_position();
 		this._loadEvents();
-		this._render();
+
 
 		this.options.onAfterViewLoad.call(this, this.options.view);
 	};
@@ -945,75 +947,86 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._loadEvents = function() {
 		var self = this;
 		var source = null;
+
 		if('events_source' in this.options && this.options.events_source !== '') {
 			source = this.options.events_source;
 		}
+
 		else if('events_url' in this.options) {
 			source = this.options.events_url;
 			warn('The events_url option is DEPRECATED and it will be REMOVED in near future. Please use events_source instead.');
 		}
-		var loader;
 		switch($.type(source)) {
 			case 'function':
-				loader = function() {
-					return source(self.options.position.start, self.options.position.end, browser_timezone);
-				};
+                self.options.onBeforeEventsLoad.call(self);
+                self.options.events = source(self.options.position.start, self.options.position.end, browser_timezone);
+                self._sortEvents();
+                self.options.onAfterEventsLoad.call(self, self.options.events);
+                self._render();
+
 				break;
 			case 'array':
-				loader = function() {
-					return [].concat(source);
-				};
+                self.options.onBeforeEventsLoad.call(self);
+                self.options.events = [].concat(source);
+                self._sortEvents();
+                self.options.onAfterEventsLoad.call(self, self.options.events);
+                self._render();
+
 				break;
 			case 'string':
 				if(source.length) {
-					loader = function() {
-						var events = [];
-						var d_from = self.options.position.start;
-						var d_to = self.options.position.end;
-						var params = {from: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset()};
+                    var events = [];
+                    var d_from = self.options.position.start;
+                    var d_to = self.options.position.end;
+                    var params = {from: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset()};
 
-						if(browser_timezone.length) {
-							params.browser_timezone = browser_timezone;
-						}
-						$.ajax({
-							url: buildEventsUrl(source, params),
-                            data:JSON.stringify({ ajaxAction: 'GetEvents' }),
-							dataType: 'json',
-                            contentType: "application/json; charset=utf-8",
-							type: 'POST',
-							async: false,
-							headers: self.options.headers,
-						}).done(function(json) {
-							if(!json.success) {
-								$.error(json.error);
-							}
-							if(json.result) {
-								events = json.result;
-							}
-						});
-						return events;
-					};
+                    if(browser_timezone.length) {
+                        params.browser_timezone = browser_timezone;
+                    }
+                    $.ajax({
+                        url: buildEventsUrl(source, params),
+                        data:JSON.stringify({ ajaxAction: 'GetEvents' }),
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        //async: false,
+                        headers: self.options.headers
+                    }).done(function(json) {
+                        //debugger;
+                        if(!json.success) {
+                            $.error(json.error);
+                        }
+                        if(json.result) {
+                            events = json.result;
+                            self.options.onBeforeEventsLoad.call(self);
+                            self.options.events = events;
+                            self._sortEvents();
+                            self.options.onAfterEventsLoad.call(self, self.options.events);
+                            self._render();
+                        }
+                    });
 				}
 				break;
+
+            default:
+                $.error(this.locale.error_loadurl);
+                break;
 		}
-		if(!loader) {
-			$.error(this.locale.error_loadurl);
-		}
-		this.options.onBeforeEventsLoad.call(this, function() {
-			if (!self.options.events.length || !self.options.events_cache) {
-				self.options.events = loader();
-				self.options.events.sort(function (a, b) {
-					var delta;
-					delta = a.start - b.start;
-					if (delta == 0) {
-						delta = a.end - b.end;
-					}
-					return delta;
-				});
-			}
-			self.options.onAfterEventsLoad.call(self, self.options.events);
-		});
 	};
+
+    Calendar.prototype._sortEvents = function() {
+        if (this.options.sort && (this.options.events.length || this.options.events_cache)) {
+            this.options.events.sort(function (a, b) {
+                var delta;
+                delta = a.start - b.start;
+                if (delta == 0) {
+                    delta = a.end - b.end;
+                }
+                return delta;
+            });
+        }
+    };
+
 
 	Calendar.prototype._templatePath = function(name) {
 		if(typeof this.options.tmpl_path == 'function') {
@@ -1032,7 +1045,7 @@ if(!String.prototype.formatNum) {
 		$.ajax({
 			url: self._templatePath(name),
 			dataType: 'html',
-			type: 'GET',
+			type: 'POST',
 			async: false,
 			cache: this.options.tmpl_cache
 		}).done(function(html) {
@@ -1045,12 +1058,12 @@ if(!String.prototype.formatNum) {
 
 		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container});
 
-		/*$('*[data-cal-date]').click(function() {
+		$('*[data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
 			self.options.day = $(this).data('cal-date');
 			self.view(view);
 		});
-		$('.cal-cell').dblclick(function() {
+		/*$('.cal-cell').dblclick(function() {
 			var view = $('[data-cal-date]', this).data('cal-view');
 			self.options.day = $('[data-cal-date]', this).data('cal-date');
 			self.view(view);
@@ -1114,10 +1127,14 @@ if(!String.prototype.formatNum) {
 
 							case "ajax":
 								$.ajax({
-									url: url, dataType: "html", async: false, success: function(data) {
-										modal_body.html(data);
-									}
-								});
+									url: url,
+                                    dataType: "html",
+                                    type:"POST"
+								}).done(function(response) {
+                                    self._updateModalBody(($(this), response));
+                                }).fail(function(response) {
+
+                                });
 								break;
 
 							case "template":
@@ -1147,6 +1164,11 @@ if(!String.prototype.formatNum) {
 			modal.modal('show');
 		});
 	};
+
+    Calendar.prototype._updateModalBody = function(modal, data){
+        var modal_body = modal.find('.modal-body');
+        modal_body.html(data)
+    };
 
 	Calendar.prototype._update_day = function() {
 		$('#cal-day-panel').height($('#cal-day-panel-hour').height());
