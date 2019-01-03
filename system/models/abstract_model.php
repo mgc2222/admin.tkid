@@ -237,10 +237,10 @@ class AbstractModel
 	}
 	
 	// save an array into database
-	public function SaveData(&$data, $makeSafeValues = true, $stripTags = false, $verifyExists = false)
+	public function SaveData(&$data, $makeSafeValues = true, $stripTags = false, $verifyExists = false, $verifyExistingId = false)
 	{
 		$editId = $data[$this->primaryKey];
-		//unset($data[$this->primaryKey]);
+		unset($data[$this->primaryKey]);
 		
 		if ($makeSafeValues)
 			$this->MakeSafeData($data, $stripTags);
@@ -248,7 +248,20 @@ class AbstractModel
 		if ($verifyExists)
 			if ($this->VerifyRecordExists($this->verifiedTableField, $data[$this->verifiedTableField], $editId))
 				return 0;
-		
+
+        if ($verifyExistingId){
+            if ($this->GetRecordById($editId)){
+                $this->BeforeUpdateData($data);
+                $this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
+                return $editId;
+            }
+            else{
+                $this->BeforeInsertData($data);
+                return $this->dbo->InsertRow($this->table, $data);
+            }
+
+        }
+
 		if ($editId == 0)
 		{
 		    $this->BeforeInsertData($data);
@@ -257,7 +270,6 @@ class AbstractModel
 		else
 		{
             $this->BeforeUpdateData($data);
-            //echo'<pre>';print_r($data);echo'</pre>';die;
 			$this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
 			return $editId;
 		}

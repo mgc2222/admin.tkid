@@ -326,15 +326,16 @@ class Events extends AdminController
         if(!isset($response['data'])) return;
         $ret = [];
         $ret['success'] = 0;
-        $cssClasses = array("event-important", "event-info", "event-warning", "event-inverse", "event-success", "event-special");
+        //$cssClasses = array("event-important", "event-info", "event-warning", "event-inverse", "event-success", "event-special");
         foreach ($response['data'] as $key=>$val){
             (isset($val['description'])) ? $ret['result'][$key]['description'] = $val['description'] : '';
             (isset($val['start_time'])) ? $ret['result'][$key]['start'] = $this->GetTimestampInMilliseconds($val['start_time']) : '';
             (isset($val['end_time'])) ? $ret['result'][$key]['end'] = $this->GetTimestampInMilliseconds($val['end_time']) : '';
             (isset($val['name'])) ? $ret['result'][$key]['title'] = $val['name'] : '';
             (isset($val['id'])) ? $ret['result'][$key]['id'] = $val['id'] : '';
-            $ret['result'][$key]['class'] = $cssClasses[array_rand($cssClasses, 1)];
+            //$ret['result'][$key]['class'] = $cssClasses[array_rand($cssClasses, 1)];
             $ret['result'][$key]['url'] = '';
+            $ret['result'][$key]['event_type'] = 'facebook';
         }
         (isset($ret['result']))? $ret['success'] = 1 : '';
         return $ret;

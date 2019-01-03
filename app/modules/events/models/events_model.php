@@ -45,7 +45,7 @@ class EventsModel extends AbstractModel
 	function GetRecordsList($dataSearch, $orderBy)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
-		$sql = "SELECT e.*, et.name as event_type, ec.name as event_css_class, ec.color_hex_code 
+		$sql = "SELECT e.*, et.name as event_type, ec.name as event_css_class 
                 FROM {$this->table} e 
                 LEFT JOIN $this->tableEventTypes et ON e.event_type_id=et.id 
                 LEFT JOIN $this->tableEventCssClasses ec ON e.event_css_class_id = ec.id 
@@ -121,7 +121,7 @@ class EventsModel extends AbstractModel
 
     function SaveEvent($data)
     {
-        $id = $this->SaveData($data, true, false, true);
+        $id = $this->SaveData($data, true, false, false, 'true');
         return $id;
     }
 	
@@ -164,8 +164,8 @@ class EventsModel extends AbstractModel
     function BeforeInsertData(&$data)
     {
         //echo '<pre>'; print_r($data);die();
-        if(intval($data['id']) == 0){
-            $data['event_type_id'] = 1; // if id == 0 means that new event is created from local source event_type_id = 1
+        if(!isset($data['event_type_id'])){
+            $data['event_type_id'] = 1; // means that new event is created from local source event_type_id = 1
         }
     }
 

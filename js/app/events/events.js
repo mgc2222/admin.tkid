@@ -179,14 +179,14 @@ function Events()
                         event_start_unix_milliseconds: $('#eventDateStartInMilliseconds').val(),
                         event_end_unix_milliseconds: $('#eventDateEndInMilliseconds').val(),
                         event_css_class_id: $('#selectEventsCssClasses').val(),
-                        status: ($('#eventIsActive').is(':checked')) ? $('#eventIsActive').val() : 0,
+                        status: ($('#eventIsActive').prop('checked')) ? 1 : 0,
                         description: $('#eventDescription').val(),
                         short_description: $('#eventShortDescription').val(),
                     }
 
             },
             function(response) {
-                debugger;
+                //debugger;
                 objCalendar.view();
                 toastr[response.status](response.message);
             },
