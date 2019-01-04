@@ -36,7 +36,7 @@ class Events extends AdminController
 				$response = $this->VerifyEvents($data);
 			break;
             case 'GetEvents':
-                $response = $this->GetJsonData();
+                $response = ($this->GetJsonData()) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 0) ;
 			break;
 			case 'SaveEvent':
 				$id = $this->eventsModel->SaveEvent($data['formValues']);
@@ -127,7 +127,7 @@ class Events extends AdminController
 		
 		// $dataSort = $this->GetSortData();
 
-		//$data = new stdClass();
+		//$data = $this->GetEvents();
 		// $limit = $this->GetPagingCode($data, $recordsCount);
 
 		//return $data;

@@ -482,6 +482,7 @@ $trans['events.edit_item'] = 'Editare eveniment ';
 $trans['events.items_list'] = 'Lista evenimente';
 $trans['events.save_success'] = 'Evenimentul a fost salvat';
 $trans['events.save_error'] = 'Evenimentul nu a fost salvat';
+$trans['events.no_events'] = 'Nu exista nici un eveniment';
 $trans['events.delete_success'] = 'Evenimentul a fost stears';
 $trans['events.delete_error'] = 'Evenimentul NU a fost stears';
 $trans['events.delete_selected_success'] = 'Evenimentele selectate au fost sterse';

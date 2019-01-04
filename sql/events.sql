@@ -10,7 +10,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+/*SET time_zone = "+00:00";*/
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -51,21 +51,20 @@ CREATE TABLE `events` (
 
 CREATE TABLE `event_css_classes` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `color_hex_code` varchar(10) NOT NULL
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `event_css_classes`
 --
 
-INSERT INTO `event_css_classes` (`id`, `name`, `color_hex_code`) VALUES
-(1, 'day-highlight dh-event-important', '#fae3e3'),
-(2, 'day-highlight dh-event-success', '#caffca'),
-(3, 'day-highlight dh-event-warning', '#fdf1ba'),
-(4, 'day-highlight dh-event-info', '#d1e8ff'),
-(5, 'day-highlight dh-event-special', '#ffe6ff'),
-(6, 'day-highlight dh-event-inverse', '#c1c1c1');
+INSERT INTO `event_css_classes` (`id`, `name`) VALUES
+(1, 'event-important'),
+(2, 'event-success'),
+(3, 'event-warning'),
+(4, 'event-info'),
+(5, 'event-special'),
+(6, 'event-inverse');
 
 -- --------------------------------------------------------
 

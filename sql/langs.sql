@@ -45,7 +45,7 @@ INSERT INTO `langs` (`id`, `abbreviation_iso`, `abbreviation`, `name`, `is_trans
 (2, 'en_US', 'en', 'English', 0),
 (3, 'es_ES', 'es', 'Español', 1),
 (4, 'fr_FR', 'fr', 'Français', 1),
-(5, 'de_DE', 'de', 'Deutsch', 1),
+(5, 'fr_FR', 'de', 'Deutsch', 1),
 (6, 'it_IT', 'it', 'Italiano', 1),
 (7, 'hu_HU', 'hu', 'Magyar', 1);
 
