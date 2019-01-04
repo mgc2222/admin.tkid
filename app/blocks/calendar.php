@@ -83,7 +83,7 @@
                     </a>
                     <span style="font-size:larger">Selecteaza toate evenimentele</span>
                     <span>
-                        <input style="display:inline-table;width:20px;height:20px;vertical-align:top"
+                        <input style="display:inline;width:20px;height:20px;vertical-align:top"
                                class="form-control form-inline" type="checkbox" id="chkAll" name="chkAll" value="1"
                                onclick="htmlCtl.ToggleCheckboxes('chkAll','multi_checkbox');"
                         />
@@ -138,7 +138,7 @@
                         <label class="form-inline"><?php echo $trans['modal.event_status.is_active']?></label>
                         <input style="display:block;width:20px;height:20px;" type="checkbox" name="eventIsActive" id="eventIsActive" class="form-control form-inline" value="1" />
                         <label><?php echo $trans['modal.event_type'] ?></label>
-                        <div id="eventType"></div>
+                        <strong id="eventType"></strong>
                     </div>
                     <div style="display:table-cell">
                         <label><?php echo $trans['modal.event_description_label']?></label>

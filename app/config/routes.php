@@ -82,6 +82,9 @@
     $routes['events_calendar/edit[/{id:\d+}]'] = 'events/events/GetEditData/$1';
     $routes['events_calendar/{data:.+}'] = 'events/events/GetViewData/$1';
 
+    $routes['get_and_save_fb_events'] = 'cron/get_and_save_fb_events/GetFaceBookEvents';
+    $routes['get_and_save_fb_events/{data:.+}'] = 'cron/get_and_save_fb_events/GetFaceBookEvents/$1';
+
 
 // {id} must be a number (\d+)
 	// $r->addRoute('GET', '/modules/login/{id:\d+}', 'get_user_handler');

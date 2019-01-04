@@ -237,7 +237,7 @@ class AbstractModel
 	}
 	
 	// save an array into database
-	public function SaveData(&$data, $makeSafeValues = true, $stripTags = false, $verifyExists = false, $verifyExistingId = false)
+	public function SaveData(&$data, $makeSafeValues = true, $stripTags = false, $verifyExists = false)
 	{
 		$editId = $data[$this->primaryKey];
 		unset($data[$this->primaryKey]);
@@ -249,37 +249,44 @@ class AbstractModel
 			if ($this->VerifyRecordExists($this->verifiedTableField, $data[$this->verifiedTableField], $editId))
 				return 0;
 
-        if ($verifyExistingId){
-            if ($this->GetRecordById($editId)){
-                $this->BeforeUpdateData($data);
-                $this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
-                return $editId;
-            }
-            else{
-                $this->BeforeInsertData($data);
-                return $this->dbo->InsertRow($this->table, $data);
-            }
-
-        }
-
 		if ($editId == 0)
 		{
-		    $this->BeforeInsertData($data);
 			return $this->dbo->InsertRow($this->table, $data);
 		}
 		else
 		{
-            $this->BeforeUpdateData($data);
 			$this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
 			return $editId;
 		}
 	}
+
+    // insert or update by id into database
+    public function InsertOrUpdateById(&$data, $makeSafeValues = true, $stripTags = false)
+    {
+        $editId = $data[$this->primaryKey];
+        unset($data[$this->primaryKey]);
+
+        if ($makeSafeValues){
+            $this->MakeSafeData($data, $stripTags);
+        }
+
+        if ($this->GetRecordById($editId)){
+            $this->BeforeUpdateData($data);
+            $this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
+            return $editId;
+        }
+        else{
+            $this->BeforeInsertData($data);
+            return $this->dbo->InsertRow($this->table, $data);
+        }
+
+    }
 	
-	public function MakeSafeData(&$data)
+	public function MakeSafeData(&$data, $stripTags = false)
 	{
 		foreach ($data as $key=>$val)
 		{
-			$data[$key] = $this->dbo->GetSafeValue($val, false);
+			$data[$key] = $this->dbo->GetSafeValue($val, $stripTags);
 		}
 	}
 	

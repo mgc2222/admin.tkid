@@ -21,13 +21,15 @@ if ($result->status == 'error')
 
 $ctl = $result->ctl;
 
-$auth = $ctl->GetAuthObject();
-$menu = $ctl->GetMenuObject();
-$webpage = $ctl->GetWebPageObject();
-$trans = $ctl->GetTranslation();
+$auth = (method_exists($ctl, 'GetAuthObject')) ? $ctl->GetAuthObject(): '';
+$menu = (method_exists($ctl, 'GetMenuObject')) ? $ctl->GetMenuObject(): '';
+$webpage = (method_exists($ctl, 'GetWebPageObject')) ? $ctl->GetWebPageObject(): '';
+$trans = (method_exists($ctl, 'GetTranslation')) ? $ctl->GetTranslation(): '';
 $dataView = $result->data;
 
-include($webpage->PageLayout);
+if (isset($webpage->PageLayout)){
+    include($webpage->PageLayout);
+}
 	
 if (_DEBUG_MODE) {
 	echo '<br/>Rendered in:'.$debug->GetElapsedTime();

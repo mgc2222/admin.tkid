@@ -21,7 +21,7 @@
 				//debugger;
 				$(document.createElement('li'))
 					.html('<span style="display:block;padding-right:20px">' +
-						'<input style="display:inline-table;width:20px;height:20px;margin-right:5px;vertical-align:top" ' +
+						'<input style="display:inline;width:20px;height:20px;margin-right:5px;vertical-align:top" ' +
 						'type="checkbox" name="multipleIds[]" value="'+val.id+'" class="form-control form-inline multi_checkbox" />'+
 						'<a style="line-height: 30px;display: inline-block;font-size:larger" ' +
 						'data-toggle="modal" ' +

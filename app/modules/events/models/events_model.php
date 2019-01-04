@@ -121,7 +121,7 @@ class EventsModel extends AbstractModel
 
     function SaveEvent($data)
     {
-        $id = $this->SaveData($data, true, false, false, 'true');
+        $id = $this->InsertOrUpdateById($data, true, false);
         return $id;
     }
 	
