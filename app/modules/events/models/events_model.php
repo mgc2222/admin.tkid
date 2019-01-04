@@ -1,6 +1,6 @@
-<?php 
+<?php
 class EventsModel extends AbstractModel
-{	
+{
 	function __construct()
 	{
 		parent::__construct();
@@ -10,7 +10,7 @@ class EventsModel extends AbstractModel
 		$this->verifiedTableField = 'id';
 		$this->primaryKey = 'id';
 	}
-	
+
 	function SetMapping()
 	{
 		$this->mapping = array(
@@ -25,26 +25,35 @@ class EventsModel extends AbstractModel
             'event_start_unix_milliseconds'=>'txtEventDateStartInMilliseconds',
             'event_end_unix_milliseconds'=>'txtEventDateEndInMilliseconds');
 	}
-	
+
 	function GetSqlCondition(&$dataSearch)
 	{
 		if ($dataSearch == null) return '';
-		
-		$cond = '';
+
+		$cond = 'WHERE 1';
 		if (isset($dataSearch->search) && $dataSearch->search != '') {
-			$cond = " WHERE name LIKE '%{$dataSearch->search}%'";
+			$cond .= " AND name LIKE '%{$dataSearch->search}%'";
 		}
 
         if (isset($dataSearch->eventType) && $dataSearch->eventType != '') {
-            $cond = " WHERE et.name LIKE '%{$dataSearch->eventType}%'";
+            $cond .= " AND et.name LIKE '%{$dataSearch->eventType}%'";
         }
-		
+
+        if (isset($dataSearch->from) && $dataSearch->from != '') {
+            $cond .= " AND e.event_start_unix_milliseconds >= '{$dataSearch->from}'";
+        }
+
+        if (isset($dataSearch->to) && $dataSearch->to != '') {
+            $cond .= " AND e.event_end_unix_milliseconds <= '{$dataSearch->to}'";
+        }
+
 		return $cond;
 	}
-	
+
 	function GetRecordsList($dataSearch, $orderBy)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
+        //echo'<pre>';print_r($dataSearch);die();
 		$sql = "SELECT e.*, et.name as event_type, ec.name as event_css_class 
                 FROM {$this->table} e 
                 LEFT JOIN $this->tableEventTypes et ON e.event_type_id=et.id 
@@ -52,32 +61,33 @@ class EventsModel extends AbstractModel
                 {$cond}";
 
         $sql .= ($orderBy != null) ? ' ORDER BY '.$orderBy : ' ORDER BY e.event_start_unix_milliseconds';
-		
+        //echo'<pre>';print_r($sql);die();
+
 		return $this->dbo->GetRows($sql);
 	}
-	
+
 	function GetRecordsListCount($dataSearch)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
-		$sql = "SELECT COUNT(*) FROM {$this->table}	{$cond}";		
+		$sql = "SELECT COUNT(*) FROM {$this->table}	{$cond}";
 		return $this->dbo->GetFieldValue($sql);
 	}
-	
+
 	function GetRecordsForDropdown($dataSearch = null)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
 		$orderBy = ' ORDER BY name';
 		$sql = "SELECT * FROM {$this->table}	{$cond} {$orderBy}";
-		
+
 		return $this->dbo->GetRows($sql);
 	}
-	
+
 	function GetRecordsIds($dataSearch = null)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
 		$orderBy = ' ORDER BY id';
 		$sql = "SELECT id FROM {$this->table} {$cond} {$orderBy}";
-		
+
 		return $this->dbo->GetRows($sql);
 	}
 
@@ -124,38 +134,57 @@ class EventsModel extends AbstractModel
         $id = $this->InsertOrUpdateById($data, true, false);
         return $id;
     }
-	
+
+    function InsertOrUpdateFacebookEvents($data)
+    {
+        $response['rowsInserted'] = [];
+        $response['rowsUpdated'] = [];
+
+        foreach ($data as $key=>$val){
+            //echo'<pre>';print_r($val);
+            $exists = (isset($data[$key]['event_external_id'])) ? $this->VerifyRecordExists('event_external_id', $data[$key]['event_external_id'], '0') : false;
+            if($exists){
+                $response['rowsUpdated'][] = $this->dbo->UpdateRow($this->table, $val, array('event_external_id'=>$data[$key]['event_external_id']));
+            }
+            else{
+                $response['rowsInserted'][] = $this->dbo->InsertRow($this->table, $val);
+            }
+        }
+        //echo'<pre>';print_r($response); die();
+        return $response;
+    }
+
 	function ExtendGetFormData(&$data, &$row)
 	{
 		$data->chkStatus = ($data->chkStatus > 0) ? 'checked="checked"':'';
 		$data->chkDisplaySeparateStatus = ($data->chkDisplaySeparateStatus > 0) ? 'checked="checked"':'';
 		$data->txtFile = $row->file;
 	}
-	
+
 	function ExtendGetFormDataEmpty(&$data)
 	{
 		$data->chkStatus = 'checked="checked"';
 		$data->chkDisplaySeparateStatus = '';
 		$data->txtFile = '';
 	}
-	
+
 	function BeforeSaveData(&$data, &$row)
 	{
-		//echo'<pre>';print_r($data);echo'</pre>';die; 
+		//echo'<pre>';print_r($data);echo'</pre>';die;
 		//$row->status = isset($data->chkStatus)? 1: 0;
 		//$row->display_separate_status = isset($data->chkDisplaySeparateStatus)? 1: 0;
 	}
-	
+
 	function UpdateFileName($id, $fileName)
 	{
 		$this->dbo->UpdateRow($this->table, array('file'=>$fileName), array($this->primaryKey=>$id));
 	}
-	
+
 	function DeleteFile($recordId, $filePath)
 	{
 		$this->dbo->DeleteFile($this->table, 'file', $filePath, array(_THUMBS_PATH), array($this->primaryKey=>$recordId));
 	}
-	
+
 	function AddNew($name, $urlKey)
 	{
 		return $this->dbo->InsertRow($this->table, array('name'=>$name, 'url_key'=>$urlKey));

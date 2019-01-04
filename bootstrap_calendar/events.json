@@ -1,5 +1,5 @@
 {
-	"success": 1,
+	"status": "success",
 	"result": [
 		{
 			"id": "293",
@@ -101,5 +101,6 @@
 			"description": "In noaptea aceasta vine Mos Craciun cu cadouri!!! Ce zici, copil frumos, daca ii pregatesti si tu lui Mos Craciun o surpriza ? In noaptea de Craciun, cand Mosul vine la fiecare copil in parte sa ii lase cadoul langa brad, el va gasi asezat la bradul tau o sosesta colorata chiar de tine, in care sa iti puna cadourile mult asteptate. Sigur va fi incantat Mosul de surpriza facuta!"
 		}
 
-	]
+	],
+	"message": "Events Loaded"
 }

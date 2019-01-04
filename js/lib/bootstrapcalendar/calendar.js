@@ -985,7 +985,7 @@ if(!String.prototype.formatNum) {
                     }
                     $.ajax({
                         url: buildEventsUrl(source, params),
-                        data:JSON.stringify({ ajaxAction: 'GetEvents' }),
+                        data:JSON.stringify({ ajaxAction: 'GetEvents', ajaxDataFrom: params.from, ajaxDataTo: params.to }),
                         dataType: 'json',
                         contentType: "application/json; charset=utf-8",
                         type: 'POST',
@@ -993,9 +993,7 @@ if(!String.prototype.formatNum) {
                         headers: self.options.headers
                     }).done(function(json) {
                         //debugger;
-                        if(!json.success) {
-                            $.error(json.error);
-                        }
+						(json.status && json.message) ? toastr[json.status](json.message): '';
                         if(json.result) {
                             events = json.result;
                             self.options.onBeforeEventsLoad.call(self);
@@ -1004,7 +1002,9 @@ if(!String.prototype.formatNum) {
                             self.options.onAfterEventsLoad.call(self, self.options.events);
                             self._render();
                         }
-                    });
+                    }).fail(function(json){
+                        (json.status && json.message) ? toastr[json.status](json.message): '';
+					});
 				}
 				break;
 

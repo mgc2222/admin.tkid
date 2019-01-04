@@ -37,7 +37,7 @@ CREATE TABLE `events` (
   `file` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
   `status` tinyint(3) NOT NULL COMMENT '0 UNPUBLISHED 1 PUBLISHED',
   `event_type_id` int(10) UNSIGNED NOT NULL,
-  `event_id` tinyint(10) DEFAULT NULL,
+  `event_external_id` varchar (20) CHARACTER SET utf8 DEFAULT NULL,
   `event_css_class_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `event_start_unix_milliseconds` int(10) UNSIGNED NOT NULL,
   `event_end_unix_milliseconds` int(10) UNSIGNED DEFAULT NULL

@@ -36,7 +36,7 @@ class Events extends AdminController
 				$response = $this->VerifyEvents($data);
 			break;
             case 'GetEvents':
-                $response = ($this->GetJsonData()) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 0) ;
+                $response = ($this->GetJsonData($data['ajaxDataFrom'], $data['ajaxDataTo'])) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 0) ;
 			break;
 			case 'SaveEvent':
 				$id = $this->eventsModel->SaveEvent($data['formValues']);
@@ -144,7 +144,7 @@ class Events extends AdminController
             return;
         }
         $ret = [];
-        $ret['success'] = 1;
+        $ret['status'] = 'success';
         //print_r($events);die();
         foreach ($rows as $key => $row){
         	$ret['result'][$key]['id'] = $row->id;
@@ -310,10 +310,13 @@ class Events extends AdminController
 
     // ================= Calendar - BEGIN =================== //
 
-    function GetJsonData()
+    function GetJsonData($from, $to)
     {
+		$dataSearch = new StdClass();
+		//$dataSearch->from = $from;
+		//$dataSearch->to = $to;
 
-        $events =  $this->GetEvents('', '');
+        $events =  $this->GetEvents($dataSearch, '');
         return $this->FormatEvents($events->rows);
         //$content = file_get_contents('bootstrap_calendar/events.json');
         //echo $content; die();

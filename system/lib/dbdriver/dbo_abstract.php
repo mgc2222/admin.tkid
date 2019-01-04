@@ -107,7 +107,11 @@ class DboAbstract
 	function UpdateRow($table, $arrFields, $arrWhere)
 	{
 		$sql = $this->BuildUpdateSql($table, $arrFields, $arrWhere);
-		return $this->Query($sql);
+
+        $pdoStatement = $this->Query($sql);
+
+        return $pdoStatement->rowCount();
+
 	}
 	
 	function InsertRow($table, $arrFields)	{	}
