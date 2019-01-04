@@ -157,7 +157,7 @@ class Events extends AdminController
         	$ret['result'][$key]['short_description'] = $row->short_description;
         	$ret['result'][$key]['event_type'] = $row->event_type;
         	$ret['result'][$key]['event_type_id'] = $row->event_type_id;
-        	$ret['result'][$key]['external_event_id'] = $row->external_event_id;
+        	$ret['result'][$key]['event_external_id'] = $row->event_external_id;
 		}
 		return $ret;
 	}
