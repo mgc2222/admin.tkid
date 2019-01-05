@@ -36,7 +36,9 @@ class Events extends AdminController
 				$response = $this->VerifyEvents($data);
 			break;
             case 'GetEvents':
-                $response = ($this->GetJsonData($data['ajaxDataFrom'], $data['ajaxDataTo'])) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 0) ;
+                $res = $this->GetJsonData($data['ajaxDataFrom'], $data['ajaxDataTo']);
+                //$response = ($res) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 0) ;
+                $response = $res;
 			break;
 			case 'SaveEvent':
 				$id = $this->eventsModel->SaveEvent($data['formValues']);

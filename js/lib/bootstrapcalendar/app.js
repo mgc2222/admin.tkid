@@ -11,7 +11,6 @@
 		language:languageAbbIso,
 		sort: false,
 		onAfterEventsLoad: function(events) {
-			debugger;
             var list = $('#eventlist');
             list.html('');
 			if(!events) {
