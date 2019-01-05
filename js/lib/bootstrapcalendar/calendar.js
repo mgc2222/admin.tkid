@@ -993,7 +993,7 @@ if(!String.prototype.formatNum) {
                         headers: self.options.headers
                     }).done(function(json) {
                         //debugger;
-						(json.status && json.message) ? toastr[json.status](json.message): '';
+						//(json.status && json.message) ? toastr[json.status](json.message): '';
                         self.options.onBeforeEventsLoad.call(self);
                         if(json.result) {
                             events = json.result;
