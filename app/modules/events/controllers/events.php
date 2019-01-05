@@ -316,10 +316,10 @@ class Events extends AdminController
 		$dataSearch->from = $from;
 		$dataSearch->to = $to;
 
-        //$events =  $this->GetEvents($dataSearch, '');
-        //return $this->FormatEvents($events->rows);
-        $content = file_get_contents('bootstrap_calendar/events.json');
-        echo $content; die();
+        $events =  $this->GetEvents($dataSearch, '');
+        return $this->FormatEvents($events->rows);
+        //$content = file_get_contents('bootstrap_calendar/events.json');
+        //echo $content; die();
 
     }
 
