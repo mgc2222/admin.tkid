@@ -1003,6 +1003,7 @@ if(!String.prototype.formatNum) {
                         else{
                             self.options.events = {};
 						}
+
                         self.options.onAfterEventsLoad.call(self, self.options.events);
                         self._loadTemplate(self.options.view);
                         self._render();
