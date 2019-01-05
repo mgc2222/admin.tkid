@@ -11,12 +11,12 @@
 		language:languageAbbIso,
 		sort: false,
 		onAfterEventsLoad: function(events) {
+			debugger;
+            var list = $('#eventlist');
+            list.html('');
 			if(!events) {
 				return;
 			}
-			var list = $('#eventlist');
-			list.html('');
-
 			$.each(events, function(key, val) {
 				//debugger;
 				$(document.createElement('li'))

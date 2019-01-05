@@ -429,7 +429,7 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._render = function() {
 		this.context.html('');
-		this._loadTemplate(this.options.view);
+
 		this.stop_cycling = false;
 
 		var data = {};
@@ -994,16 +994,20 @@ if(!String.prototype.formatNum) {
                     }).done(function(json) {
                         //debugger;
 						(json.status && json.message) ? toastr[json.status](json.message): '';
+                        self.options.onBeforeEventsLoad.call(self);
                         if(json.result) {
                             events = json.result;
-                            self.options.onBeforeEventsLoad.call(self);
                             self.options.events = events;
                             self._sortEvents();
-                            self.options.onAfterEventsLoad.call(self, self.options.events);
-                            self._render();
                         }
+                        else{
+                            self.options.events = {};
+						}
+                        self.options.onAfterEventsLoad.call(self, self.options.events);
+                        self._loadTemplate(self.options.view);
+                        self._render();
                     }).fail(function(json){
-                        (json.status && json.message) ? toastr[json.status](json.message): '';
+						(json.status && json.message) ? toastr[json.status](json.message): '';
 					});
 				}
 				break;

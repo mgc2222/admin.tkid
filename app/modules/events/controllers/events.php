@@ -313,13 +313,13 @@ class Events extends AdminController
     function GetJsonData($from, $to)
     {
 		$dataSearch = new StdClass();
-		//$dataSearch->from = $from;
-		//$dataSearch->to = $to;
+		$dataSearch->from = $from;
+		$dataSearch->to = $to;
 
-        $events =  $this->GetEvents($dataSearch, '');
-        return $this->FormatEvents($events->rows);
-        //$content = file_get_contents('bootstrap_calendar/events.json');
-        //echo $content; die();
+        //$events =  $this->GetEvents($dataSearch, '');
+        //return $this->FormatEvents($events->rows);
+        $content = file_get_contents('bootstrap_calendar/events.json');
+        echo $content; die();
 
     }
 

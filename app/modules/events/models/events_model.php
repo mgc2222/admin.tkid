@@ -139,17 +139,20 @@ class EventsModel extends AbstractModel
     {
         $response['rowsInserted'] = [];
         $response['rowsUpdated'] = [];
+        //for($i = 0; $i < 100; $i++ ){
 
-        foreach ($data as $key=>$val){
-            //echo'<pre>';print_r($val);
-            $exists = (isset($data[$key]['event_external_id'])) ? $this->VerifyRecordExists('event_external_id', $data[$key]['event_external_id'], '0') : false;
-            if($exists){
-                $response['rowsUpdated'][] = $this->dbo->UpdateRow($this->table, $val, array('event_external_id'=>$data[$key]['event_external_id']));
+
+            foreach ($data as $key => $val) {
+                //echo'<pre>';print_r($val);
+                $exists = (isset($data[$key]['event_external_id'])) ? $this->VerifyRecordExists('event_external_id', $data[$key]['event_external_id'], '0') : false;
+                //$exists = false;
+                if ($exists) {
+                    $response['rowsUpdated'][] = $this->dbo->UpdateRow($this->table, $val, array('event_external_id' => $data[$key]['event_external_id']));
+                } else {
+                    $response['rowsInserted'][] = $this->dbo->InsertRow($this->table, $val);
+                }
             }
-            else{
-                $response['rowsInserted'][] = $this->dbo->InsertRow($this->table, $val);
-            }
-        }
+        //}
         //echo'<pre>';print_r($response); die();
         return $response;
     }
