@@ -5,7 +5,7 @@
 /.github
 /storage/*.key
 !.gitignore
-
+.htaccess
 /vendor
 /.idea
 /.well-known
