@@ -54,6 +54,8 @@
 				general: 'label'
 			}
 		},
+        time_start: '00:00',
+        time_end: '23:59:59',
 		/*modal:"#edit-events-modal",
 		modal_type:"template",
 		modal_title: function(obj){

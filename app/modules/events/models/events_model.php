@@ -44,7 +44,7 @@ class EventsModel extends AbstractModel
         }
 
         if (isset($dataSearch->to) && $dataSearch->to != '') {
-            $cond .= " AND e.event_end_unix_milliseconds <= '{$dataSearch->to}'";
+            $cond .= " AND e.event_start_unix_milliseconds <= '{$dataSearch->to}'";
         }
 
 		return $cond;

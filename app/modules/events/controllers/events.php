@@ -36,7 +36,7 @@ class Events extends AdminController
 				$response = $this->VerifyEvents($data);
 			break;
             case 'GetEvents':
-                $res = $this->GetJsonData($data['ajaxDataFrom'], $data['ajaxDataTo']);
+                $res = $this->GetEventsData($data['ajaxDataFrom'], $data['ajaxDataTo']);
                 $response = ($res) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 1) ;
 			break;
 			case 'SaveEvent':
@@ -311,7 +311,7 @@ class Events extends AdminController
 
     // ================= Calendar - BEGIN =================== //
 
-    function GetJsonData($from, $to)
+    function GetEventsData($from, $to)
     {
 		$dataSearch = new StdClass();
 		$dataSearch->from = $from;
