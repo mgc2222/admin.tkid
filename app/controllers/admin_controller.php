@@ -68,6 +68,7 @@ class AdminController extends AbstractController
 			'fonts/font-awesome/css/font-awesome.min.css',
 			'admin/admin.css'
 			);
+		$this->webpage->StyleSheetsOutsideStyleFolder = Array();
 		$this->webpage->ScriptsFooter = Array(
 			'lib/strings/strings.js',
 			'lib/htmlcontrols/htmlcontrols.js',
@@ -263,7 +264,9 @@ class AdminController extends AbstractController
 			"var phpPageId = '{$this->webpage->PageId}';".$endLine.
 			'var SCRIPTS = "'.implode('|', $this->webpage->ScriptsFooter).'";'.$endLine.
 			"var SITE_RELATIVE_URL = '"._SITE_RELATIVE_URL."';".$endLine.
+			"var SITE_URL = '"._SITE_URL."';".$endLine.
 			"var SCRIPTS_URL = '"._SITE_URL."js/';".$endLine.
+			"var SCRIPTS_URL_REPLACE = '"._JS_OUTSIDE_JS_FOLDER."';".$endLine.
             "var languageAbb = '".$this->webpage->languageAbb."';".$endLine.
             "var languageAbbIso = '".$this->webpage->languageAbbIso."';".$endLine.
 			"var auth = { UserId: '{$userIdJs}' };".$endLine;

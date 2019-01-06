@@ -4,9 +4,9 @@
 
 	var options = {
 		events_source: 'events',
-		view: 'week',
+		view: 'month',
 		tmpl_path: 'tmpls/',
-		tmpl_cache: false,
+		tmpl_cache: true,
 		day: 'now',
 		language:languageAbbIso,
 		sort: false,

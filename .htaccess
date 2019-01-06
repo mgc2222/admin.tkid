@@ -12,7 +12,7 @@ RewriteBase /
 #RewriteCond %{HTTP_HOST} !^www\.
 #RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 
-RewriteCond $1 !^(index\.php|images|js|style|files|admin/langs|front_html|robots\.txt|google6b11984684b9bc29\.html)
+RewriteCond $1 !^(index\.php|images|js|bootstrap_calendar|style|files|admin/langs|front_html|robots\.txt|google6b11984684b9bc29\.html)
 RewriteRule ^(.*)$ index.php/$1 [L]
 
 </IfModule>

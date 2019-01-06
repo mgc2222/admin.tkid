@@ -13,6 +13,7 @@ class WebPage
 	var $JsPageContent;
 	
 	var $StyleSheets;
+	var $StyleSheetsOutsideStyleFolder;
 	var $ScriptsHeader;
 	var $ScriptsFooter;
 	var $PageIcon;
@@ -50,6 +51,7 @@ class WebPage
 		
 		// head section - syles, scripts, icon
 		$this->StyleSheets = null;
+		$this->StyleSheetsOutsideStyleFolder = null;
 		$this->ScriptsHeader  = null;
 		$this->ScriptsFooter  = null;
 		$this->PageIcon = null;

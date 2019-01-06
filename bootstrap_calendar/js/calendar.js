@@ -1136,24 +1136,16 @@ if(!String.prototype.formatNum) {
                                     dataType: "html",
                                     type:"POST"
 								}).done(function(response) {
+                                    if(_.isFunction(self.options.modal_title)) {
+                                        modal.find("#eventTitle").attr('value',self.options.modal_title(event));
+                                    };
+                                    self.options.onBeforeModalShow.call(self, event, modal);
                                     self._updateModalBody(($(this), response));
                                 }).fail(function(response) {
 
                                 });
 								break;
-
-							case "template":
-								//self._loadTemplate("modal");
-								//	also serve calendar instance to underscore template to be able to access current language strings
-								//modal_body.html(self.options.templates["modal"]({"event": event, "cal": self}))
-                                self.options.onBeforeModalShow.call(self, event, modal);
-								break;
 						}
-
-						//	set the title of the bootstrap modal
-						if(_.isFunction(self.options.modal_title)) {
-							modal.find("#eventTitle").attr('value',self.options.modal_title(event));
-						};
 
 					})
 					.on('shown.bs.modal', function() {
@@ -1226,6 +1218,7 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._update_month_year = function() {
+        this._loadTemplate('events-list');
 		if(!this.options.views[this.options.view].slide_events) {
 			return;
 		}
@@ -1267,7 +1260,7 @@ if(!String.prototype.formatNum) {
 			event.stopPropagation();
 		});*/
 
-		this._loadTemplate('events-list');
+
 
 		downbox.click(function(event) {
 			showEventsList(event, $(this), slider, self);

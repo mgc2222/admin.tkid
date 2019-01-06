@@ -96,28 +96,42 @@ class Events extends AdminController
 			//'jquery/jquery-ui.css',
 			//'bootstrap/bootstrap3.3.7.min.css',
 			'toastr/toastr.min.css',
-            'bootstrapcalendar/css/calendar.css',
-            'bootstrapcalendar/css/custom.css',
+            //'bootstrapcalendar/css/calendar.css',
+
+            //'bootstrapcalendar/css/custom.css',
+
             'daterangepicker/daterangepicker.css',
             'select2/select2.min.css'
 			);
+
+        array_push($this->webpage->StyleSheetsOutsideStyleFolder,
+            'bootstrap_calendar/css/calendar.css',
+            'bootstrap_calendar/css/custom.css'
+        );
 		array_push($this->webpage->ScriptsFooter,
 			//'lib/jquery/jquery-ui.min.js',
 			'lib/toastr/toastr.min.js',
 			//'lib/base64/jquery.base64.js',
 			//'lib/wrappers/sortable/sortable_init.js',
 			//'lib/bootstrap/bootstrap3.3.7.min.js',
-            'lib/moment/moment.min.js',
+            //'lib/moment/moment.min.js',
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/components/moment/moment.min.js',
             'lib/daterangepicker/daterangepicker.min.js',
-            'lib/tinymce/tinymce.min.js',
-            'lib/wrappers/tinymce/tinymce.js',
-            'lib/underscore/underscore-min.js',
+            //'lib/tinymce/tinymce.min.js',
+            //'lib/wrappers/tinymce/tinymce.js',
+            //'lib/underscore/underscore-min.js',
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/components/underscore/underscore-min.js',
             'lib/select2/select2.min.js',
 
-            'lib/jstimezonedetect/jstz.min.js',
-            'lib/bootstrapcalendar/language/ro-RO.js',
-            'lib/bootstrapcalendar/calendar.js',
-            'lib/bootstrapcalendar/app.js',
+            //'lib/jstimezonedetect/jstz.min.js',
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/components/jstimezonedetect/jstz.min.js',
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/js/language/ro-RO.js',
+
+            //'lib/bootstrapcalendar/language/ro-RO.js',
+            //'lib/bootstrapcalendar/calendar.js',
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/js/calendar.js',
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/js/app.js',
+            //'lib/bootstrapcalendar/app.js',
 			_JS_APPLICATION_FOLDER.$this->module.'/events.js'
 			);
 		parent::SetWebpageData($this->pageId, 'events');
