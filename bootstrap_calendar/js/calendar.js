@@ -124,7 +124,7 @@ if(!String.prototype.formatNum) {
 				enable: 1
 			},
 			day: {
-				enable: 1
+				enable: 0 // disable day by setting enable to 0
 			}
 		},
 		merge_holidays: false,
@@ -618,8 +618,6 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._week = function(event) {
-		this._loadTemplate('week-days');
-
 		var t = {};
 		var start = parseInt(this.options.position.start.getTime());
 		var end = parseInt(this.options.position.end.getTime());
@@ -663,7 +661,6 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._month = function(month) {
-		this._loadTemplate('year-month');
 
 		var t = {cal: this};
 		var newmonth = month + 1;
@@ -678,7 +675,6 @@ if(!String.prototype.formatNum) {
 	}
 
 	Calendar.prototype._day = function(week, day) {
-		this._loadTemplate('month-day');
 
 		var t = {tooltip: '', cal: this};
 		var cls = this.options.classes.months.outmonth;
@@ -992,7 +988,6 @@ if(!String.prototype.formatNum) {
                         //async: false,
                         headers: self.options.headers
                     }).done(function(json) {
-                        //debugger;
 						//(json.status && json.message) ? toastr[json.status](json.message): '';
                         self.options.onBeforeEventsLoad.call(self);
                         if(json.result) {
@@ -1003,10 +998,8 @@ if(!String.prototype.formatNum) {
                         else{
                             self.options.events = {};
 						}
-
                         self.options.onAfterEventsLoad.call(self, self.options.events);
-                        self._loadTemplate(self.options.view);
-                        self._render();
+						self._loadTemplateByPriority(self.options.view);
                     }).fail(function(json){
 						(json.status && json.message) ? toastr[json.status](json.message): '';
 					});
@@ -1018,6 +1011,36 @@ if(!String.prototype.formatNum) {
                 break;
 		}
 	};
+
+    Calendar.prototype._loadTemplateByPriority = function(name) {
+    	var self = this;
+    	switch (name){
+            case 'month':
+            	if(!this.options.templates['month-day'] && !this.options.templates['month']){
+                    self._loadTemplate('month-day', function(){self._loadTemplate('month', function(){self._render()})});
+				}
+				else{self._render()}
+                break;
+            case 'week':
+                if(!this.options.templates['week-days'] && !this.options.templates['week']){
+                	self._loadTemplate('week-days', function(){self._loadTemplate('week', function(){self._render()})});
+                }
+                else{self._render()}
+                break;
+            case 'year':
+                if(!this.options.templates['year-month'] && !this.options.templates['year']){
+                    self._loadTemplate('year-month', function(){self._loadTemplate('year', function(){self._render()})});
+                }
+                else{self._render()}
+                break;
+            case 'day':
+                if(!this.options.templates['day']){
+                    self._loadTemplate('day', function(){self._render()});
+                }
+                else{self._render()}
+                break;
+		}
+	}
 
     Calendar.prototype._sortEvents = function() {
         if (this.options.sort && (this.options.events.length || this.options.events_cache)) {
@@ -1042,7 +1065,7 @@ if(!String.prototype.formatNum) {
 		}
 	};
 
-	Calendar.prototype._loadTemplate = function(name) {
+	Calendar.prototype._loadTemplate = function(name, callbackDone, callbackFail) {
 		if(this.options.templates[name]) {
 			return;
 		}
@@ -1051,10 +1074,13 @@ if(!String.prototype.formatNum) {
 			url: self._templatePath(name),
 			dataType: 'html',
 			type: 'POST',
-			async: false,
+			//async: false,
 			cache: this.options.tmpl_cache
 		}).done(function(html) {
 			self.options.templates[name] = _.template(html);
+			if(callbackDone){callbackDone()}
+		}).fail(function(){
+			if(callbackFail){callbackFail()}
 		});
 	};
 
@@ -1180,7 +1206,6 @@ if(!String.prototype.formatNum) {
 
 	Calendar.prototype._update_month = function() {
 		//this._update_month_year();
-
 		var self = this;
 
 		if(this.options.weekbox == true) {
@@ -1218,7 +1243,6 @@ if(!String.prototype.formatNum) {
 	};
 
 	Calendar.prototype._update_month_year = function() {
-        this._loadTemplate('events-list');
 		if(!this.options.views[this.options.view].slide_events) {
 			return;
 		}
@@ -1265,6 +1289,7 @@ if(!String.prototype.formatNum) {
 		downbox.click(function(event) {
 			showEventsList(event, $(this), slider, self);
 		});
+        this._loadTemplate('events-list');
 	};
 
 	Calendar.prototype.getEventsBetween = function(start, end) {

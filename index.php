@@ -1,11 +1,11 @@
 <?php
 // require_once('front/config/defconfig.php');
 require_once('app/config/defconfig.php');
-if (_DEBUG_MODE) {
+//if (_DEBUG_MODE) {
 	require_once('system/lib/debug/debug.php');
 	$debug = new Debug();
 	$debug->StartTimer();
-}
+//}
 
 require_once(_APPLICATION_FOLDER.'vendor/routing/bootstrap.php');
 
@@ -31,7 +31,7 @@ if (isset($webpage->PageLayout)){
     include($webpage->PageLayout);
 }
 	
-if (_DEBUG_MODE) {
+//if (_DEBUG_MODE) {
 	echo '<br/>Rendered in:'.$debug->GetElapsedTime();
-}
+//}
 ?>
