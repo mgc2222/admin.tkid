@@ -31,7 +31,7 @@ if (isset($webpage->PageLayout)){
     include($webpage->PageLayout);
 }
 	
-if (_DEBUG_MODE) {
+//if (_DEBUG_MODE) {
 	echo '<br/>Rendered in:'.$debug->GetElapsedTime();
-}
+//}
 ?>
