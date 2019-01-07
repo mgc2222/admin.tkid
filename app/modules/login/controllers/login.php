@@ -10,7 +10,11 @@ class Login extends AdminController
 	function GetLoginData()
 	{
 		$pageId = 'login';
-		array_push($this->webpage->ScriptsFooter, 'lib/validator/jquery.validate.min.js', 'lib/wrappers/validator/validator.js', _JS_APPLICATION_FOLDER.$this->module.'login.js');
+		array_push($this->webpage->ScriptsFooter,
+			'lib/validator/jquery.validate.min.js',
+			'lib/wrappers/validator/validator.js'
+			//_JS_APPLICATION_FOLDER.$this->module.'/login.js'
+		);
 		parent::SetWebpageData($pageId);
 		
 		$this->webpage->PageLayout = _APPLICATION_FOLDER.'layouts/layout_login.php';

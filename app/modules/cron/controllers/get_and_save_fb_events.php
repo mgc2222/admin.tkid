@@ -62,6 +62,6 @@ class GetAndSaveFBEvents extends AbstractController
 
     private function SaveFacebookEvents($data){
         $res = $this->eventsModel->InsertOrUpdateFacebookEvents($data);
-        return $res;
+        echo '<pre>';echo json_encode($res);echo'</pre>';//die();
     }
 }
