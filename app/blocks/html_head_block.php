@@ -12,6 +12,14 @@
 			echo '<link rel="stylesheet" type="text/css" href="'._SITE_RELATIVE_URL.'style/'.$style.'" />';
 		}
 	}
+
+    if ($webpage->StyleSheetsOutsideStyleFolder != null)
+    {
+        foreach ($webpage->StyleSheetsOutsideStyleFolder as $style)
+        {
+            echo '<link rel="stylesheet" type="text/css" href="'._SITE_RELATIVE_URL.$style.'" />';
+        }
+    }
 	
 	if ($webpage->ScriptsHeader != null)
 	{

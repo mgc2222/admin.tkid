@@ -26,6 +26,7 @@ function Events()
 		});
 
         $('#eventsModal').on('show.bs.modal', function (e) {
+            $('.tooltip').remove();
             var eventTitle = $("#eventTitle");
             var eventId = $("#eventId");
             var eventIsActive = $("#eventIsActive");

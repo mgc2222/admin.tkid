@@ -47,7 +47,7 @@ color:white;
 -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,82,82,.6);
 box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,82,82,.6);
 }
-.footer_top { padding:10px 0 5px 0;  margin-bottom:5px; width:600px; margin:0 auto;  color:#fff;}
+.footer_top { padding:10px 0 5px 0;  margin-bottom:5px; margin:0 auto;  color:#fff;}
 .footer_menu { margin-top:5px; }
 .footer a { color:#fff; text-decoration:none; }
 .footer a:hover { color:#99DCFF; }

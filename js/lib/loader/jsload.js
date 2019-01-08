@@ -71,10 +71,17 @@ function JsLoad()
 	function getLoadScriptsArray(scripts, siteUrl)
 	{
 		var arrScripts = scripts.split('|');
+
 		for (var scriptIndex = 0; scriptIndex < arrScripts.length; scriptIndex++)
 		{
-			if (arrScripts[scriptIndex].indexOf('http') != 0 && arrScripts[scriptIndex].indexOf('//connect') != 0)
+            if(arrScripts[scriptIndex].indexOf(SCRIPTS_URL_REPLACE) > -1 )
+            {
+                arrScripts[scriptIndex] = SITE_URL + arrScripts[scriptIndex].substring(SCRIPTS_URL_REPLACE.length);
+            }
+			else if (arrScripts[scriptIndex].indexOf('http') != 0 && arrScripts[scriptIndex].indexOf('//connect') != 0)
+			{
 				arrScripts[scriptIndex] = siteUrl + arrScripts[scriptIndex];
+			}
 		}
 		return arrScripts;
 	}
