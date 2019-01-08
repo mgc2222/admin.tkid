@@ -20,14 +20,14 @@
 		<td><select class="form-control" id="ddlProducerId" name="ddlProducerId"><?php echo $dataView->producerList;?></select></td>
 	</tr>
 	-->
-	<tr>
-		<td><label for="txtAlt"><?php echo $trans['app_image.title']?></td>
-		<td><input type="text" class="form-control" id="txtAlt" name="txtAlt" value="<?php echo $dataView->txtAlt; ?>" /></td>
-	</tr>
-	<tr>
-		<td><label for="txtTitle"><?php echo $trans['app_image.alt']?></td>
-		<td><input type="text" class="form-control" id="txtTitle" name="txtTitle" value="<?php echo $dataView->txtTitle; ?>" /></td>
-	</tr>
+    <tr>
+        <td><label for="txtTitle"><?php echo $trans['app_image.title']?></td>
+        <td><input type="text" class="form-control" id="txtTitle" name="txtTitle" value="<?php echo $dataView->txtTitle; ?>" /></td>
+    </tr>
+    <tr>
+        <td><label for="txtAlt"><?php echo $trans['app_image.alt']?></td>
+        <td><input type="text" class="form-control" id="txtAlt" name="txtAlt" value="<?php echo $dataView->txtAlt; ?>" /></td>
+    </tr>
 	<tr>
 		<td><label for="txtCaption"><?php echo $trans['app_image.caption']?></td>
 		<td><input type="text" class="form-control" id="txtCaption" name="txtCaption" value="<?php echo $dataView->txtCaption; ?>" /></td>
