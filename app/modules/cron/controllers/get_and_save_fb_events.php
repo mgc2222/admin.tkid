@@ -22,11 +22,12 @@ class GetAndSaveFBEvents extends AbstractController
     function GetFaceBookEvents(){
         //$facebookevents = _FACEBOOK_GRAPH_API_PATH._FACEBOOK_PAGE_ID."/events/created/?is_draft=true&since=2018&access_token="._FACEBOOK_USER_ACCESS_TOKEN_NEVER_EXPIRE;
         $facebookevents = _FACEBOOK_GRAPH_API_PATH._FACEBOOK_PAGE_ID."/events/created/?is_draft=true&since=".strtotime(' - 1 month')."&until=".strtotime('now')."&access_token="._FACEBOOK_USER_ACCESS_TOKEN_NEVER_EXPIRE;
+        //$facebookevents = 'https://graph.facebook.com/v3.2/326181691509639/events/created/?is_draft=true&since=1547025142&until=1547025152&access_token=EAAOyCkywfl4BAEZBG1PmAYhgZAIHcqZCGLst0MunT61pnM0EFM6cj7mbI6d6EKr16UL76adjxLLYHGftsH2ZCSULA7G7u3rXYfcBIdAdoHXRRu42eiRiHSX7a4sywaKAJqBOcQtFIQcOPJP9eU2W8ZBtavsyinDPes9cdreQT4Dh4dUjMO1i6';
+
         $calendarData = json_decode($this->GetContentOutsideDomain($facebookevents), true);
-        //echo'<pre>'; print_r($facebookevents);die();
+        //echo'<pre>'; print_r($this->FormatFacebookJsonResponce($calendarData)); die();
         $data = $this->FormatFacebookJsonResponce($calendarData);
         return $this->SaveFacebookEvents($data);
-        //echo'<pre>'; print_r($this->FormatFacebookJsonResponce($calendarData)); die();
     }
     function FormatFacebookJsonResponce($response){
         if(!isset($response['data'])) return;
@@ -46,9 +47,7 @@ class GetAndSaveFBEvents extends AbstractController
     function GetTimestampInMilliseconds($dateString){
         $date = new DateTime($dateString);
         //$date = new DateTime(DateTime::createFromFormat('Y-m-d H:i:s', $dateString));
-        //print_r($date);die;
-        return strval($date->format('Uu')/1000);//die;
-        //return strval($date->getTimestamp()*1000);
+        return strval($date->format('Uu')/1000);
     }
 
     private function GetContentOutsideDomain($URL){
