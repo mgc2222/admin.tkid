@@ -40,6 +40,7 @@ class Events extends AdminController
                 $response = ($res) ?:$this->GetDefaultResponse($this->trans['events.no_events'], 1) ;
 			break;
 			case 'SaveEvent':
+                //echo'<pre>';print_r($data);die();
 				$id = $this->eventsModel->SaveEvent($data['formValues']);
                 $response = ($id) ? $this->GetDefaultResponse($this->trans['events.save_success'], 1) : $this->GetDefaultResponse($this->trans['events.save_error'], 0);
 				//echo'<pre>';print_r($id);die();

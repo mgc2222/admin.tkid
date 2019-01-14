@@ -199,11 +199,16 @@ class EventsModel extends AbstractModel
         if(!isset($data['event_type_id'])){
             $data['event_type_id'] = 1; // means that new event is created from local source event_type_id = 1
         }
+        if(empty($data['event_end_unix_milliseconds']) || $data['event_end_unix_milliseconds'] === 'NaN'){
+            unset($data['event_end_unix_milliseconds']);
+        }
     }
 
     function BeforeUpdateData(&$data)
     {
-       //
+        if(empty($data['event_end_unix_milliseconds']) || $data['event_end_unix_milliseconds'] === 'NaN'){
+            unset($data['event_end_unix_milliseconds']);
+        }
     }
 }
 ?>
