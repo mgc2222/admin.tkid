@@ -45,8 +45,18 @@ class AppImageEdit extends AdminController
 		
 		$dataSearch = $this->GetQueryItems($query, array('id'));
 		$editId = (int)$dataSearch->id;
-		array_push($this->webpage->StyleSheets, 'jquery/jquery-ui-1.8.17.custom.css', 'tooltip/jquery.tooltip.css');
-		array_push($this->webpage->ScriptsFooter, 'lib/jquery/jquery-ui-1.8.17.custom.min.js', 'lib/tooltip/jquery.tooltip.min.js');
+		array_push(
+			$this->webpage->StyleSheets,
+			'jquery/jquery-ui-1.8.17.custom.css',
+			'jquery/jquery-ui.css'
+			//'tooltip/jquery.tooltip.css'
+		);
+		array_push(
+			$this->webpage->ScriptsFooter,
+			'lib/jquery/jquery-ui-1.8.17.custom.min.js',
+			'lib/jquery/jquery-ui.min.js'
+			//'lib/tooltip/jquery.tooltip.min.js'
+		);
 
 		parent::SetWebpageData($this->pageId);
 		
@@ -123,7 +133,8 @@ class AppImageEdit extends AdminController
 
 	function SetMapping($formData){
 		$mapping = array(
-			'image_alt'=>$formData->txtAlt,
+			//'image_alt'=>$formData->txtAlt,
+			'image_alt'=>$formData->txtTitle,
 			'image_title'=>$formData->txtTitle,
 			'image_caption'=>$formData->txtCaption,
 			'image_description'=>$formData->txtDescription,

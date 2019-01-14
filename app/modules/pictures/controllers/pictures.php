@@ -52,11 +52,16 @@ class Pictures extends AdminController
 		$this->HandleAjaxRequest();
 		
 		$dataSearch = $this->GetQueryItems($query, array('id'));
-		array_push($this->webpage->StyleSheets, 'jquery/jquery-ui-1.8.17.custom.css', 'tooltip/jquery.tooltip.css','upload/jquery.plupload.queue.css');
+		array_push(
+			$this->webpage->StyleSheets,
+			'jquery/jquery-ui-1.8.17.custom.css',
+			//'tooltip/jquery.tooltip.css',
+			'upload/jquery.plupload.queue.css'
+		);
 		array_push($this->webpage->ScriptsFooter, 'lib/jquery/jquery-ui-1.8.17.custom.min.js', 
 		'lib/upload/plupload.full.js',
 		'lib/upload/jquery.plupload.queue.js',
-		'lib/tooltip/jquery.tooltip.min.js', 
+		//'lib/tooltip/jquery.tooltip.min.js',
 		_JS_APPLICATION_FOLDER.$this->pageId.'/upload_images.js?id=4',
 		_JS_APPLICATION_FOLDER.$this->pageId.'/pictures.js');
 		parent::SetWebpageData($this->pageId);
@@ -99,11 +104,18 @@ class Pictures extends AdminController
 		
 		$dataSearch = $this->GetQueryItems($query, array('appCategoryId'));
 		
-		array_push($this->webpage->StyleSheets, 'jquery/jquery-ui-1.8.17.custom.css', 'tooltip/jquery.tooltip.css','upload/jquery.plupload.queue.css');
-		array_push($this->webpage->ScriptsFooter, 'lib/jquery/jquery-ui-1.8.17.custom.min.js', 
+		array_push(
+			$this->webpage->StyleSheets,
+			'jquery/jquery-ui-1.8.17.custom.css',
+			//'tooltip/jquery.tooltip.css',
+			'upload/jquery.plupload.queue.css'
+		);
+		array_push(
+			$this->webpage->ScriptsFooter,
+			'lib/jquery/jquery-ui-1.8.17.custom.min.js',
 		'lib/upload/plupload.full.js',
 		'lib/upload/jquery.plupload.queue.js',
-		'lib/tooltip/jquery.tooltip.min.js', 
+		//'lib/tooltip/jquery.tooltip.min.js',
 		_JS_APPLICATION_FOLDER.$this->pageId.'/upload_images.js',
 		_JS_APPLICATION_FOLDER.$this->pageId.'/pictures.js');
 

@@ -21,7 +21,7 @@ class GetAndSaveFBEvents extends AbstractController
 
     function GetFaceBookEvents(){
         //$facebookevents = _FACEBOOK_GRAPH_API_PATH._FACEBOOK_PAGE_ID."/events/created/?is_draft=true&since=2018&access_token="._FACEBOOK_USER_ACCESS_TOKEN_NEVER_EXPIRE;
-        $facebookevents = _FACEBOOK_GRAPH_API_PATH._FACEBOOK_PAGE_ID."/events/created/?is_draft=true&since=".strtotime(' - 1 month')."&until=".strtotime(' + 3 month')."&access_token="._FACEBOOK_USER_ACCESS_TOKEN_NEVER_EXPIRE;
+        $facebookevents = _FACEBOOK_GRAPH_API_PATH._FACEBOOK_PAGE_ID."/events/created/?is_draft=true&since=".strtotime(' - 1 month')."&until=".strtotime(' + 12 month')."&access_token="._FACEBOOK_USER_ACCESS_TOKEN_NEVER_EXPIRE;
         //$facebookevents = 'https://graph.facebook.com/v3.2/326181691509639/events/created/?is_draft=true&since=1547462141&until=1555238141&access_token=EAAOyCkywfl4BAEZBG1PmAYhgZAIHcqZCGLst0MunT61pnM0EFM6cj7mbI6d6EKr16UL76adjxLLYHGftsH2ZCSULA7G7u3rXYfcBIdAdoHXRRu42eiRiHSX7a4sywaKAJqBOcQtFIQcOPJP9eU2W8ZBtavsyinDPes9cdreQT4Dh4dUjMO1i6';
 
         $calendarData = json_decode($this->GetContentOutsideDomain($facebookevents), true);
