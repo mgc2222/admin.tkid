@@ -1,7 +1,7 @@
 <?php //include ($dataView->advancedSearchBlock); ?>
 <div id="outer" class="image-tooltip-holder">	
 	<strong><?php echo $trans['app_images.app_categories']?>:</strong><br/><br/>
-	<select id="appCategoryId" name="appCategoryId">
+	<select id="appCategoryId" name="appCategoryId" class="form-control" style="width:200px">
 		<?php echo $dataView->appCategoriesListContent?>
 	</select>
 	<ul id="holderSortable" class="images_grid">
