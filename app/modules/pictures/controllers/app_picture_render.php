@@ -48,10 +48,6 @@ class AppPictureRender extends AdminController
 		
 		//$cacheFileServerPath = _SITE_RELATIVE_URL._APP_IMAGES_PATH.$row->app_category_id.'/'.$cacheFileName;
 		$cacheFileSavePath =  $this->GetBasePath()._APP_CACHE_IMAGES_PATH.$row->app_category_id.'/'.$cacheFileName;
-        if(!file_exists($cacheFileSavePath)){
-            header("HTTP/1.0 404 Not Found");
-            die();
-        }
 		$fileContent = null;
 		$fileContent = CacheFile::ReadFile($cacheFileSavePath);
 		if ($fileContent) {
@@ -69,7 +65,7 @@ class AppPictureRender extends AdminController
 			array('action'=>$action,  'quality'=>0.85, 'mentain_aspect_ratio'=>true, 'width'=>$fileInfo->width,'height'=>$fileInfo->height, 'filePath'=>$cacheFileSavePath)
 		);
 						
-		$processInfo = $fileUpload->ProcessFile($filePath, $options);
+		$fileUpload->ProcessFile($filePath, $options);
 		if ($fileUpload->lastError) {
 			// echo $fileUpload->lastError;
 			header("HTTP/1.0 404 Not Found");
