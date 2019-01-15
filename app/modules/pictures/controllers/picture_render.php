@@ -48,7 +48,11 @@ class PictureRender extends AdminController
 		
 		$cacheFileServerPath = _SITE_RELATIVE_URL._PRODUCT_CACHE_IMAGES_PATH.$row->product_id.'/'.$cacheFileName;
 		$cacheFileSavePath =  $this->GetBasePath()._PRODUCT_CACHE_IMAGES_PATH.$row->product_id.'/'.$cacheFileName;
-				
+        if(!file_exists($cacheFileSavePath)){
+            header("HTTP/1.0 404 Not Found");
+            die();
+        }
+
 		$fileContent = null;
 		$fileContent = CacheFile::ReadFile($cacheFileSavePath);
 		if ($fileContent) {
@@ -56,6 +60,10 @@ class PictureRender extends AdminController
 		}
 		
 		$filePath = $this->GetBasePath()._PRODUCT_IMAGES_PATH.$row->product_id.'/'.$row->file;
+        if(!file_exists($filePath)){
+            header("HTTP/1.0 404 Not Found");
+            die();
+        }
 					
 		$fileUpload = new FileUpload();
 		$options = new stdClass();

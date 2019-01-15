@@ -17,7 +17,7 @@ class RenderProductImage extends AdminController
 	private function renderPicture($query)
 	{
 		$fileInfo = $this->extractFileInfo($query);
-        if (!$fileInfo || $fileInfo->imageId == 0) {
+        if (!$fileInfo) {
             header("HTTP/1.0 404 Not Found");
             die();
         }
@@ -28,7 +28,10 @@ class RenderProductImage extends AdminController
 		
 		//$cacheFileServerPath = _SITE_RELATIVE_URL._PRODUCT_IMAGES_PATH.$fileInfo->app_category_id.'/'.$cacheFileName;
 		$filePath = $this->GetBasePath()._PRODUCT_IMAGES_PATH.$fileInfo->productCategoryId.'/'.$fileInfo->fileName.'.'.$fileInfo->extension;
-				
+        if(!file_exists($filePath)){
+            header("HTTP/1.0 404 Not Found");
+            die();
+        }
 		$fileContent = null;
 		$fileContent = CacheFile::ReadFile($filePath);
 		if ($fileContent) {
