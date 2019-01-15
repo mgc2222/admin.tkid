@@ -18,7 +18,7 @@
     {
         foreach ($webpage->StyleSheetsOutsideStyleFolder as $style)
         {
-            echo '<link rel="stylesheet" type="text/css" href="'._SITE_RELATIVE_URL.$style.'" />';
+            echo '<link rel="stylesheet" href="'._SITE_RELATIVE_URL.$style.'" />';
         }
     }
 	
