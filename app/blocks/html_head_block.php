@@ -10,7 +10,7 @@
 	{
 		foreach ($webpage->StyleSheets as $style)
 		{
-			echo '<link rel="stylesheet" type="text/css" href="'._SITE_RELATIVE_URL.'style/'.$style.'" />';
+			echo '<link rel="stylesheet" href="'._SITE_RELATIVE_URL.'style/'.$style.'" />';
 		}
 	}
 
@@ -26,7 +26,7 @@
 	{
 		foreach ($webpage->ScriptsHeader as $script)
 		{
-			echo '<script type="text/javascript" src="'.$script.'" ></script>';
+			echo '<script src="'.$script.'" ></script>';
 		}
 	}
 	?>
