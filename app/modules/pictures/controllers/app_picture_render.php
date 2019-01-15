@@ -59,10 +59,10 @@ class AppPictureRender extends AdminController
 		}
 		
 		$filePath = $this->GetBasePath()._APP_IMAGES_PATH.$row->app_category_id.'/'.$row->file;
-        /*if(!file_exists($filePath)){
+        if(!file_exists($filePath)){
             header("HTTP/1.0 404 Not Found");
             die();
-        }*/
+        }
 		$fileUpload = new FileUpload();
 		$options = new stdClass();
 		$options->actions = array(
@@ -75,7 +75,7 @@ class AppPictureRender extends AdminController
 			header("HTTP/1.0 404 Not Found");
 			die();
 		}
-		
+
 		$fileContent = file_get_contents($cacheFileSavePath);
 		$this->outputFile($fileContent, $row->extension);
 	}

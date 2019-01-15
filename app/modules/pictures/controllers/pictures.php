@@ -58,16 +58,18 @@ class Pictures extends AdminController
 			//'tooltip/jquery.tooltip.css',
 			'upload/jquery.plupload.queue.css'
 		);
-		array_push($this->webpage->ScriptsFooter, 'lib/jquery/jquery-ui-1.8.17.custom.min.js', 
+		array_push(
+			$this->webpage->ScriptsFooter,
+			//'lib/jquery/jquery-ui-1.8.17.custom.min.js',
 		'lib/upload/plupload.full.js',
 		'lib/upload/jquery.plupload.queue.js',
 		//'lib/tooltip/jquery.tooltip.min.js',
 		_JS_APPLICATION_FOLDER.$this->pageId.'/upload_images.js?id=4',
 		_JS_APPLICATION_FOLDER.$this->pageId.'/pictures.js');
 		parent::SetWebpageData($this->pageId);
-		
+
 		$this->webpage->FormAttributes = 'enctype="multipart/form-data"';
-				
+
 		$form = new Form('Save');
 		$formData = $form->data;
 		$formData->productId = (int)$dataSearch->id;
@@ -76,9 +78,9 @@ class Pictures extends AdminController
 			//Session::SetFlashMessage($this->trans['products.no_elements'], _SITE_RELATIVE_URL.'products');
 			$this->webpage->Redirect('products');
 		}
-		
+
 		$this->ProcessFormAction($formData);
-		
+
 		$data = new stdClass();
 		$data->product = $this->imagesModel->GetProductInfo($formData->productId);
 		$data->rows = $this->imagesModel->GetProductImages($formData->productId);
@@ -91,9 +93,9 @@ class Pictures extends AdminController
 		$data->productId = $formData->productId;
 
 		//echo'<pre>';print_r($radioData);echo'</pre>';die;
-	
+
 		$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
-		
+
 		return $data;
 	}
 
@@ -101,9 +103,9 @@ class Pictures extends AdminController
 	{
 		//echo'<pre>';print_r($this->HandleAjaxRequest());echo'</pre>';die;
 		$this->HandleAjaxRequest();
-		
+
 		$dataSearch = $this->GetQueryItems($query, array('appCategoryId'));
-		
+
 		array_push(
 			$this->webpage->StyleSheets,
 			'jquery/jquery-ui-1.8.17.custom.css',
@@ -112,7 +114,7 @@ class Pictures extends AdminController
 		);
 		array_push(
 			$this->webpage->ScriptsFooter,
-			'lib/jquery/jquery-ui-1.8.17.custom.min.js',
+			//'lib/jquery/jquery-ui-1.8.17.custom.min.js',
 		'lib/upload/plupload.full.js',
 		'lib/upload/jquery.plupload.queue.js',
 		//'lib/tooltip/jquery.tooltip.min.js',
@@ -120,10 +122,10 @@ class Pictures extends AdminController
 		_JS_APPLICATION_FOLDER.$this->pageId.'/pictures.js');
 
 		parent::SetWebpageData('app_images');
-		
+
 		//echo'<pre>';print_r(get_class_methods(parent::SetWebpageData($this->pageId)));echo'</pre>';die;
 		$this->webpage->FormAttributes = 'enctype="multipart/form-data"';
-				
+
 		$form = new Form('SaveAppImages');
 		$formData = $form->data;
 		$formData->appCategoryId = (int)$dataSearch->appCategoryId;
@@ -131,9 +133,9 @@ class Pictures extends AdminController
 			$formData->appCategoryId = 1; // set initial appCategoryId for the fist id in database
 			//Session::SetFlashMessage($this->trans['app_images.no_images'], _SITE_RELATIVE_URL.'app_images');
 		}
-		
+
 		$this->ProcessFormAction($formData);
-		
+
 		$data = new stdClass();
 		//$data->advancedSearchBlock = $this->GetBlockPath($this->pageId.'_advanced_search_block');
 		//echo'<pre>';print_r($formData);echo'</pre>';die;
@@ -144,15 +146,15 @@ class Pictures extends AdminController
 		$data->appCategoriesListContent = HtmlControls::GenerateDropDownList($this->appImagesModel->GetAppCategoriesForDropDown(), 'id', 'name', $data->appCategoryId);
 		//echo'<pre>';print_r($data->appCategoriesListContent);echo'</pre>';die;
 		$data->rows = $this->appImagesModel->GetAppImages($data->appCategoryId, 'order_index');
-		
+
 		$this->FormatAppImagesRows($data->appCategoryId, $data->appCategoryName, $data->rows);
 		//echo'<pre>';print_r($data);echo'</pre>';die;
 		//$data->pageId  = 'app_images';
 		$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
-		
+
 		return $data;
-	}			
-	
+	}
+
 	function FormatRows($productId, $productName, $productDefaultImageId, &$rows)
 	{
 		if ($rows == null) {
@@ -177,7 +179,7 @@ class Pictures extends AdminController
 			onclick="frm.PostAjaxJson(window.location.pathname,{ ajaxAction:'set_default_image', prod_id:$productId, img_id:$row->id}, function(){})"
 EOF;
 			$row->radioData->selectedValue = 0;
-			
+
 			if($row->id == $productDefaultImageId){
 				$row->radioData->selectedValue = $row->id;
 			}
@@ -202,7 +204,7 @@ EOF;
 		$rlist = new RadioList();
 		$rlist->SetAttributes($controlName, $selectedValue, $wrapper, $wrapperAttributes);
 		$rlist->AddItems($arrIds, $arrValues, $arrLabels);
-		//echo'<pre>';print_r($rlist);echo'</pre>';die;	
+		//echo'<pre>';print_r($rlist);echo'</pre>';die;
 		return $rlist;
 	}
 
@@ -259,10 +261,10 @@ EOF;
 			break;
 		}
 	}
-	
+
 	function UploadImage($query = '')
 	{
-		
+
 		$this->IncludeClasses(array('system/lib/files/file_upload.php'));
 		$dataSearch = $this->GetQueryItems($query, array('appCategoryId'));
 		//echo'<pre>';print_r($dataSearch);echo'</pre>';die;
@@ -277,9 +279,9 @@ EOF;
 			$this->UploadProductImage('file', $productId);
 			die();
 		}
-		
+
 	}
-	
+
 	function UploadProductImage($fileInputId, $productId)
 	{
 		$fileInfo = $this->GetFileInfo($fileInputId, $productId);
@@ -287,13 +289,13 @@ EOF;
 		$fileSavedData = $this->UploadFile($fileInputId, _PRODUCT_IMAGES_PATH.$productId, $fileInfo->fileName);
 		//echo'<pre>';print_r($fileSavedData);echo'</pre>';die;
 		if ($fileSavedData['status'])
-		{ 
+		{
 			$row = array('id'=>0, 'product_id'=>$productId, 'file'=>$fileInfo->fileName, 'order_index'=>$fileInfo->imageOrder, 'img_width'=>$fileSavedData['img_width'], 'img_height'=>$fileSavedData['img_height'], 'extension'=>$fileSavedData['extension']);
 			$imageId = $this->imagesModel->SaveData($row);
 			$this->imagesModel->UpdateProductImagesMeta($productId);
 			return $imageId;
 		}
-		else 
+		else
 		{
 			$this->Message = 'Imaginea nu a fost salvata:'.$fileInfo->filePath.'.'.$fileSavedData['upload_message'];
 			return 0;
@@ -311,13 +313,13 @@ EOF;
 		$fileSavedData = $this->UploadFile($fileInputId, _APP_IMAGES_PATH.$appCategoryId, $fileName);
         //echo'<pre>';print_r($fileSavedData);echo'</pre>';die;
 		if ($fileSavedData['status'])
-		{ 
+		{
 			$row = array('id'=>0, 'app_category_id'=>$appCategoryId, 'file'=>$fileName, 'img_width'=>$fileSavedData['img_width'], 'img_height'=>$fileSavedData['img_height'], 'extension'=>$fileSavedData['extension']);
 			$imageId = $this->appImagesModel->SaveAppImages($row);
 			$this->appImagesModel->InsertAppImagesMeta($imageId, $appCategoryId);
 			return $imageId;
 		}
-		else 
+		else
 		{
 			$this->Message = 'Imaginea nu a fost salvata:'.$fileInfo->filePath.'.'.$fileSavedData['upload_message'];
 			return 0;
@@ -326,28 +328,28 @@ EOF;
 	}
 
 
-	
+
 	function GetFileInfo($fileInputId, $elementId, $action = '')
 	{
 		// image path is: _PRODUCT_IMAGES_PATH./{productId}/{elementName}-X.{fileExtension}  , X = image index
-		
+
 		$elementInfo = ($action=='UploadAppImages') ? $this->GetAppInfo($elementId) : $this->GetProductInfo($elementId);
 		//echo'<pre>';print_r($elementInfo);echo'</pre>';die;
 		$elementName = StringUtils::UrlTitle($elementInfo->name);
 		$imageOrder = $elementInfo->images_count + 1;
-		
+
 		$fileNameBase = $elementName.'-';
-		
+
 		// there may be cases when user deletes some images and the max order will be less than the order in the existing images name
 		// therefor, check in a loop if the images already exists, and if so, increment the imageOrder and check again
 		$filePath = '';
 		$extension = $this->GetUploadedFileExtension($fileInputId);
-		
+
 		$fileName = $fileNameBase;
-		
+
 		$fileName .= $imageOrder.'.'.$extension;
-		$filePath = ($action=='UploadAppImages') ? _APP_IMAGES_PATH.$elementId.'/'.$fileName : _PRODUCT_IMAGES_PATH.$elementId.'/'.$fileName;			
-		
+		$filePath = ($action=='UploadAppImages') ? _APP_IMAGES_PATH.$elementId.'/'.$fileName : _PRODUCT_IMAGES_PATH.$elementId.'/'.$fileName;
+
 		$ret = new stdClass();
 		$ret->fileName = $fileName;
 		$ret->fileExtension = $extension;
@@ -356,7 +358,7 @@ EOF;
 		//echo'<pre>';print_r($ret);echo'</pre>';die;
 		return $ret;
 	}
-	
+
 	function GetProductInfo($productId)
 	{
 		return $this->imagesModel->GetProductInfo($productId);
@@ -366,7 +368,7 @@ EOF;
 	{
 		return $this->appImagesModel->GetAppInfo($appCategoryId);
 	}
-	
+
 	function GetUploadedFileExtension($fileInputId)
 	{
 		//echo'<pre>';print_r($_FILES);echo'</pre>';die;
@@ -374,16 +376,16 @@ EOF;
 		$fileParts = pathinfo($fileName);
 		return $fileParts['extension'];
 	}
-	
+
 	function UploadFile($fileInputId, $fileFolder, $fileName)
 	{
 		$fileUpload = new FileUpload();
 		$this->Message = '';
-		
+
 		$options = new stdClass();
 		$options->fileMaxSize = '5000000';
 		$options->allowedTypes = array('image/jpeg', 'image/jpg', 'image/gif','image/png','application/octet-stream');
-		
+
 		$imagePath = $fileFolder.'/'.$fileName;
 
 		// save the original image

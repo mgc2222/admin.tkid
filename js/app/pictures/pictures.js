@@ -3,8 +3,8 @@ function Pictures()
 	var trans = { delete_images_all: 'Confirmati stergerea tuturor imaginilor din aceasta sectiune?', delete_image: 'Confirmati stergerea imaginii?'};
 	this.Init = function()
 	{
-		initToolTips();
-		initSortable();
+		//initToolTips();
+		//initSortable();
 		initControls();		
 	}
 	
