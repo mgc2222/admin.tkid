@@ -65,18 +65,18 @@ class FileUpload
 		$fileParts = pathinfo($this->OriginalFileName);
 		
 		$isTypeAllowed = true;
-        echo'<pre>';print_r($_FILES);echo'</pre>';
-        echo'<pre>';print_r($options);echo'</pre>'; die();
-		/*if ($options != null && isset($options->allowedTypes)) {
+        //echo'<pre>';print_r($_FILES);echo'</pre>';
+        //echo'<pre>';print_r($options);echo'</pre>'; die();
+		if ($options != null && isset($options->allowedTypes)) {
 			$isTypeAllowed = in_array($_FILES[$fileInputId]['type'], $options->allowedTypes);
-		}*/
+		}
 		
-		/*if (!$isTypeAllowed)
+		if (!$isTypeAllowed)
 		{
 			$this->lastError = 'error_file_type_not_allowed';
 			$this->lastErrorParam = $_FILES[$fileInputId]['type'];
 			return false;
-		}*/
+		}
 
 		$srcFilePath = $_FILES[$fileInputId]['tmp_name'];
 		if ($options != null && isset($options->fileMaxSize))
