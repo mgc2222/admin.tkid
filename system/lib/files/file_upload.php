@@ -65,17 +65,19 @@ class FileUpload
 		$fileParts = pathinfo($this->OriginalFileName);
 		
 		$isTypeAllowed = true;
-		if ($options != null && isset($options->allowedTypes)) {
+        echo'<pre>';print_r($_FILES);echo'</pre>';
+        echo'<pre>';print_r($options);echo'</pre>'; die();
+		/*if ($options != null && isset($options->allowedTypes)) {
 			$isTypeAllowed = in_array($_FILES[$fileInputId]['type'], $options->allowedTypes);
-		}
+		}*/
 		
-		if (!$isTypeAllowed)
+		/*if (!$isTypeAllowed)
 		{
 			$this->lastError = 'error_file_type_not_allowed';
 			$this->lastErrorParam = $_FILES[$fileInputId]['type'];
 			return false;
-		}
-		
+		}*/
+
 		$srcFilePath = $_FILES[$fileInputId]['tmp_name'];
 		if ($options != null && isset($options->fileMaxSize))
 		{
@@ -147,7 +149,9 @@ class FileUpload
 				case 'resize_image':
 					if (!isset($params['quality'])) $params['quality'] = 0.75;
 					if (!isset($params['force_resize'])) $params['force_resize'] = false;
-					if (!isset($params['mentain_aspect_ratio'])) $params['mentain_aspect_ratio'] = false;
+					if (!isset($params['mentain_aspect_ratio'])) $params['mentain_aspect_ratio'] = true;
+					if (!isset($params['width'])) $params['width'] = 1280;
+					if (!isset($params['height'])) $params['height'] = 720;
 					$this->resizeImageFromFile($srcFilePath, $dstFilePath, $params['width'], $params['height'], $params['quality'], $params['mentain_aspect_ratio'], $params['force_resize']);
 				break;
 				case 'crop_ratio_image':

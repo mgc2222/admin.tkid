@@ -309,6 +309,7 @@ EOF;
 		$file = preg_replace('/-\d+\.'. $fileInfo->fileExtension.'/', '', $fileInfo->fileName);
 		$fileName = $file.'-'.$fileId.'.'.$fileInfo->fileExtension;
 		$fileSavedData = $this->UploadFile($fileInputId, _APP_IMAGES_PATH.$appCategoryId, $fileName);
+        //echo'<pre>';print_r($fileSavedData);echo'</pre>';die;
 		if ($fileSavedData['status'])
 		{ 
 			$row = array('id'=>0, 'app_category_id'=>$appCategoryId, 'file'=>$fileName, 'img_width'=>$fileSavedData['img_width'], 'img_height'=>$fileSavedData['img_height'], 'extension'=>$fileSavedData['extension']);
@@ -321,6 +322,7 @@ EOF;
 			$this->Message = 'Imaginea nu a fost salvata:'.$fileInfo->filePath.'.'.$fileSavedData['upload_message'];
 			return 0;
 		}
+
 	}
 
 
@@ -380,13 +382,13 @@ EOF;
 		
 		$options = new stdClass();
 		$options->fileMaxSize = '5000000';
-		$options->allowedTypes = array('image/jpeg','image/pjpeg','image/gif','image/png','application/octet-stream');
+		$options->allowedTypes = array('image/jpeg', 'image/jpg', 'image/gif','image/png','application/octet-stream');
 		
 		$imagePath = $fileFolder.'/'.$fileName;
 
 		// save the original image
 		$options->actions = array(
-			array('action'=>'save_file', 'filePath'=>$imagePath)
+			array('action'=>'resize_image', 'filePath'=>$imagePath)
 		);
 						
 		$uploadOk = $fileUpload->ProcessUploadFile($fileInputId, $fileFolder, $fileName, $options);
