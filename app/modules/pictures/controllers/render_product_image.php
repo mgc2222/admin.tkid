@@ -17,6 +17,10 @@ class RenderProductImage extends AdminController
 	private function renderPicture($query)
 	{
 		$fileInfo = $this->extractFileInfo($query);
+        if (!$fileInfo || $fileInfo->imageId == 0) {
+            header("HTTP/1.0 404 Not Found");
+            die();
+        }
 		//echo '<pre>'; print_r($fileInfo); echo '</pre>'; die;
 
 		$classes = array('system/lib/files/cache_file.php');
