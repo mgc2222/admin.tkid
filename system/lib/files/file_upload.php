@@ -147,7 +147,7 @@ class FileUpload
 					$srcFilePath = $dstFilePath; // after save, file is moved, therefor we need to change path for the rest of the actions
 				break;
 				case 'resize_image':
-					if (!isset($params['quality'])) $params['quality'] = 0.75;
+					if (!isset($params['quality'])) $params['quality'] = 0.9;
 					if (!isset($params['force_resize'])) $params['force_resize'] = false;
 					if (!isset($params['mentain_aspect_ratio'])) $params['mentain_aspect_ratio'] = true;
 					if (!isset($params['width'])) $params['width'] = 1280;

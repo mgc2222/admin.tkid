@@ -59,7 +59,7 @@ $(function() {
 	});
 	
 	uploader.bind('UploadComplete', function(up, files) {
-		//window.location.reload(true); // refresh
+		window.location.reload(true); // refresh
     });
 
 	/* function getSizeSettings()
