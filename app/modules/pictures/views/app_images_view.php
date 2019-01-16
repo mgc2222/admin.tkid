@@ -13,10 +13,10 @@
 		{
 	?>
 		<li class="ui-state-default"><img src="<?php echo $row->thumb.'?id='.time();?>" data-image="<?php echo $row->thumb_med?>" class="image-tooltip-target" />
-			<a target="_blank" href="/app_image_edit/id=<?php echo $row->id;?>"><strong>Edit</strong></a> | 
-			<a target="_blank" href="/app_image_crop/id=<?php echo $row->id;?>"><strong>Crop</strong></a> |
-			<a href="javascript:;" class="delete_app_image" data="<?php echo $row->id;?>">Sterge</a>
-			<input type="hidden" id="hidImageId_<?php echo $row->id?>" value="<?php echo $row->id?>" />
+			<a target="_blank" href="/app_image_edit/id=<?php echo $row->app_image_id;?>"><strong>Edit</strong></a> |
+			<a target="_blank" href="/app_image_crop/id=<?php echo $row->app_image_id;?>"><strong>Crop</strong></a> |
+			<a href="javascript:;" class="delete_app_image" data="<?php echo $row->app_image_id;?>">Sterge</a>
+			<input type="hidden" id="hidImageId_<?php echo $row->app_image_id?>" value="<?php echo $row->app_image_id?>" />
 		</li>
 	<?php 
 			$itemIndex++;

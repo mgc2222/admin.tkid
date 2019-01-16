@@ -104,8 +104,8 @@ class AppImageEdit extends AdminController
 		}
 		$categoryName = StringUtils::UrlTitle($categoryName);
 		$filePath = _SITE_RELATIVE_URL.'app_thumb/'.$categoryName.'-';
-		$row->thumb = $filePath.$row->id.'-120x120.'.$row->extension;
-		$row->thumb_med = $filePath.$row->id.'-320x240.'.$row->extension;
+		$row->thumb = $filePath.$row->app_image_id.'-120x120.'.$row->extension;
+		$row->thumb_med = $filePath.$row->app_image_id.'-320x240.'.$row->extension;
 		
 	}
 

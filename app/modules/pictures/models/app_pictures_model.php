@@ -80,8 +80,8 @@ class AppPicturesModel extends AbstractModel
 	function GetAppImageById($imageId)
 	{
 		//echo'<pre>';print_r($imageId);echo'</pre>';die;
-		$cond = 'id='.$imageId;
-		$sql = "SELECT * FROM {$this->tableImages} WHERE {$cond}"; 
+		$cond = 'ti.id='.$imageId;
+		$sql = "SELECT * FROM {$this->tableImages} ti LEFT JOIN {$this->table} t ON ti.id=t.app_image_id WHERE {$cond}";
 		$row = $this->dbo->GetFirstRow($sql);
 			
 		return $row;

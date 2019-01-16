@@ -194,8 +194,8 @@ EOF;
 		$categoryName = StringUtils::UrlTitle($categoryName);
 		$filePath = _SITE_RELATIVE_URL.'app_thumb/'.$categoryName.'-';
 		foreach ($rows as &$row) {
-			$row->thumb = $filePath.$row->id.'-120x120.'.$row->extension;
-			$row->thumb_med = $filePath.$row->id.'-320x240.'.$row->extension;
+			$row->thumb = $filePath.$row->app_image_id.'-120x120.'.$row->extension;
+			$row->thumb_med = $filePath.$row->app_image_id.'-320x240.'.$row->extension;
 		}
 	}
 
@@ -311,7 +311,7 @@ EOF;
 		$file = preg_replace('/-\d+\.'. $fileInfo->fileExtension.'/', '', $fileInfo->fileName);
 		$fileName = $file.'-'.$fileId.'.'.$fileInfo->fileExtension;
 		$fileSavedData = $this->UploadFile($fileInputId, _APP_IMAGES_PATH.$appCategoryId, $fileName);
-        //echo'<pre>';print_r($fileSavedData);echo'</pre>';die;
+        //echo'<pre>';print_r($fileSavedData);echo'</pre>';//die;
 		if ($fileSavedData['status'])
 		{
 			$row = array('id'=>0, 'app_category_id'=>$appCategoryId, 'file'=>$fileName, 'img_width'=>$fileSavedData['img_width'], 'img_height'=>$fileSavedData['img_height'], 'extension'=>$fileSavedData['extension']);
