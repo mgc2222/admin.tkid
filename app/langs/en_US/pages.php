@@ -520,7 +520,7 @@ $trans['modal.event_title_label'] = 'Event Title: ';
 $trans['modal.event_start_date_label'] = 'Event Start: ';
 $trans['modal.event_end_date_label'] = 'Event End: ';
 $trans['modal.event_description_label'] = "Event Description";
-$trans['modal.event_short_description_label'] = "Event Short Description";
+$trans['modal.event_short_description_label'] = "Event Short Description (If completed it will be shown instead of above description)";
 $trans['modal.event_status.is_active'] = 'Activ / Inactiv';
 $trans['modal.event_type'] = 'Event Type:';
 

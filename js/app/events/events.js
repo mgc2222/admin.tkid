@@ -33,15 +33,16 @@ function Events()
             var eventStatus = e.relatedTarget.getAttribute('data-event-status');
             var eventType = e.relatedTarget.getAttribute('data-event-type');
             eventTitle.val(e.relatedTarget.getAttribute('title'));
+            eventTitle.prop('disabled', (e.relatedTarget.getAttribute('data-event-type-id')>1) ? true: false);
             eventId.val(e.relatedTarget.getAttribute('data-event-id'));
             (eventStatus) ?  eventIsActive.val(eventStatus) :   eventIsActive.val(1);
             (eventIsActive.val() > 0 ) ? eventIsActive.prop('checked', true) : eventIsActive.prop('checked', false);
             $('#eventType').html((eventId.val())? eventType : 'Local');
-            initStartDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-start'));
-            initEndDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-end'));
+            initStartDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-start'), e.relatedTarget.getAttribute('data-event-type-id'));
+            initEndDateTimePickers($(this), e.relatedTarget.getAttribute('data-date-end'), e.relatedTarget.getAttribute('data-event-type-id'));
             selectOrResetEventCssClass($(this), e.relatedTarget.getAttribute('data-event-css-class'));
             initSelect2Event($(this));
-            addModalEventDescription($(this), e.relatedTarget.getAttribute('data-description'));
+            addModalEventDescription($(this), e.relatedTarget.getAttribute('data-description'), e.relatedTarget.getAttribute('data-event-type-id'));
             addModalEventShortDescription($(this), e.relatedTarget.getAttribute('data-short-description'));
             (eventId.val()) ? $('#deleteEventButton').show() : $('#deleteEventButton').hide();
         });
@@ -75,8 +76,16 @@ function Events()
         return true;
     };
 
-    function addModalEventDescription(modal, description){
-        $(modal).find('.event-description').val((description) ? description : '');
+    function addModalEventDescription(modal, description, eventTypeId){
+        var eventDescriptionInput = $(modal).find('.event-description');
+        eventDescriptionInput.val((description) ? description : '');
+        if(eventTypeId>1){
+            eventDescriptionInput.prop( "disabled", true );
+        }
+        else{
+            eventDescriptionInput.prop( "disabled", false );
+        }
+
     }
 
     function addModalEventShortDescription(modal, shortDescription){
@@ -112,31 +121,53 @@ function Events()
         //debugger;
     }
 
-    function initStartDateTimePickers(modal, startDateInMilliseconds)
+    function initStartDateTimePickers(modal, startDateInMilliseconds, eventTypeId)
     {
-        $(modal).find('.event-date-start').daterangepicker({
-            timePicker: true,
-            timePicker24Hour: true,
-            singleDatePicker: true,
-            startDate: (startDateInMilliseconds) ? new Date(parseInt(startDateInMilliseconds)) : moment().set({hour:18, minute:0}),
-            locale: {
-                format: (languageAbbIso==='ro_RO') ? 'DD/M/YYYY HH:mm' : 'YYYY/M/DD HH:mm'
-            }
-        });
+        var startDateInput = $(modal).find('.event-date-start');
+        if(startDateInMilliseconds !=='undefined') {
+            startDateInput.daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+                singleDatePicker: true,
+                startDate: (startDateInMilliseconds) ? new Date(parseInt(startDateInMilliseconds)) : moment().set({
+                    hour: 18,
+                    minute: 0
+                }),
+                locale: {
+                    format: (languageAbbIso === 'ro_RO') ? 'DD/M/YYYY HH:mm' : 'YYYY/M/DD HH:mm'
+                }
+            });
+        }
+        if(eventTypeId>1){
+            startDateInput.prop( "disabled", true );
+        }
+        else{
+            startDateInput.prop( "disabled", false );
+        }
 
     }
 
-    function initEndDateTimePickers(modal, endDateInMilliseconds)
+    function initEndDateTimePickers(modal, endDateInMilliseconds, eventTypeId)
     {
-        $(modal).find('.event-date-end').daterangepicker({
-            timePicker: true,
-            timePicker24Hour: true,
-            singleDatePicker: true,
-            startDate:  (endDateInMilliseconds) ? new Date(parseInt(endDateInMilliseconds)) : moment().set({hour:20, minute:0}),
-            locale: {
-                format: (languageAbbIso==='ro_RO') ? 'DD/M/YYYY HH:mm' : 'YYYY/M/DD HH:mm'
-            }
-        });
+        var endDateInput = $(modal).find('.event-date-end');
+        if(endDateInMilliseconds !=='undefined'){
+            endDateInput.daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+                singleDatePicker: true,
+                startDate:  (endDateInMilliseconds) ? new Date(parseInt(endDateInMilliseconds)) : moment().set({hour:20, minute:0}),
+                locale: {
+                    format: (languageAbbIso==='ro_RO') ? 'DD/M/YYYY HH:mm' : 'YYYY/M/DD HH:mm'
+                }
+            });
+        }
+        if(eventTypeId>1){
+            endDateInput.prop( "disabled", true );
+        }
+        else{
+            endDateInput.prop( "disabled", false );
+        }
+
     }
 
     function initSelect2Event(modal){
