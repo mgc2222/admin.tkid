@@ -39,8 +39,8 @@ CREATE TABLE `events` (
   `event_type_id` int(10) UNSIGNED NOT NULL,
   `event_external_id` varchar (20) CHARACTER SET utf8 DEFAULT NULL,
   `event_css_class_id` tinyint(3) UNSIGNED DEFAULT NULL,
-  `event_start_unix_milliseconds` int(10) UNSIGNED NOT NULL,
-  `event_end_unix_milliseconds` int(10) UNSIGNED DEFAULT NULL
+  `event_start_unix_milliseconds` bigint(13) UNSIGNED NOT NULL,
+  `event_end_unix_milliseconds` bigint(13) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
