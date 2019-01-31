@@ -71,9 +71,16 @@ class AppPicturesModel extends AbstractModel
 		return $this->dbo->GetFieldValue($sql); 
 	}
 
-	function GetAppCategoriesForDropDown()
+    function GetAppCategoryIdByCategoryName($appCategoryName)
+    {
+        //echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
+        $sql = "SELECT id FROM app_categories ac WHERE ac.name='{$appCategoryName}' LIMIT 1";
+        return $this->dbo->GetFieldValue($sql);
+    }
+
+	function GetAppCategoriesForDropDown($id=true)
 	{
-		$sql = "SELECT * FROM app_categories WHERE true";
+		$sql = "SELECT * FROM app_categories WHERE parent_id=$id";
 		return $this->dbo->GetRows($sql);
 	}
 

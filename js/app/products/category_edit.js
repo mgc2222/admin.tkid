@@ -8,8 +8,8 @@ function CategoryEdit()
 	
 	function initControls()
 	{
-		$('#txtName').blur(function() {
-			strUtil.SetUrlKey('txtName','txtUrlKey', false);
+		$('#txtName').change(function() {
+			strUtil.SetUrlKey('txtName','txtUrlKey', true);
 		});
 		
 		$('#lnkRegenerateUrlKey').click(function() {

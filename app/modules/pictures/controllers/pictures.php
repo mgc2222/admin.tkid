@@ -142,8 +142,9 @@ class Pictures extends AdminController
 		$data->appCategoryId = $formData->appCategoryId;
 		//echo'<pre>';print_r($data->appCategoryId);echo'</pre>';die;
 		$data->appCategoryName = $this->appImagesModel->GetAppCategoryName($data->appCategoryId);
+		$data->appImagesId = $this->appImagesModel->GetAppCategoryIdByCategoryName('images');
 		$this->webpage->PageHeadTitle = $this->trans['app_images.page_title'].' '.ucfirst($data->appCategoryName);
-		$data->appCategoriesListContent = HtmlControls::GenerateDropDownList($this->appImagesModel->GetAppCategoriesForDropDown(), 'id', 'name', $data->appCategoryId);
+		$data->appCategoriesListContent = HtmlControls::GenerateDropDownList($this->appImagesModel->GetAppCategoriesForDropDown($data->appImagesId), 'id', 'name', $data->appCategoryId);
 		//echo'<pre>';print_r($data->appCategoriesListContent);echo'</pre>';die;
 		$data->rows = $this->appImagesModel->GetAppImages($data->appCategoryId, 'order_index');
 
