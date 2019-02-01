@@ -19,7 +19,14 @@ class Users extends AdminController
 		$dataSearch = $this->GetQueryItems($query, array('search', 'propertyId'));
 		
 		// page initializations
-		array_push($this->webpage->ScriptsFooter, 'cache/properties_qs.js', 'lib/select2/select2.min.js', 'lib/select2/select2-paging.js', 'lib/gridsort/grid_sort.js', _JS_APPLICATION_FOLDER.$this->module.'/users.js');
+		array_push(
+			$this->webpage->ScriptsFooter,
+			//'cache/properties_qs.js',
+			'lib/select2/select2.min.js',
+			'lib/select2/select2-paging.js',
+			'lib/gridsort/grid_sort.js',
+			_JS_APPLICATION_FOLDER.$this->module.'/users.js'
+		);
 		array_unshift($this->webpage->StyleSheets, 'select2/select2.min.css');
 		parent::SetWebpageData($this->pageId);
 		//$this->webpage->SearchBlock = $this->GetBlockPath('search_users_block');
@@ -71,7 +78,15 @@ class Users extends AdminController
 	function GetEditData($editId = 0)
 	{
 		// page initializations
-		array_push($this->webpage->ScriptsFooter, 'cache/properties_qs.js', 'lib/select2/select2.js', 'lib/select2/select2-paging.js', 'lib/validator/jquery.validate.min.js', 'lib/wrappers/validator/validator.js', _JS_APPLICATION_FOLDER.$this->module.'/user_edit.js');
+		array_push(
+			$this->webpage->ScriptsFooter,
+			//'cache/properties_qs.js',
+			'lib/select2/select2.js',
+			'lib/select2/select2-paging.js',
+			'lib/validator/jquery.validate.min.js',
+			'lib/wrappers/validator/validator.js',
+			_JS_APPLICATION_FOLDER.$this->module.'/user_edit.js'
+		);
 		// 'lib/wrappers/autocomplete/autocomplete.js'
 		array_unshift($this->webpage->StyleSheets, 'select2/select2.min.css');
 		parent::SetWebpageData('user_edit', $this->pageId);

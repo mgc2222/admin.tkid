@@ -65,7 +65,7 @@ function Pictures()
 			if (confirm(trans['delete_images_all']))
 				frm.FormSubmitAction('DeleteAppAllImages');
 		});
-		$('#appCategoryId').change(function() {
+		$('#categoryId').change(function() {
 			frm.FormSubmitAction('FilterResults');
 		});	
 	}

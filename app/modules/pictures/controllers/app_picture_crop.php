@@ -31,7 +31,7 @@ class AppPictureCrop extends AdminController
 		$form = new Form('CropImage');
 		$formData = $form->data;
 		$formData->pictureId = $pictureId;
-		$formData->appCategoryId = $row->app_category_id;
+		$formData->categoryId = $row->app_category_id;
 		//echo'<pre>';print_r($formData);echo'</pre>';die;
 		$this->ProcessFormAction($formData);
 		
@@ -57,18 +57,18 @@ class AppPictureCrop extends AdminController
 		{
 			case 'CropImage':
 				$this->IncludeClasses(array('system/lib/files/file_upload.php'));
-				$this->CropImage($formData->pictureId, $formData->appCategoryId, (int)$_POST['w'], (int)$_POST['h'], (int)$_POST['x'], (int)$_POST['y']);
+				$this->CropImage($formData->pictureId, $formData->categoryId, (int)$_POST['w'], (int)$_POST['h'], (int)$_POST['x'], (int)$_POST['y']);
 				$this->webpage->SetMessage('Imaginea a fost modificata.', 'success');
 			break;
 		}
 	}
 
-	function CropImage($imageId, $appCategoryId, $width, $height, $x, $y)
+	function CropImage($imageId, $categoryId, $width, $height, $x, $y)
 	{
 		$row = $this->appImagesModel->GetAppImageById($imageId);
 		if ($row == null) return 0;
 		
-		$filePath = _APP_IMAGES_PATH.$appCategoryId.'/';
+		$filePath = _APP_IMAGES_PATH.$categoryId.'/';
 		$fileName = $row->file;
 
 		$fileUpload = new FileUpload();

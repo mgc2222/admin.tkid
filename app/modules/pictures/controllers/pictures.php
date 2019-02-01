@@ -104,7 +104,7 @@ class Pictures extends AdminController
 		//echo'<pre>';print_r($this->HandleAjaxRequest());echo'</pre>';die;
 		$this->HandleAjaxRequest();
 
-		$dataSearch = $this->GetQueryItems($query, array('appCategoryId'));
+		$dataSearch = $this->GetQueryItems($query, array('categoryId'));
 
 		array_push(
 			$this->webpage->StyleSheets,
@@ -128,27 +128,35 @@ class Pictures extends AdminController
 
 		$form = new Form('SaveAppImages');
 		$formData = $form->data;
-		$formData->appCategoryId = (int)$dataSearch->appCategoryId;
-		if ($formData->appCategoryId == 0) {
-			$formData->appCategoryId = 1; // set initial appCategoryId for the fist id in database
-			//Session::SetFlashMessage($this->trans['app_images.no_images'], _SITE_RELATIVE_URL.'app_images');
-		}
+		$formData->categoryId = (int)$dataSearch->categoryId;
+
 
 		$this->ProcessFormAction($formData);
 
 		$data = new stdClass();
 		//$data->advancedSearchBlock = $this->GetBlockPath($this->pageId.'_advanced_search_block');
 		//echo'<pre>';print_r($formData);echo'</pre>';die;
-		$data->appCategoryId = $formData->appCategoryId;
-		//echo'<pre>';print_r($data->appCategoryId);echo'</pre>';die;
-		$data->appCategoryName = $this->appImagesModel->GetAppCategoryName($data->appCategoryId);
-		$data->appImagesId = $this->appImagesModel->GetAppCategoryIdByCategoryName('images');
-		$this->webpage->PageHeadTitle = $this->trans['app_images.page_title'].' '.ucfirst($data->appCategoryName);
-		$data->appCategoriesListContent = HtmlControls::GenerateDropDownList($this->appImagesModel->GetAppCategoriesForDropDown($data->appImagesId), 'id', 'name', $data->appCategoryId);
-		//echo'<pre>';print_r($data->appCategoriesListContent);echo'</pre>';die;
-		$data->rows = $this->appImagesModel->GetAppImages($data->appCategoryId, 'order_index');
+		$data->categoryId = $formData->categoryId;
+		//echo'<pre>';print_r($data->categoryId);echo'</pre>';die;
 
-		$this->FormatAppImagesRows($data->appCategoryId, $data->appCategoryName, $data->rows);
+		$data->imagesId = $this->appImagesModel->GetCategoryIdByCategoryName('images');
+		$data->imagesList = $this->appImagesModel->GetCategoriesForDropDown($data->imagesId);
+        //echo'<pre>';print_r($data->imagesList);echo'</pre>';die;
+        if ($formData->categoryId == 0 && count($data->imagesList)) {
+            $data->categoryId = $data->imagesList[0]->id;
+            $data->categoryName = $this->appImagesModel->GetCategoryName($data->categoryId); // set initial categoryId for the fist id in list
+        }
+        else{
+            $data->categoryName = $this->appImagesModel->GetCategoryName($data->categoryId);
+		}
+
+		$this->webpage->PageHeadTitle = $this->trans['app_images.page_title'].' '.ucfirst($data->categoryName);
+		$data->imagesListContent = HtmlControls::GenerateDropDownList($data->imagesList, 'id', 'name', $data->categoryId);
+		//echo'<pre>';print_r($data->imagesListContent);echo'</pre>';die;
+		$data->rows = $this->appImagesModel->GetAppImages($data->categoryId, 'order_index');
+        //echo'<pre>';print_r($data->rows);echo'</pre>';die;
+
+		$this->FormatAppImagesRows($data->categoryId, $data->categoryName, $data->rows);
 		//echo'<pre>';print_r($data);echo'</pre>';die;
 		//$data->pageId  = 'app_images';
 		$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
@@ -187,7 +195,7 @@ EOF;
 		}
 	}
 
-	function FormatAppImagesRows($appCategoryId, $categoryName, &$rows)
+	function FormatAppImagesRows($categoryId, $categoryName, &$rows)
 	{
 		if ($rows == null) {
 			return;
@@ -216,7 +224,7 @@ EOF;
 		{
 			case 'FilterResults':
 				$this->webpage->RedirectPostToGet($this->webpage->PageUrl, 'sys_Action', 'FilterResults',
-				array('appCategoryId'), array('appCategoryId'));
+				array('categoryId'), array('categoryId'));
 			break;
 			case 'Save':
 			//echo'<pre>';print_r($formData);echo'</pre>';die;
@@ -247,16 +255,16 @@ EOF;
 				Session::SetFlashMessage('Imaginile au fost sterse', 'success', $this->webpage->PageUrl);
 			break;
 			case 'DeleteAppImage':
-				$path = $this->GetBasePath()._APP_IMAGES_PATH.$formData->appCategoryId.'/';
-				$this->appImagesModel->DeleteAppImage($formData->Params, $formData->appCategoryId, $path);
-				$this->appImagesModel->DeleteAppImageMeta($formData->Params, $formData->appCategoryId);
+				$path = $this->GetBasePath()._APP_IMAGES_PATH.$formData->categoryId.'/';
+				$this->appImagesModel->DeleteAppImage($formData->Params, $formData->categoryId, $path);
+				$this->appImagesModel->DeleteAppImageMeta($formData->Params, $formData->categoryId);
 				$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
 				Session::SetFlashMessage('Imaginile au fost sterse', 'success', $this->webpage->PageUrl);
 			break;
 			case 'DeleteAppAllImages':
-				$path = $this->GetBasePath()._APP_IMAGES_PATH.$formData->appCategoryId.'/';
-				$this->appImagesModel->DeleteAppAllImages($formData->appCategoryId, $path);
-				$this->appImagesModel->DeleteAppAllImagesMeta($formData->appCategoryId);
+				$path = $this->GetBasePath()._APP_IMAGES_PATH.$formData->categoryId.'/';
+				$this->appImagesModel->DeleteAppAllImages($formData->categoryId, $path);
+				$this->appImagesModel->DeleteAppAllImagesMeta($formData->categoryId);
 				$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
 				Session::SetFlashMessage('Imaginile au fost sterse', 'success', $this->webpage->PageUrl);
 			break;
@@ -267,11 +275,11 @@ EOF;
 	{
 
 		$this->IncludeClasses(array('system/lib/files/file_upload.php'));
-		$dataSearch = $this->GetQueryItems($query, array('appCategoryId'));
+		$dataSearch = $this->GetQueryItems($query, array('categoryId'));
 		//echo'<pre>';print_r($dataSearch);echo'</pre>';die;
-		if($dataSearch->appCategoryId){
-			$appCategoryId = $dataSearch->appCategoryId;
-			$this->UploadAppImage('file', $appCategoryId, 'UploadAppImages');
+		if($dataSearch->categoryId){
+			$categoryId = $dataSearch->categoryId;
+			$this->UploadAppImage('file', $categoryId, 'UploadAppImages');
 			die();
 		}
 		else{
@@ -303,21 +311,21 @@ EOF;
 		}
 	}
 
-	function UploadAppImage($fileInputId, $appCategoryId, $action = '')
+	function UploadAppImage($fileInputId, $categoryId, $action = '')
 	{
 		//echo'<pre>';print_r($action);echo'</pre>';die;
-		$fileInfo = $this->GetFileInfo($fileInputId, $appCategoryId, $action);
+		$fileInfo = $this->GetFileInfo($fileInputId, $categoryId, $action);
 		$fileId = $this->appImagesModel->GetLastInsertedAppImageId();
 		//echo'<pre>';print_r($fileId);echo'</pre>';die;
 		$file = preg_replace('/-\d+\.'. $fileInfo->fileExtension.'/', '', $fileInfo->fileName);
 		$fileName = $file.'-'.$fileId.'.'.$fileInfo->fileExtension;
-		$fileSavedData = $this->UploadFile($fileInputId, _APP_IMAGES_PATH.$appCategoryId, $fileName);
+		$fileSavedData = $this->UploadFile($fileInputId, _APP_IMAGES_PATH.$categoryId, $fileName);
         //echo'<pre>';print_r($fileSavedData);echo'</pre>';//die;
 		if ($fileSavedData['status'])
 		{
-			$row = array('id'=>0, 'app_category_id'=>$appCategoryId, 'file'=>$fileName, 'img_width'=>$fileSavedData['img_width'], 'img_height'=>$fileSavedData['img_height'], 'extension'=>$fileSavedData['extension']);
+			$row = array('id'=>0, 'app_category_id'=>$categoryId, 'file'=>$fileName, 'img_width'=>$fileSavedData['img_width'], 'img_height'=>$fileSavedData['img_height'], 'extension'=>$fileSavedData['extension']);
 			$imageId = $this->appImagesModel->SaveAppImages($row);
-			$this->appImagesModel->InsertAppImagesMeta($imageId, $appCategoryId);
+			$this->appImagesModel->InsertAppImagesMeta($imageId, $categoryId);
 			return $imageId;
 		}
 		else
@@ -334,7 +342,7 @@ EOF;
 	{
 		// image path is: _PRODUCT_IMAGES_PATH./{productId}/{elementName}-X.{fileExtension}  , X = image index
 
-		$elementInfo = ($action=='UploadAppImages') ? $this->GetAppInfo($elementId) : $this->GetProductInfo($elementId);
+		$elementInfo = ($action=='UploadAppImages') ? $this->GetCategoryInfo($elementId) : $this->GetProductInfo($elementId);
 		//echo'<pre>';print_r($elementInfo);echo'</pre>';die;
 		$elementName = StringUtils::UrlTitle($elementInfo->name);
 		$imageOrder = $elementInfo->images_count + 1;
@@ -365,9 +373,9 @@ EOF;
 		return $this->imagesModel->GetProductInfo($productId);
 	}
 
-	function GetAppInfo($appCategoryId)
+	function GetCategoryInfo($categoryId)
 	{
-		return $this->appImagesModel->GetAppInfo($appCategoryId);
+		return $this->appImagesModel->GetCategoryInfo($categoryId);
 	}
 
 	function GetUploadedFileExtension($fileInputId)

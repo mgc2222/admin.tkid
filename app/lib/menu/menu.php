@@ -23,6 +23,7 @@ class Menu
 	function SetAdminMenuVariables(&$trans)
 	{
 		$this->MenuItems = array(
+            array('id'=>'content', 'name'=>$trans['menu.content'], 'class'=>'', 'url'=>'content','level'=>0,'icon'=>'fa-dashboard'),
 			array('id'=>'categories', 'name'=>$trans['menu.categories'], 'class'=>'', 'url'=>'categories','level'=>0,'icon'=>'fa-dashboard'),
             array('id'=>'events', 'name'=>$trans['menu.events'], 'class'=>'', 'url'=>'events_calendar','level'=>0,'icon'=>'fa-user'),
 			//array('id'=>'products', 'name'=>$trans['menu.products'], 'class'=>'', 'url'=>'products','level'=>0,'icon'=>'fa-dashboard'),
@@ -30,7 +31,7 @@ class Menu
 			array('id'=>'users', 'name'=>$trans['menu.users'], 'class'=>'', 'url'=>'users','level'=>0,'icon'=>'fa-user'),
 			array('id'=>'users_permissions', 'name'=>$trans['menu.users_permissions'], 'class'=>'', 'url'=>'users_permissions','level'=>0,'icon'=>'fa-folder-o'),
 			array('id'=>'roles', 'name'=>$trans['menu.roles'], 'class'=>'', 'url'=>'roles','level'=>0,'icon'=>'fa-dashboard'),
-			//array('id'=>'permissions', 'name'=>$trans['menu.permissions'], 'class'=>'', 'url'=>'permissions','level'=>0,'icon'=>'fa-folder-o'),
+			array('id'=>'permissions', 'name'=>$trans['menu.permissions'], 'class'=>'', 'url'=>'permissions','level'=>0,'icon'=>'fa-folder-o'),
 			//array('id'=>'products_images', 'name'=>$trans['menu.products_images'], 'class'=>'', 'url'=>'products_images','level'=>0,'icon'=>'fa-dashboard'),
 			//array('id'=>'dashboard', 'name'=>$trans['menu.dashboard'], 'class'=>'', 'url'=>'dashboard','level'=>0,'icon'=>'fa-home'),
 			//array('id'=>'app_categories', 'name'=>$trans['menu.app_categories'], 'class'=>'', 'url'=>'app_categories','level'=>0,'icon'=>'fa-folder-o'),
@@ -110,12 +111,11 @@ class Menu
 		$ret = false;
 		foreach ($userPermissions as &$row)
 		{
-			/*if ($pageId == $row->page_id)
+			if ($pageId == $row->page_id)
 			{
 				$ret = true;
 				break;
-			}*/
-            $ret = true;
+			}
 		}
 		return $ret;
 	}

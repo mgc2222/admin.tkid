@@ -29,7 +29,7 @@
         <td><label for="txtAlt"><?php /*echo $trans['app_image.alt']*/?></td>
         <td><input type="text" class="form-control" id="txtAlt" name="txtAlt" value="<?php /*echo $dataView->txtAlt; */?>" /></td>
     </tr>-->
-<?php if($dataView->appCategoryName =='slider')
+<?php if($dataView->categoryName =='slider')
         {
 ?>
             <!--<tr>
@@ -54,7 +54,7 @@
 		<td><label for="txtOrder"><?php echo $trans['app_image.order_index']?></td>
 		<td><input type="text" class="form-control" id="txtOrder" name="txtOrder" value="<?php echo $dataView->txtOrder; ?>" /></td>
 	</tr>
-        <input type="hidden" id="appCategoryId" name="appCategoryId" value="<?php echo $dataView->row->app_category_id; ?>" />
+        <input type="hidden" id="categoryId" name="categoryId" value="<?php echo $dataView->row->app_category_id; ?>" />
 	</table>
 </div>
 <div class="grid_buttons">

@@ -8,7 +8,7 @@ class Products extends AdminController
 	function __construct()
 	{
 		parent::__construct();
-		$this->module = 'products';
+		$this->module = 'categories';
 		$this->pageId = $this->module;
 		$this->translationPrefix = $this->module;
 		
@@ -19,8 +19,8 @@ class Products extends AdminController
 		$this->IncludeClasses(array('system/lib/enum/abstract_enum.php'));
 		//$this->LoadEnum('currency','currency');
 		//$this->LoadEnum('attributes');
-		$this->LoadEnum('product', 'products');
-		$this->LoadEnum('category', 'products');
+		$this->LoadEnum('product', 'categories');
+		$this->LoadEnum('category', 'categories');
 	}
 	
 	function HandleAjaxRequest()

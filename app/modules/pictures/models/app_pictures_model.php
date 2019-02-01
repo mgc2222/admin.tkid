@@ -6,6 +6,7 @@ class AppPicturesModel extends AbstractModel
 		parent::__construct();
 		$this->table = 'app_images_meta';
 		$this->tableImages = 'app_images';
+		$this->tableCategories = 'categories';
 		$this->primaryKey = 'id';
 		$this->verifiedTableField = 'name';
 		$this->verifiedFormField = 'txtName';
@@ -48,13 +49,13 @@ class AppPicturesModel extends AbstractModel
 		return $data;
 	}
 	
-	function GetAppInfo($appCategoryId)
+	function GetCategoryInfo($categoryId)
 	{
-		//echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
+		//echo'<pre>';print_r($categoryId);echo'</pre>';die;
 		$sql = "SELECT a.name, COUNT(aim.app_image_id) as images_count
-				FROM app_categories a
+				FROM {$this->tableCategories} a
 				LEFT JOIN {$this->table} aim ON a.id = aim.app_category_id
-			WHERE a.id=".$appCategoryId;	
+			WHERE a.id=".$categoryId;
 		return $this->dbo->GetFirstRow($sql);
 	}
 
@@ -64,23 +65,23 @@ class AppPicturesModel extends AbstractModel
 		return $this->dbo->GetFieldValue($sql);
 	}
 
-	function GetAppCategoryName($appCategoryId)
+	function GetCategoryName($categoryId)
 	{
-		//echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
-		$sql = "SELECT name FROM app_categories WHERE id={$appCategoryId} LIMIT 1";
+		//echo'<pre>';print_r($categoryId);echo'</pre>';die;
+		$sql = "SELECT name FROM {$this->tableCategories} WHERE id={$categoryId} LIMIT 1";
 		return $this->dbo->GetFieldValue($sql); 
 	}
 
-    function GetAppCategoryIdByCategoryName($appCategoryName)
+    function GetCategoryIdByCategoryName($categoryName)
     {
-        //echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
-        $sql = "SELECT id FROM app_categories ac WHERE ac.name='{$appCategoryName}' LIMIT 1";
+        //echo'<pre>';print_r($categoryId);echo'</pre>';die;
+        $sql = "SELECT id FROM {$this->tableCategories} ac WHERE ac.name='{$categoryName}' LIMIT 1";
         return $this->dbo->GetFieldValue($sql);
     }
 
-	function GetAppCategoriesForDropDown($id=true)
+	function GetCategoriesForDropDown($id=true)
 	{
-		$sql = "SELECT * FROM app_categories WHERE parent_id=$id";
+		$sql = "SELECT * FROM {$this->tableCategories} WHERE parent_id=$id AND status=1";
 		return $this->dbo->GetRows($sql);
 	}
 
@@ -94,11 +95,11 @@ class AppPicturesModel extends AbstractModel
 		return $row;
 	}
 
-	function GetAppImages($appCategoryId, $order='')
+	function GetAppImages($categoryId, $order='')
 	{
-		//echo'<pre>';print_r($appCategoryId);echo'</pre>';die;
+		//echo'<pre>';print_r($categoryId);echo'</pre>';die;
         $order = ($order) ?: 'id';
-		$cond = 'ti.app_category_id='.$appCategoryId;
+		$cond = 'ti.app_category_id='.$categoryId;
 		$sql = "SELECT * FROM {$this->tableImages} ti LEFT JOIN {$this->table} t ON ti.id=t.app_image_id WHERE {$cond} ORDER BY {$order}";
 		$rows = $this->dbo->GetRows($sql);
 			
@@ -120,21 +121,21 @@ class AppPicturesModel extends AbstractModel
 		return $this->dbo->GetFieldValue($sql); 
 	}
 
-	function InsertAppImagesMeta($imageId, $appCategoryId)
+	function InsertAppImagesMeta($imageId, $categoryId)
 	{
 		//echo'<pre>IMAGE ID:';print_r($imageId);echo'</pre>';die;
 		$id = $this->GetAppImageMetaIdByAppImageId($imageId);
-		$data = array('app_image_id'=>$imageId, 'app_category_id'=>$appCategoryId);
+		$data = array('app_image_id'=>$imageId, 'app_category_id'=>$categoryId);
 		if (!$id) {
 			
 			$this->dbo->InsertRow($this->table, $data);
 		}
 		else {
-			$this->UpdateAppImagesMeta($imageId, $appCategoryId, $data);
+			$this->UpdateAppImagesMeta($imageId, $categoryId, $data);
 		}
 	}
 
-	function UpdateAppImagesMeta($imageId, $appCategoryId, $data)
+	function UpdateAppImagesMeta($imageId, $categoryId, $data)
 	{
 		//echo'<pre>IMAGE ID:';print_r($data);echo'</pre>';die;
 		$this->dbo->UpdateRow($this->table, $data, array('app_image_id'=>$imageId));
@@ -146,28 +147,28 @@ class AppPicturesModel extends AbstractModel
 		$this->dbo->UpdateRow($this->tableImages, array('img_width'=>$width, 'img_height'=>$height), array('id'=>$imageId));
 	}
 
-	function DeleteAppImage($imageId, $appCategoryId, $path)
+	function DeleteAppImage($imageId, $categoryId, $path)
 	{
 		//echo'<pre>';print_r($imageId);echo'</pre>';die;
-		$this->dbo->DeleteRowsWithFiles($this->tableImages, 'file', $path, null, array('id'=>$imageId, 'app_category_id'=>$appCategoryId));
+		$this->dbo->DeleteRowsWithFiles($this->tableImages, 'file', $path, null, array('id'=>$imageId, 'app_category_id'=>$categoryId));
 	}
 
-	function DeleteAppImageMeta($imageId, $appCategoryId)
+	function DeleteAppImageMeta($imageId, $categoryId)
 	{
 		//echo'<pre>';print_r($imageId);echo'</pre>';die;
-		$this->dbo->DeleteRows($this->table, array('app_image_id'=>$imageId, 'app_category_id'=>$appCategoryId));
+		$this->dbo->DeleteRows($this->table, array('app_image_id'=>$imageId, 'app_category_id'=>$categoryId));
 	}
 
-	function DeleteAppAllImages($appCategoryId, $path)
+	function DeleteAppAllImages($categoryId, $path)
 	{
 		//echo'<pre>';print_r($path);echo'</pre>';die;
-		$this->dbo->DeleteRowsWithFiles($this->tableImages, 'file', $path, null, array('app_category_id'=>$appCategoryId));
+		$this->dbo->DeleteRowsWithFiles($this->tableImages, 'file', $path, null, array('app_category_id'=>$categoryId));
 	}
 
-	function DeleteAppAllImagesMeta($appCategoryId)
+	function DeleteAppAllImagesMeta($categoryId)
 	{
-		//echo'<pre>IMAGE ID:';print_r($appCategoryId);echo'</pre>';die;
-		$this->dbo->DeleteRows($this->table, array('app_category_id'=>$appCategoryId));
+		//echo'<pre>IMAGE ID:';print_r($categoryId);echo'</pre>';die;
+		$this->dbo->DeleteRows($this->table, array('app_category_id'=>$categoryId));
 	}
 
 	function BeforeSaveData(&$data, &$row)

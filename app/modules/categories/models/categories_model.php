@@ -25,7 +25,13 @@ class CategoriesModel extends AbstractModel
 		
 		return $cond;
 	}
-	
+
+    function GetActiveCategoriesForDropDown($id=true)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE parent_id=$id AND status=1";
+        return $this->dbo->GetRows($sql);
+    }
+
 	function GetRecordsList($dataSearch, $orderBy)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
@@ -49,10 +55,17 @@ class CategoriesModel extends AbstractModel
 	{
 		$cond = $this->GetSqlCondition($dataSearch);
 		$orderBy = ' ORDER BY name';
-		$sql = "SELECT id, parent_id, name FROM {$this->table}	{$cond} {$orderBy}";
+		$sql = "SELECT * FROM {$this->table}	{$cond} {$orderBy}";
 		
 		return $this->dbo->GetRows($sql);
 	}
+
+    function GetCategoryIdByCategoryName($categoryName)
+    {
+        //echo'<pre>';print_r($categoryId);echo'</pre>';die;
+        $sql = "SELECT id FROM {$this->table} ac WHERE ac.name='{$categoryName}' LIMIT 1";
+        return $this->dbo->GetFieldValue($sql);
+    }
 	
 	function GetRecordsIds($dataSearch = null)
 	{
@@ -62,6 +75,13 @@ class CategoriesModel extends AbstractModel
 		
 		return $this->dbo->GetRows($sql);
 	}
+
+    function GetCategoryName($categoryId)
+    {
+        //echo'<pre>';print_r($categoryId);echo'</pre>';die;
+        $sql = "SELECT name FROM {$this->table} WHERE id={$categoryId} LIMIT 1";
+        return $this->dbo->GetFieldValue($sql);
+    }
 
 	function GetCategoriesByIds($categoriesIds)
 	{

@@ -164,7 +164,7 @@ class AdminController extends AbstractController
 		$scriptName = $_SERVER["SCRIPT_NAME"];
 		$currentPage = substr($scriptName,strrpos($scriptName,"/")+1, strrpos($scriptName,".php") - strrpos($scriptName,"/") - 1);
 		if ($currentPage == 'home') return; // don't verify for home page
-		
+        //echo'<pre>';print_r($usersPermissionsModel);die();
 		$hasAccess = $usersPermissionsModel->CheckUserPermissions($this->auth->UserId, $currentPage);
 		
 		if (!$hasAccess)

@@ -81,15 +81,15 @@ class AppImageEdit extends AdminController
 		//echo'<pre>';print_r($data);echo'</pre>';die;
 		
 		
-		$data->appCategoryName = preg_replace('/-\d+\.'. $data->row->extension.'/', '', $data->row->file);
-		//echo'<pre>';print_r($data->appCategoryName);echo'</pre>';die;
+		$data->categoryName = preg_replace('/-\d+\.'. $data->row->extension.'/', '', $data->row->file);
+		//echo'<pre>';print_r($data->categoryName);echo'</pre>';die;
 		$this->webpage->PageHeadTitle = $this->trans['app_image_edit.page_title'].' '.ucfirst($data->row->file);
 		
-		//echo'<pre>';print_r($data->appCategoriesListContent);echo'</pre>';die;
+		//echo'<pre>';print_r($data->imagesListContent);echo'</pre>';die;
 	
 
 		
-		$this->FormatRows($data->appCategoryName, $data->row);
+		$this->FormatRows($data->categoryName, $data->row);
 		//echo'<pre>';print_r($data);echo'</pre>';die;
 		//$data->pageId  = 'app_images';
 		$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
@@ -116,12 +116,12 @@ class AppImageEdit extends AdminController
 		{
 			case 'FilterResults':
 				$this->webpage->RedirectPostToGet($this->webpage->PageUrl, 'sys_Action', 'FilterResults',
-				array('appCategoryId'), array('appCategoryId'));
+				array('categoryId'), array('categoryId'));
 			break;
 			case 'SaveAppImagesMeta':
 				//echo'<pre>';print_r($formData);echo'</pre>';die;
 				$mapping = $this->SetMapping($formData);
-				$appImageMetaId = $this->appImagesModel->UpdateAppImagesMeta($formData->EditId, $formData->appCategoryId, $mapping);
+				$appImageMetaId = $this->appImagesModel->UpdateAppImagesMeta($formData->EditId, $formData->categoryId, $mapping);
 				if ($appImageMetaId != 0)
 				{
 					//echo'<pre>';print_r($formData);echo'</pre>';die;

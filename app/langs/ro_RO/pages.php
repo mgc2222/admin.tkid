@@ -20,6 +20,7 @@ $trans['menu.categories_import'] = 'Categorii Import';
 $trans['menu.products'] = 'Produse';
 $trans['menu.products_images'] = 'Imaginile Produselor';
 $trans['menu.events'] = 'Calendar Evenimente';
+$trans['menu.content'] = 'Continutul Aplicatiei';
 
 
 //	===================================================== //
@@ -404,14 +405,14 @@ $trans['categories.no_elements'] = 'Nu exista categorii.';
 $trans['categories.delete_selected_items'] = 'Sterge categoriile selectate';
 
 $trans['categories.name'] = 'Categorie';
-$trans['categories.edit_articles_items'] = 'Lista produse';
+$trans['categories.edit_articles_items'] = 'Lista articole';
 
 
 $trans['categories.edit_item'] = 'Editeaza categorie';
 $trans['categories.delete_item'] = 'Sterge categorie';
 
-$trans['categories.items_count'] = '%s produse';
-$trans['categories.item_count'] = '%s produs';
+$trans['categories.items_count'] = '%s articole';
+$trans['categories.item_count'] = '%s articol';
 $trans['categories.subcategories_count'] = '%s subcategorii';
 $trans['categories.subcategory_count'] = '%s subcategorie';
 

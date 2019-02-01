@@ -28,11 +28,11 @@
 	$routes['languages/edit[/{id:\d+}]'] = 'languages/languages/GetEditData/$1';
 	$routes['languages/{data:.+}'] = 'languages/languages/GetViewData/$1';
 	
-	$routes['products'] = 'products/products/GetViewData';
-	$routes['products/edit[/{data:.+}]'] = 'products/products/GetEditData/$1';
-	$routes['products/{data:.+}'] = 'products/products/GetViewData/$1';
+	$routes['products'] = 'categories/products/GetViewData';
+	$routes['products/edit[/{data:.+}]'] = 'categories/products/GetEditData/$1';
+	$routes['products/{data:.+}'] = 'categories/products/GetViewData/$1';
 	
-	$routes['products_import'] = 'products/product_import/ImportFeed';
+	$routes['products_import'] = 'categories/product_import/ImportFeed';
 	
 	$routes['pictures/upload/{data:.+}'] = 'pictures/pictures/UploadImage/$1';
 	$routes['pictures'] = 'pictures/pictures/GetViewData';
@@ -42,9 +42,9 @@
 	$routes['product_image/{data:.+}'] = 'pictures/picture_render/RenderImage/$1';
 	$routes['product_thumb/{data:.+}'] = 'pictures/picture_render/RenderThumb/$1';
 	
-	$routes['categories'] = 'products/categories/GetViewData';
-	$routes['categories/edit[/{id:\d+}]'] = 'products/categories/GetEditData/$1';
-	$routes['categories/{data:.+}'] = 'products/categories/GetViewData/$1';	
+	$routes['categories'] = 'categories/categories/GetViewData';
+	$routes['categories/edit[/{id:\d+}]'] = 'categories/categories/GetEditData/$1';
+	$routes['categories/{data:.+}'] = 'categories/categories/GetViewData/$1';
 	
 	//$routes['generate_code'] = 'generate_code/generate_code/GetViewData';
 
@@ -84,6 +84,10 @@
 
     $routes['get_and_save_fb_events'] = 'cron/get_and_save_fb_events/GetFaceBookEvents';
     $routes['get_and_save_fb_events/{data:.+}'] = 'cron/get_and_save_fb_events/GetFaceBookEvents/$1';
+
+    $routes['content'] = 'content/content/GetViewData';
+    $routes['content/edit[/{id:\d+}]'] = 'content/content/GetEditData/$1';
+    $routes['content/{data:.+}'] = 'content/content/GetViewData/$1';
 
 
 // {id} must be a number (\d+)

@@ -27,7 +27,7 @@ class RenderAppImage extends AdminController
 		$this->IncludeClasses($classes);
 		
 		//$cacheFileServerPath = _SITE_RELATIVE_URL._APP_IMAGES_PATH.$fileInfo->app_category_id.'/'.$cacheFileName;
-		$filePath = $this->GetBasePath()._APP_IMAGES_PATH.$fileInfo->appCategoryId.'/'.$fileInfo->fileName.'.'.$fileInfo->extension;
+		$filePath = $this->GetBasePath()._APP_IMAGES_PATH.$fileInfo->categoryId.'/'.$fileInfo->fileName.'.'.$fileInfo->extension;
 		if(!file_exists($filePath)){
             header("HTTP/1.0 404 Not Found");
             die();
@@ -68,7 +68,7 @@ class RenderAppImage extends AdminController
 		}
 		
 		$data = new stdClass();
-		$data->appCategoryId = (int)$capture[1];
+		$data->categoryId = (int)$capture[1];
 		$data->fileName = $capture[2];
 	
 		$data->extension = $capture[3];		

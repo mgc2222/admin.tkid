@@ -84,6 +84,7 @@ class Permissions extends AdminController
 		switch($formData->Action)
 		{
 			case 'Save':
+				//echo'<pre>';print_r($formData);die();
 				$permissionId = $this->permissionsModel->SaveRecord($formData, false);
 				if ($permissionId != 0)
 				{

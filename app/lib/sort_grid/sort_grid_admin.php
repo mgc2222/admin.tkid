@@ -20,7 +20,8 @@ class SortGridAdmin extends SortGrid
 		$arrMessagesFolders = array('name'=>'fcl.name', 'css_class'=>'fc.css_class', 'order_index'=>'order_index');
 		$arrMessages = array('date_sent'=>'m.date_sent');
 		$arrProducts = array('name'=>'name');
-		
+		$arrCategories = array('name'=>'name');
+
 		$arrCountries = array('name'=>'name','abbreviation'=>'abbreviation', 'status'=>'status');
 		switch ($sortTable)
 		{
@@ -33,6 +34,7 @@ class SortGridAdmin extends SortGrid
 					
 			case 'countries': $arr = $arrCountries; break;
 			case 'products': $arr = $arrProducts; break;
+			case 'categories': $arr = $arrCategories; break;
 		}
 		return $arr;
 	}
