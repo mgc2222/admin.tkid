@@ -525,5 +525,9 @@ $trans['modal.event_short_description_label'] = "Event Short Description (If com
 $trans['modal.event_status.is_active'] = 'Activ / Inactiv';
 $trans['modal.event_type'] = 'Event Type:';
 
+//	===================================================== //
+//		Pagina de vizualizare / editare continutul aplicatiei content.php
+//	===================================================== //
+$trans['content.page_title'] = '';
 
 ?>

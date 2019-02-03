@@ -142,8 +142,8 @@ class Pictures extends AdminController
 		$data->imagesId = $this->appImagesModel->GetCategoryIdByCategoryName('images');
 		$data->imagesList = $this->appImagesModel->GetCategoriesForDropDown($data->imagesId);
         //echo'<pre>';print_r($data->imagesList);echo'</pre>';die;
-        if ($formData->categoryId == 0 && count($data->imagesList)) {
-            $data->categoryId = $data->imagesList[0]->id;
+        if ($formData->categoryId == 0) {
+            $data->categoryId = isset($data->imagesList[0]->id)? $data->imagesList[0]->id : 0;
             $data->categoryName = $this->appImagesModel->GetCategoryName($data->categoryId); // set initial categoryId for the fist id in list
         }
         else{

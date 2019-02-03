@@ -140,7 +140,7 @@ class Categories extends AdminController
 		$data->rowsCount = count($data->rows);
 		$data->categoryId = (int)$this->GetVar('id', 0);
 		$data->categoriesBlock = $this->GetBlockPath('categories_block');
-				
+
 		return $data;
 	}
 	
@@ -370,7 +370,7 @@ class Categories extends AdminController
 		$fileUpload = $this->LoadLibrary('files', 'file_upload');
 		$options = new stdClass();
 		$options->fileMaxSize = '5000000';
-		$options->allowedTypes = array('image/jpeg','image/pjpeg','image/gif','image/png','application/octet-stream');
+		$options->allowedTypes = array('image/jpeg','image/jpg','image/gif','image/png','application/octet-stream');
 		$options->ignoreNoFileSelected = true;
 		
 		$imagePath = $filePath.$fileName;

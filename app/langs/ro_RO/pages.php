@@ -526,4 +526,9 @@ $trans['modal.event_short_description_label'] = "Descriere scurta (Daca se compl
 $trans['modal.event_status.is_active'] = 'Activ / Inactiv (daca este debifat, nu va fi afisat in calendarul din frontend)';
 $trans['modal.event_type'] = 'Tipul Evenimentului:';
 
+//	===================================================== //
+//		Pagina de vizualizare / editare continutul aplicatiei content.php
+//	===================================================== //
+$trans['content.page_title'] = '';
+
 ?>
