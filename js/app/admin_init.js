@@ -18,6 +18,14 @@ function initGridDelete()
 	}
 }
 
+function setLanguageMenuTrigger(){
+	$('#admin-header-select-language').on("click", function (e) {
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    })
+}
+
 function initToastr()
 {
 	if (typeof toastr === 'function')
@@ -54,3 +62,4 @@ if (typeof FormClass === 'function')
 initGridDelete();
 initToastr();
 setWindowMinHeight();
+setLanguageMenuTrigger();

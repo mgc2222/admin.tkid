@@ -87,7 +87,6 @@ class Content extends AdminController
         $this->webpage->FormAttributes = 'enctype="multipart/form-data"';
         $data->contentId = $this->categoriesModel->GetCategoryIdByCategoryName('content');
         $data->contentList = $this->categoriesModel->GetActiveCategoriesForDropDown($data->contentId);
-        //echo'<pre>';print_r($data->contentList);echo'</pre>';
         if ($formData->categoryId == 0 && count($data->contentList)) {
             $data->categoryId = $data->contentList[0]->id;
             $data->categoryName = $this->categoriesModel->GetCategoryName($data->categoryId); // set initial categoryId for the fist id in list
@@ -97,6 +96,13 @@ class Content extends AdminController
 
             $data->categoryName = $this->categoriesModel->GetCategoryName($data->categoryId);
         }
+
+
+        echo'<pre>';print_r($this->transJson);echo'</pre>';die();
+        //echo'<pre>';print_r( $data->contentList[0]);echo'</pre>';die();
+       // echo'<pre>';print_r($data->categoryId);echo'</pre>';die();
+        //
+        $data->contentList = $this->transJson['category'][$data->categoryId]['content']['html'];
 
         $this->webpage->PageHeadTitle = ucfirst($data->categoryName);
 
@@ -109,7 +115,9 @@ class Content extends AdminController
         $data->contentList = isset($data->contentList[0]) ? $data->contentList[0] : $data->contentList;
 
 		//$data->categoriesBlock = $this->GetBlockPath('categories_block');
-        echo'<pre>';print_r($data);echo'</pre>';die;
+        //echo'<pre>';print_r($data);echo'</pre>';die;
+        //echo'<pre>';print_r($this->webpage);echo'</pre>';die;
+        //echo'<pre>';print_r($this->transJson);echo'</pre>';die;
 		return $data;
 	}
 	
@@ -140,9 +148,11 @@ class Content extends AdminController
 	
 	function SaveCategory(&$formData)
 	{
-		echo '<pre>';print_r($formData);die();
-		$editId = $this->categoriesModel->SaveRecord($formData);
-		if ($editId != 0)
+		//echo '<pre>';print_r($formData);die();
+		//$editId = $this->categoriesModel->SaveRecord($formData);
+		$row= array('id'=>$formData->categoryId, 'description'=>$formData->txtDescription);
+		$this->categoriesModel->SaveData($row);
+		/*if ($formData->categoryId != 0)
 		{
 			// $this->categoriesModel->DeleteDiskFile('../cache/mainmenu.tmp'); // force refresh menu
 			$fileName = StringUtils::UrlTitle(strtolower($formData->txtName));
@@ -163,7 +173,7 @@ class Content extends AdminController
 		}
 		else {
 			$this->webpage->SetMessage($this->trans['general.save_error'], 'error');
-		}
+		}*/
 	}
 	// ================= Category Edit - END =================== //
 

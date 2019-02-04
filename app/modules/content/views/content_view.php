@@ -9,7 +9,7 @@
     <table class="edit_table">
         <tr>
             <td><?php echo $trans['categories.description']?>: </td>
-            <td><textarea name="txtDescription"  id="txtDescription" class="tinymce" rows="20" cols="60"><?php echo $dataView->contentList->description?></textarea></td>
+            <td><textarea name="txtDescription"  id="txtDescription" class="tinymce" rows="20" cols="60"><?php echo $dataView->contentList?></textarea></td>
         </tr>
         <!--<tr>
             <td><?php /*echo $trans['categories.short_description']*/?>: </td>

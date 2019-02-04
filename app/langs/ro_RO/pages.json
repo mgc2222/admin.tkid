@@ -1,0 +1,100 @@
+{
+  "Name": "Nume",
+  "Abbreviation": "Abreviere",
+  "DefaultLanguage": "Limba Implicita",
+  "Save": "Salveaza",
+
+  "menu": {
+    "home":"Acasa",
+    "roles":"Roluri",
+    "master_users":"Master Utilizatori",
+    "permissions_page":"Declarare Permisiuni",
+    "spoken_languages":"Limbi Vorbite",
+    "properties_types":"Tipuri de Proprietati",
+    "breakfast_types":"Tipuri de Breakfast",
+    "facilities_categories":"Categorii Facilitati",
+    "facilities_list":"Lista Facilitati",
+    "rooms_types":"Tipuri de Camere",
+    "rooms":"Camere",
+    "beds":"Paturi",
+    "surroundings_categories":"Declarare Categorii Imprejurimi",
+    "surroundings":"Declarare Elemente Imprejurimi",
+    "cards":"Declarare Carduri",
+    "departments":"Declarare Departamente",
+    "messages_folders":"Foldere Mesaje",
+    "users":"Utilizatori",
+    "users_permissions":"Permisiuni Utilizatori",
+    "hotel_facilities":"Facilitati",
+    "images":"Poze",
+    "general_info":"Informatii Generale",
+    "property_info":"Informatiile Proprietatii",
+    "property_surroundings":"Informatii Imprejurimi",
+    "property_rooms":"Camere",
+    "rooms_policy":"Politici generale hotel",
+    "hotel_prices":"Preturi",
+    "hotel_availability":"Disponibilitati",
+    "messages":"Mesaje",
+    "property_payment_options":"Preferinte de plata",
+    "hotel_contacts":"Informatii Contact",
+    "property_reservations_declaration":"Declarare Rezervari",
+    "property_reservations":"Rezervari",
+    "property_company":"Date Companie",
+    "property_financial_info":"Date Financiare Proprietate",
+    "property_bills":"Facturi",
+    "property_comments":"Comentarii Clienti",
+    "property_statistics":"Statistici"
+  },
+
+  "general": {
+    "private":"Doar Webmaster",
+    "save":"Salveaza",
+    "actions":"Actiuni",
+    "close":"Inchide",
+    "option_select":"Va rugam sa selectati",
+    "delete":"Eliminati",
+    "yes":"Da",
+    "no":"Nu",
+    "add":"Adauga",
+    "all_days":"Toate zilele",
+    "view":"Vizualizare",
+    "select_all":"Selectati toate",
+    "deselect_all":"Deselectati toate",
+    "define_rooms":"Creati cel putin o camera!",
+    "invalid_post":"Datele introduse nu sunt corecte",
+    "all_rights_reserved":"Toate drepturile rezervate - tkid.ro",
+
+    "name": "Nume"
+  },
+
+  "languages": {
+    "IsTranslated": "Are Traducere",
+    "abbreviation":"Abreviere1",
+    "new_item":"Adauga limba noua",
+    "edit_item":"Editare limba"
+  },
+
+  "hotel_contacts": {
+    "item_deleted": "Contactul a fost sters",
+    "item_saved": "Contactul a fost salvat",
+    "item_copied": "Contactul a fost creat",
+    "confirm_delete": "Esti sigur ca vrei sa stergi acest contact?"
+  },
+
+  "upload": {
+    "error_max_file_size": "Dimensiunea maximima acceptata a fisierului atasat este {0}",
+    "ErrorUploadFile": "Eroare la upload",
+    "ErrorServer": "Eroare de server"
+  },
+
+  "category": {
+    "id": "9",
+    "content":{
+      "name": "Content About",
+      "html": "&bdquo;Jocul este forma cea mai inalta a cercetarii\", <br /><span style=\"display: block; text-align: right;\">spunea Albert Einstein</span <p>In perioada rece organizam in spatiul interior zilnic ateliere pentru copii de toate varstele, intre orele 16.00-20.00 (la cerere putem organiza si ateliere in prima parte a zilei pentru cei mai mici dintre copii 1-4 ani), iar pe perioada calda, atelierele au loc in gradina, va rugam consultati mereu Calendarul . Propunem Ateliere Montessori cu personal acreditat, ateliere de creatie tematice, desen, pictura, kraft, dezvoltare personala, dans, zumba, etc. Fiecare atelier are inclus in program si o ora \"liber la joaca\" in intreaga locatie dupa finalizarea atelierul care dureaza o ora.</p>",
+      "ErrorServer": "Eroare de server"
+    }
+
+  }
+
+
+}

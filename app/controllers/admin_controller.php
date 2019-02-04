@@ -6,36 +6,39 @@ class AdminController extends AbstractController
 	var $webpage;
 	var $menu;
 	var $trans;
+	var $transJson;
 	var $arrLoadedClasses;
+	var $language; // user selected language
 	var $languageId; // user selected language id
-	var $defaultLanguageId; // default language id
+	var $defaultLanguage; // default language
 	var $propertyInfo;
-	var $laguageModel;
+	var $languageModel;
 	
 	function __construct()
 	{
 		parent::__construct();
 		// create image preloading js file
 		// PreloadImages::WriteContent();
-		$this->auth = new Auth();
-		$this->webpage = new WebPage();
-        $this->laguageModel = $this->LoadModel('languages', 'languages');
-        $this->defaultLanguageId = $this->GetDefaultLanguageId();
-
+		//session_unset();
+        $this->auth = new Auth();
+        $this->webpage = new WebPage();
+        $this->languageModel = $this->LoadModel('languages', 'languages');
+        $dataSearch = new StdClass();
+        //$dataSearch->languageId = '1,2'; // get only ro and en
+        $this->defaultLanguage = $this->GetDefaultLanguage();
         $this->SetSelectedLanguage();
         $selectedLanguage = $this->GetSelectedLanguage();
 
         if ($selectedLanguage == null) die('No language exists');
+        $this->language = $selectedLanguage;
         $this->languageId = $selectedLanguage->id;
-        $dataSearch = new StdClass();
-
-        $this->webpage->languageAbb = $selectedLanguage->abbreviation;
-        $this->webpage->languageAbbIso = $selectedLanguage->abbreviation_iso;
-        $this->webpage->languageDdl = $this->laguageModel->GetRecordsForDropdown($dataSearch, 'id');
+        $this->webpage->language = $selectedLanguage;
+        $this->webpage->languagesDdl = $this->languageModel->GetRecordsForDropdown($dataSearch, 'id');
         $this->LoadLang($selectedLanguage->abbreviation_iso);
-		$this->GetSessionMessage();
-		$this->SetDefaultData();
-		$this->GenerateJsCache();
+        //echo'<pre>';print_r($selectedLanguage);die();
+        $this->GetSessionMessage();
+        $this->SetDefaultData();
+        $this->GenerateJsCache();
 
 	}
 	
@@ -173,33 +176,53 @@ class AdminController extends AbstractController
 	
 	function LoadLang($langId)
 	{
-		require_once(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.php');
-		$this->trans = $trans;
+		(file_exists(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.php'))
+			?
+			require_once(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.php')
+			:
+			require_once(_APPLICATION_FOLDER.'langs/'.$this->defaultLanguage->abbreviation_iso.'/pages.php');
+
+        $this->trans = $trans;
+
+        if(!file_exists(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json')){
+            mkdir(_APPLICATION_FOLDER.'langs/'.$langId, 0777);
+            fclose(fopen(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json', 'a'));
+		}
+        $this->transJson = json_decode(file_get_contents(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json'),true, JSON_UNESCAPED_UNICODE);
 	}
 	
 	function GetSelectedLanguage()
 	{
 		$lang = null;
 		if (isset($_SESSION['language_id']))
-			$lang = $this->laguageModel->GetRecordById($_SESSION['language_id']);
+			$lang = $this->languageModel->GetRecordById($_SESSION['language_id']);
 		
 		if ($lang == null)
-			$lang = $this->laguageModel->GetDefaultLanguage();
+			$lang = $this->languageModel->GetDefaultLanguage();
 			
 		return $lang;
 	}
 	
-	function GetDefaultLanguageId()
+	function GetDefaultLanguage()
 	{
-		$lang = $this->laguageModel->GetDefaultLanguage();
+		$lang = $this->languageModel->GetDefaultLanguage();
 			
-		return $lang->id;
+		return $lang;
 	}
 	
 	function SetSelectedLanguage()
 	{
-		if (isset($_GET['lang_id']))
-			$_SESSION['language_id'] = (int)$_GET['lang_id'];
+		if (isset($_GET['lang_id'])) {
+            $_SESSION['language_id'] = (int)$_GET['lang_id'];
+        }
+        else if(isset($_POST['language'])){
+
+            if($this->languageModel->GetRecordById((int)($_POST['language']))){
+                $_SESSION['language_id'] = (int)$_POST['language'];
+            }
+            //echo'<pre>';print_r($_SESSION);die();
+            $this->RedirectBack();
+		}
 	}
 	
 	function CheckUserIP($ip)
@@ -267,8 +290,8 @@ class AdminController extends AbstractController
 			"var SITE_URL = '"._SITE_URL."';".$endLine.
 			"var SCRIPTS_URL = '"._SITE_URL."js/';".$endLine.
 			"var SCRIPTS_URL_REPLACE = '"._JS_OUTSIDE_JS_FOLDER."';".$endLine.
-            "var languageAbb = '".$this->webpage->languageAbb."';".$endLine.
-            "var languageAbbIso = '".$this->webpage->languageAbbIso."';".$endLine.
+            "var languageAbb = '".$this->webpage->language->abbreviation."';".$endLine.
+            "var languageAbbIso = '".$this->webpage->language->abbreviation_iso."';".$endLine.
 			"var auth = { UserId: '{$userIdJs}' };".$endLine;
 		
 		$this->webpage->JsPageContent .= $js;
@@ -296,5 +319,11 @@ class AdminController extends AbstractController
 		}
 		return $ret;
 	}
+
+    function RedirectBack(){
+        $headers = getallheaders();
+        //echo'<pre>';print_r($headers);die();
+        $this->webpage->Redirect((isset($headers['Referer'])) ? $headers['Referer'] : '/');
+    }
 }
 ?>

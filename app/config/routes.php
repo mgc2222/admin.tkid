@@ -27,6 +27,7 @@
 	$routes['languages'] = 'languages/languages/GetViewData';
 	$routes['languages/edit[/{id:\d+}]'] = 'languages/languages/GetEditData/$1';
 	$routes['languages/{data:.+}'] = 'languages/languages/GetViewData/$1';
+    //$routes['change_language'] = 'languages/languages/SetSelectedLanguage';
 	
 	$routes['products'] = 'categories/products/GetViewData';
 	$routes['products/edit[/{data:.+}]'] = 'categories/products/GetEditData/$1';

@@ -251,10 +251,12 @@ class AbstractModel
 
 		if ($editId == 0)
 		{
+            //echo'<pre>';print_r($data);die();
 			return $this->dbo->InsertRow($this->table, $data);
 		}
 		else
 		{
+		    //echo'<pre>';print_r($data);die();
 			$this->dbo->UpdateRow($this->table, $data, array($this->primaryKey=>$editId));
 			return $editId;
 		}
