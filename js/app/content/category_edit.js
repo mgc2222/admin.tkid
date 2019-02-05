@@ -11,7 +11,6 @@ function CategoryEdit()
         $('#categoryId').change(function() {
             frm.FormSubmitAction('FilterResults');
         });
-
         var tinyMceWrapper = new TinyMceWrapper();
 		tinyMceWrapper.Init();
 	}

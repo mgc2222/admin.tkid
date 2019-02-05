@@ -57,7 +57,7 @@ class Content extends AdminController
 		if (!$dataSearch->parentId) {
 			$dataSearch->parentId = 0;
 		}
-				
+        //echo'<pre>';print_r($dataSearch);echo'</pre>';die;
 		array_push(
 			$this->webpage->StyleSheets,
             'jquery/jquery-ui-1.8.17.custom.css',
@@ -85,95 +85,43 @@ class Content extends AdminController
 
         $data = new stdClass();
         $this->webpage->FormAttributes = 'enctype="multipart/form-data"';
-        $data->contentId = $this->categoriesModel->GetCategoryIdByCategoryName('content');
-        $data->contentList = $this->categoriesModel->GetActiveCategoriesForDropDown($data->contentId);
-        if ($formData->categoryId == 0 && count($data->contentList)) {
-            $data->categoryId = $data->contentList[0]->id;
-            $data->categoryName = $this->categoriesModel->GetCategoryName($data->categoryId); // set initial categoryId for the fist id in list
+        $data->categoryContentId = $this->categoriesModel->GetCategoryIdByCategoryName('content');
+        $data->categoriesContentList = $this->categoriesModel->GetActiveCategoriesForDropDown($data->categoryContentId);
+        if ($formData->categoryId == 0 && count($data->categoriesContentList)) {
+            $data->categoryId = $data->categoriesContentList[0]->id;
         }
         else{
         	$data->categoryId = $formData->categoryId ;
-
-            $data->categoryName = $this->categoriesModel->GetCategoryName($data->categoryId);
         }
+        $data->category = $this->categoriesModel->GetActiveCategoryById($data->categoryId); // set initial categoryId for the fist id in list
+        //echo'<pre>';print_r($data->category);echo'</pre>';die();
+        $data->categoriesContentListDropDown = HtmlControls::GenerateDropDownList($data->categoriesContentList, 'id', 'name', $data->categoryId);
 
+		$category_content = (isset($this->transJson['category_id_'.$data->categoryId])) ? $this->transJson['category_id_'.$data->categoryId] : '';
 
-        echo'<pre>';print_r($this->transJson);echo'</pre>';die();
-        //echo'<pre>';print_r( $data->contentList[0]);echo'</pre>';die();
-       // echo'<pre>';print_r($data->categoryId);echo'</pre>';die();
-        //
-        $data->contentList = $this->transJson['category'][$data->categoryId]['content']['html'];
+        $data->categoryContent = new stdClass();
+        $data->categoryContent->html = (isset($category_content['html'])) ? $category_content['html'] : '';
 
-        $this->webpage->PageHeadTitle = ucfirst($data->categoryName);
+        $this->webpage->PageHeadTitle = ucfirst($data->category->name);
 
-        //echo'<pre>';print_r($data->contentListDropDown);echo'</pre>';die;
-		
-		// $dataSort = $this->GetSortData();
-
-		// $limit = $this->GetPagingCode($data, $recordsCount);
-        $data->contentListDropDown = HtmlControls::GenerateDropDownList($data->contentList, 'id', 'name', $data->categoryId);
-        $data->contentList = isset($data->contentList[0]) ? $data->contentList[0] : $data->contentList;
-
-		//$data->categoriesBlock = $this->GetBlockPath('categories_block');
-        //echo'<pre>';print_r($data);echo'</pre>';die;
-        //echo'<pre>';print_r($this->webpage);echo'</pre>';die;
-        //echo'<pre>';print_r($this->transJson);echo'</pre>';die;
 		return $data;
 	}
 	
-	function FormatRows(&$rows)
+	function SaveContent(&$formData)
 	{
-		$this->webpage->PageDefaultUrl = $this->webpage->PageUrl;
-		foreach ($rows as &$row)
-		{
-			if ($row->DirectChildrenCount > 0) 
-			{
-				$row->DisplayName = '<a href="'.$this->webpage->PageDefaultUrl.'/parentId='.$row->id.'">'.$row->name.'</a>';
-				$row->DisplayName .= ($row->DirectChildrenCount == 1) 
-									? 
-									'('.sprintf($this->trans['categories.subcategory_count'], $row->DirectChildrenCount).')'
-									:
-									'('.sprintf($this->trans['categories.subcategories_count'], $row->DirectChildrenCount).')';
-			}
-			else{
-				$row->DisplayName = $row->name;
-				$row->DisplayName .= ($row->ArticlesCount == 1) 
-								?
-								' ('.sprintf($this->trans['categories.item_count'], $row->ArticlesCount).')'
-								: 
-								' ('.sprintf($this->trans['categories.items_count'], $row->ArticlesCount).')';
-			}
-		}
-	}
-	
-	function SaveCategory(&$formData)
-	{
+		//echo '<pre>';print_r($this->transJson);echo'</pre>';
 		//echo '<pre>';print_r($formData);die();
 		//$editId = $this->categoriesModel->SaveRecord($formData);
-		$row= array('id'=>$formData->categoryId, 'description'=>$formData->txtDescription);
-		$this->categoriesModel->SaveData($row);
-		/*if ($formData->categoryId != 0)
-		{
-			// $this->categoriesModel->DeleteDiskFile('../cache/mainmenu.tmp'); // force refresh menu
-			$fileName = StringUtils::UrlTitle(strtolower($formData->txtName));
-			$fileName .= '_'.$editId;
-			$uploadInfo = $this->UploadFile('fileUpload', $fileName);
-			if ($uploadInfo['status'])	{
-				if ($uploadInfo['update_filename']) {
-					$this->categoriesModel->UpdateFileName($editId, $uploadInfo['file_name']);
-				}
-				$flashMessage = $this->trans[$this->translationPrefix.'.save_success'];
-				$flashStatus = 'success';
-			}
-			else {
-				$flashMessage = $uploadInfo['upload_message'];
-				$flashStatus = 'warning';
-			}
-			Session::SetFlashMessage($flashMessage, $flashStatus, $this->webpage->PageUrl.'/'.$editId);
-		}
-		else {
-			$this->webpage->SetMessage($this->trans['general.save_error'], 'error');
-		}*/
+        $arrTemp = [];
+        $arrTemp['html'] = $formData->html;
+        $arrTemp['name'] = $formData->categoryName;
+        $arrTemp['url_key'] = $formData->categoryUrlKey;
+        $this->transJson['category_id_'.intval($formData->categoryId)] = $arrTemp;
+        $f = fopen(_APPLICATION_FOLDER.'langs/'.$this->language->abbreviation_iso.'/pages.json', 'w');
+		fwrite($f, json_encode($this->transJson, JSON_UNESCAPED_UNICODE, JSON_PRETTY_PRINT));
+		/*$row= array('id'=>$formData->categoryId, 'description'=>$formData->html);
+		$this->categoriesModel->SaveData($row);*/
+
 	}
 	// ================= Category Edit - END =================== //
 
@@ -183,9 +131,16 @@ class Content extends AdminController
 		switch($formData->Action)
 		{
             case 'FilterResults':
+                //echo'<pre>';print_r($formData);die();
                 $this->webpage->RedirectPostToGet($this->webpage->PageUrl, 'sys_Action', 'FilterResults',
                     array('categoryId'), array('categoryId'));
                 break;
+            /*case 'ChangeLanguage':
+                //echo'<pre>';print_r($formData);die();
+                $this->webpage->Redirect($this->GetRelativePath('change_language'));
+                $this->webpage->RedirectPostToGet($this->webpage->PageUrl, 'sys_Action', 'FilterResults',
+                    array('categoryId'), array('categoryId'));
+                break;*/
 			case 'Delete':
 			//echo'<pre>';print_r($formData);echo'</pre>';die;
 				$id = (int)$formData->Params;
@@ -206,7 +161,7 @@ class Content extends AdminController
 				}
 				else $this->webpage->SetMessage($this->trans['categories.error_selected_elements'], 'error');
 			break;
-			case 'Save': $this->SaveCategory($formData); break;
+			case 'Save': $this->SaveContent($formData); break;
 			case 'DeleteFile':
 				$filePath = _SITE_RELATIVE_URL._CATEGORIES_PATH;
 				$this->categoriesModel->DeleteFile($formData->EditId, $filePath);

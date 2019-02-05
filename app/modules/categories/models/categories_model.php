@@ -32,6 +32,12 @@ class CategoriesModel extends AbstractModel
         return $this->dbo->GetRows($sql);
     }
 
+    function GetActiveCategoryById($id=true)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id=$id AND status=1";
+        return $this->dbo->GetFirstRow($sql);
+    }
+
 	function GetRecordsList($dataSearch, $orderBy)
 	{
 		$cond = $this->GetSqlCondition($dataSearch);

@@ -200,5 +200,15 @@ class Languages extends AdminController
 			break;
 		}
 	}
+
+    function SetLanguage()
+    {
+        if(isset($_POST['language'])){
+            if($this->languageModel->GetRecordById((int)($_POST['language']))){
+                $_SESSION['language_id'] = (int)$_POST['language'];
+            }
+        }
+        $this->RedirectBack();
+    }
 }
 ?>

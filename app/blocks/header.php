@@ -18,7 +18,7 @@
                             <?php
                                 foreach ($webpage->languagesDdl as $lang){
                             ?>
-                                    <li style="display: block">
+                                    <li class="<?php echo ($webpage->language->id==$lang->id) ? 'active': ''?>" style="display: block">
                                         <a>
                                             <button type="submit" style="width: 100%; background-color: unset;border: unset;" value="<?php echo $lang->id;?>" name="language"><?php echo $lang->abbreviation_iso;?></button>
                                         </a>

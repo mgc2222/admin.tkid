@@ -222,6 +222,7 @@ $trans['languages.new_item'] = 'Adauga limba noua';
 $trans['languages.edit_item'] = 'Editare limba';
 $trans['languages.item_not_exists'] = 'Limba editata nu exista';
 $trans['languages.delete_selected_items'] = 'Sterge limbile selectate';
+$trans['languages.select_items'] = 'Alegeti limba';
 
 $trans['languages.name'] = 'Nume';
 $trans['languages.abbreviation'] = 'Abreviere';
@@ -427,6 +428,7 @@ $trans['categories.error_selected_elements'] = 'Nu ati ales nici o categorie';
 $trans['categories.main_category'] = 'Main';
 $trans['categories.parent'] = 'Parinte';
 $trans['categories.description'] = 'Descriere';
+$trans['categories.content'] = 'Continut';
 $trans['categories.short_description'] = 'Descriere Scurta';
 $trans['categories.is_active'] = 'Activa / Inactiva (daca este debifat, nu va fi afisata deloc)';
 $trans['categories.is_separate'] = 'Daca selectati aceasta optiune categoria nu va fi afisata in meniu alaturi de celelalte categorii, ci  doar pe prima pagina !';

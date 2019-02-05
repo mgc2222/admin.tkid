@@ -184,9 +184,9 @@ class AdminController extends AbstractController
 
         $this->trans = $trans;
 
-        if(!file_exists(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json')){
+        if(!is_dir(_APPLICATION_FOLDER.'langs/'.$langId)){
             mkdir(_APPLICATION_FOLDER.'langs/'.$langId, 0777);
-            fclose(fopen(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json', 'a'));
+            fclose(fopen(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json', 'a+'));
 		}
         $this->transJson = json_decode(file_get_contents(_APPLICATION_FOLDER.'langs/'.$langId.'/pages.json'),true, JSON_UNESCAPED_UNICODE);
 	}
@@ -221,7 +221,7 @@ class AdminController extends AbstractController
                 $_SESSION['language_id'] = (int)$_POST['language'];
             }
             //echo'<pre>';print_r($_SESSION);die();
-            $this->RedirectBack();
+            //$this->RedirectBack();
 		}
 	}
 	
