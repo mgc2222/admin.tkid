@@ -86,13 +86,8 @@ class Pictures extends AdminController
 		$data->rows = $this->imagesModel->GetProductImages($formData->productId);
 		//echo'<pre>';print_r($data->rows);echo'</pre>';die;
 
-
-
-
 		$this->FormatRows($formData->productId, $data->product->name, $data->product->default_image_id, $data->rows);
 		$data->productId = $formData->productId;
-
-		//echo'<pre>';print_r($radioData);echo'</pre>';die;
 
 		$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
 
@@ -101,7 +96,6 @@ class Pictures extends AdminController
 
 	function GetAppImagesViewData($query = '')
 	{
-		//echo'<pre>';print_r($this->HandleAjaxRequest());echo'</pre>';die;
 		$this->HandleAjaxRequest();
 
 		$dataSearch = $this->GetQueryItems($query, array('categoryId'));
@@ -123,7 +117,6 @@ class Pictures extends AdminController
 
 		parent::SetWebpageData('app_images');
 
-		//echo'<pre>';print_r(get_class_methods(parent::SetWebpageData($this->pageId)));echo'</pre>';die;
 		$this->webpage->FormAttributes = 'enctype="multipart/form-data"';
 
 		$form = new Form('SaveAppImages');
@@ -137,11 +130,9 @@ class Pictures extends AdminController
 		//$data->advancedSearchBlock = $this->GetBlockPath($this->pageId.'_advanced_search_block');
 		//echo'<pre>';print_r($formData);echo'</pre>';die;
 		$data->categoryId = $formData->categoryId;
-		//echo'<pre>';print_r($data->categoryId);echo'</pre>';die;
 
 		$data->imagesId = $this->appImagesModel->GetCategoryIdByCategoryName('images');
 		$data->imagesList = $this->appImagesModel->GetCategoriesForDropDown($data->imagesId);
-        //echo'<pre>';print_r($data->imagesList);echo'</pre>';die;
         if ($formData->categoryId == 0) {
             $data->categoryId = isset($data->imagesList[0]->id)? $data->imagesList[0]->id : 0;
             $data->categoryName = $this->appImagesModel->GetCategoryName($data->categoryId); // set initial categoryId for the fist id in list
@@ -152,12 +143,12 @@ class Pictures extends AdminController
 
 		$this->webpage->PageHeadTitle = $this->trans['app_images.page_title'].' '.ucfirst($data->categoryName);
 		$data->imagesListContent = HtmlControls::GenerateDropDownList($data->imagesList, 'id', 'name', $data->categoryId);
-		//echo'<pre>';print_r($data->imagesListContent);echo'</pre>';die;
+
 		$data->rows = $this->appImagesModel->GetAppImages($data->categoryId, 'order_index');
-        //echo'<pre>';print_r($data->rows);echo'</pre>';die;
+
 
 		$this->FormatAppImagesRows($data->categoryId, $data->categoryName, $data->rows);
-		//echo'<pre>';print_r($data);echo'</pre>';die;
+
 		//$data->pageId  = 'app_images';
 		$this->webpage->PageUrl = $this->webpage->AppendQueryParams($this->webpage->PageUrl);
 
@@ -399,7 +390,7 @@ EOF;
 
 		// save the original image
 		$options->actions = array(
-			array('action'=>'resize_image', 'filePath'=>$imagePath)
+			array('action'=>'resize_image', 'filePath'=>$imagePath, 'width'=>1280, 'height'=>720) //set max with and height of any uploaded image file
 		);
 						
 		$uploadOk = $fileUpload->ProcessUploadFile($fileInputId, $fileFolder, $fileName, $options);

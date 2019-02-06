@@ -52,10 +52,10 @@
 
 <script type="text/javascript">
 	<?php 
-	if(isset($dataView->appCategoryId)){
+	if(isset($dataView->categoryId)){
 	?>
-		var elementId = <?php echo $dataView->appCategoryId ?>;
-		var elementName = 'appCategoryId';
+		var elementId = <?php echo $dataView->categoryId ?>;
+		var elementName = 'categoryId';
 	<?php	
 	}
 	?>;
