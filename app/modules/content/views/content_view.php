@@ -12,9 +12,8 @@
         <tr>
             <td><?php echo $trans['categories.content']?>: </td>
             <td>
-                <textarea name="html"  id="html" class="tinymce" rows="20" cols="60"><?php echo $dataView->categoryContent->html?></textarea>
-                <input type="hidden" name="categoryName" id="categoryName" value="<?php echo $dataView->category->name?>" class="form-control" />
-                <input type="hidden" name="categoryUrlKey" id="categoryUrlKey" value="<?php echo $dataView->category->url_key?>" class="form-control" />
+                <textarea name="html"  id="html" class="tinymce" rows="20" cols="60"><?php echo isset($dataView->categoryContent->html) ? $dataView->categoryContent->html : ''?></textarea>
+                <input type="hidden" name="categoryName" id="categoryName" value="<?php echo isset($dataView->category->name) ? $dataView->category->name : ''?>" />
             </td>
         </tr>
         <!--<tr>
@@ -32,4 +31,4 @@
         </tr>-->
     </table>
 </div>
-<div class="grid_buttons"><?php echo HtmlControls::GenerateFormButtons($trans['general.save'], "frm.FormSubmitAction('Save')")?></div>
+<div class="grid_buttons"><?php echo HtmlControls::GenerateFormButtons($trans['general.save'], "frm.FormSubmitAction('Save', $('#categoryId option:selected').val())")?></div>

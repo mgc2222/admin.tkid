@@ -87,14 +87,14 @@ class Content extends AdminController
         $this->webpage->FormAttributes = 'enctype="multipart/form-data"';
         $data->categoryContentId = $this->categoriesModel->GetCategoryIdByCategoryName('content');
         $data->categoriesContentList = $this->categoriesModel->GetActiveCategoriesForDropDown($data->categoryContentId);
-        if ($formData->categoryId == 0 && count($data->categoriesContentList)) {
+        if ($formData->categoryId == 0 && is_array($data->categoriesContentList)) {
             $data->categoryId = $data->categoriesContentList[0]->id;
         }
         else{
         	$data->categoryId = $formData->categoryId ;
         }
         $data->category = $this->categoriesModel->GetActiveCategoryById($data->categoryId); // set initial categoryId for the fist id in list
-        //echo'<pre>';print_r($this->transJson);echo'</pre>';die();
+        //echo'<pre>';print_r($data);echo'</pre>';die();
         $data->categoriesContentListDropDown = HtmlControls::GenerateDropDownList($data->categoriesContentList, 'id', 'name', $data->categoryId);
 
 		$category_content = (isset($this->transJson['category_id_'.$data->categoryId])) ? $this->transJson['category_id_'.$data->categoryId] : '';
@@ -102,13 +102,22 @@ class Content extends AdminController
         $data->categoryContent = new stdClass();
         $data->categoryContent->html = (isset($category_content['html'])) ? $category_content['html'] : '';
 
-        $this->webpage->PageHeadTitle = ucfirst($data->category->name);
+        $this->webpage->PageHeadTitle = isset($data->category->name) ? ucfirst($data->category->name) : '';
 
 		return $data;
 	}
 	
 	function SaveContent(&$formData)
 	{
+        //echo'<pre>';print_r($formData);echo'</pre>';die();
+        if($formData->categoryId==0 ) {
+        	if($formData->Params==0){
+                $this->RedirectBack();
+			}
+			else{
+        		$formData->categoryId = $formData->Params;
+			}
+        };
         $arrTemp = [];
         $arrTemp['name'] = $formData->categoryName;
         $arrTemp['html'] = $formData->html;
