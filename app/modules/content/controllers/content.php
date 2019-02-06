@@ -94,7 +94,7 @@ class Content extends AdminController
         	$data->categoryId = $formData->categoryId ;
         }
         $data->category = $this->categoriesModel->GetActiveCategoryById($data->categoryId); // set initial categoryId for the fist id in list
-        //echo'<pre>';print_r($data->category);echo'</pre>';die();
+        //echo'<pre>';print_r($this->transJson);echo'</pre>';die();
         $data->categoriesContentListDropDown = HtmlControls::GenerateDropDownList($data->categoriesContentList, 'id', 'name', $data->categoryId);
 
 		$category_content = (isset($this->transJson['category_id_'.$data->categoryId])) ? $this->transJson['category_id_'.$data->categoryId] : '';
@@ -109,19 +109,12 @@ class Content extends AdminController
 	
 	function SaveContent(&$formData)
 	{
-		//echo '<pre>';print_r($this->transJson);echo'</pre>';
-		//echo '<pre>';print_r($formData);die();
-		//$editId = $this->categoriesModel->SaveRecord($formData);
         $arrTemp = [];
-        $arrTemp['html'] = $formData->html;
         $arrTemp['name'] = $formData->categoryName;
-        $arrTemp['url_key'] = $formData->categoryUrlKey;
+        $arrTemp['html'] = $formData->html;
         $this->transJson['category_id_'.intval($formData->categoryId)] = $arrTemp;
         $f = fopen(_APPLICATION_FOLDER.'langs/'.$this->language->abbreviation_iso.'/pages.json', 'w');
-		fwrite($f, json_encode($this->transJson, JSON_UNESCAPED_UNICODE, JSON_PRETTY_PRINT));
-		/*$row= array('id'=>$formData->categoryId, 'description'=>$formData->html);
-		$this->categoriesModel->SaveData($row);*/
-
+		fwrite($f, json_encode($this->transJson, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 	}
 	// ================= Category Edit - END =================== //
 

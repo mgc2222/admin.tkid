@@ -1,102 +1,98 @@
 {
-	"Name": "Nume",
-	"Abbreviation": "Abreviere",
-	"DefaultLanguage": "Limba Implicita",
-	"Save": "Salveaza",
-	"menu": {
-		"home": "Acasa",
-		"roles": "Roluri",
-		"master_users": "Master Utilizatori",
-		"permissions_page": "Declarare Permisiuni",
-		"spoken_languages": "Limbi Vorbite",
-		"properties_types": "Tipuri de Proprietati",
-		"breakfast_types": "Tipuri de Breakfast",
-		"facilities_categories": "Categorii Facilitati",
-		"facilities_list": "Lista Facilitati",
-		"rooms_types": "Tipuri de Camere",
-		"rooms": "Camere",
-		"beds": "Paturi",
-		"surroundings_categories": "Declarare Categorii Imprejurimi",
-		"surroundings": "Declarare Elemente Imprejurimi",
-		"cards": "Declarare Carduri",
-		"departments": "Declarare Departamente",
-		"messages_folders": "Foldere Mesaje",
-		"users": "Utilizatori",
-		"users_permissions": "Permisiuni Utilizatori",
-		"hotel_facilities": "Facilitati",
-		"images": "Poze",
-		"general_info": "Informatii Generale",
-		"property_info": "Informatiile Proprietatii",
-		"property_surroundings": "Informatii Imprejurimi",
-		"property_rooms": "Camere",
-		"rooms_policy": "Politici generale hotel",
-		"hotel_prices": "Preturi",
-		"hotel_availability": "Disponibilitati",
-		"messages": "Mesaje",
-		"property_payment_options": "Preferinte de plata",
-		"hotel_contacts": "Informatii Contact",
-		"property_reservations_declaration": "Declarare Rezervari",
-		"property_reservations": "Rezervari",
-		"property_company": "Date Companie",
-		"property_financial_info": "Date Financiare Proprietate",
-		"property_bills": "Facturi",
-		"property_comments": "Comentarii Clienti",
-		"property_statistics": "Statistici"
-	},
-	"general": {
-		"private": "Doar Webmaster",
-		"save": "Salveaza",
-		"actions": "Actiuni",
-		"close": "Inchide",
-		"option_select": "Va rugam sa selectati",
-		"delete": "Eliminati",
-		"yes": "Da",
-		"no": "Nu",
-		"add": "Adauga",
-		"all_days": "Toate zilele",
-		"view": "Vizualizare",
-		"select_all": "Selectati toate",
-		"deselect_all": "Deselectati toate",
-		"define_rooms": "Creati cel putin o camera!",
-		"invalid_post": "Datele introduse nu sunt corecte",
-		"all_rights_reserved": "Toate drepturile rezervate - tkid.ro",
-		"name": "Nume"
-	},
-	"languages": {
-		"IsTranslated": "Are Traducere",
-		"abbreviation": "Abreviere1",
-		"new_item": "Adauga limba noua",
-		"edit_item": "Editare limba"
-	},
-	"hotel_contacts": {
-		"item_deleted": "Contactul a fost sters",
-		"item_saved": "Contactul a fost salvat",
-		"item_copied": "Contactul a fost creat",
-		"confirm_delete": "Esti sigur ca vrei sa stergi acest contact?"
-	},
-	"upload": {
-		"error_max_file_size": "Dimensiunea maximima acceptata a fisierului atasat este {0}",
-		"ErrorUploadFile": "Eroare la upload",
-		"ErrorServer": "Eroare de server"
-	},
-	"category_id_9": {
-		"html": "<h4 class=\"elementor-heading-title elementor-size-large\">&bdquo;Atunci cand esti liber, te poti juca, iar cand te joci, devii liber!\"<br \/><span style=\"display: block; text-align: right;\">Heidi Kaduson<\/span><\/h4>\r\n<p>the Kid este un spatiu unic in Bucuresti, care imbina \"joaca de calitate\" cu creatia si distractia copiilor cu relaxarea parintilor.<\/p>\r\n<p>Pentru tine-COPIL frumos, pentru tine- PARINTE drag, pentru TINE- oricine ai fi si vrei sa simti bucurie, relaxare si energie pozitiva...<\/p>\r\n<p>Unde? Langa Padurea Baneasa, intr-o gradina de 1000 mp plina de verdeata, pomi si flori multicolore si intr-un spatiu interior de 150 mp pentru joaca si ateliere, special creat pentru copii!<\/p>\r\n<p>De ce spun &ldquo;unic&rdquo;?! Pentru ca este creat de o mama de junior care nu a gasit nicaieri tot ceea ce se regaseste aici. Am creat un spatiu complex , unde sa vii sa stai la un ceai, o prajitura si o carte buna, iar copilul tau sa aiba parte de un loc frumos amenajat, cu jucarii de calitate ,educative si creative,cu spatii atent create pentru ca el sa se simta in largul lui si sa fie fericit. Poti sa iti lasi singur copilul la ateliere in functie de varsta , iar la plecare ne dorim sa il auzim zicand: mami, tati, cand ne reintoarcem in acest minunat loc?...Poti oricand sa te alaturi si tu atelierelor si sa creati impreuna lucruri frumoase.<\/p>\r\n<h4 class=\"elementor-heading-title elementor-size-large\">&bdquo;Cel mai bun lucru pe care poti sa-l cheltuiesti pentru copiii tai este timpul tau.&rdquo; <br \/><span style=\"display: block; text-align: right;\">Louise Hart<\/span><\/h4>\r\n<p>the Kid este impartit in 2 spatii: cel exterior , unde se organizeaza aniversari\/petreceri (adulti si copii) in aer liber langa superba Padure Baneasa, cu loc de joaca exterior pentru copii, locuri de luat masa , spatii de relaxare pentru parinti. Spatiul interior beneficiaza de un loc comun pentru parinti si copii pentru petreceri si alte camere individuale, unde vor avea loc atelierele special concepute pentru copii ( pictura, desen, colaj, modelaj in lut\/nisip kinetic, design vestimentar, dezvoltare personala, ateliere Montessori cu personal acreditat, Learn with music, Lego room, teatru, cinema pentru copii, dans, zumba, adaugand ateliere noi in permanenta).<\/p>",
-		"name": "Content About",
-		"url_key": "content-about"
-	},
-	"category_id_10": {
-		"html": "<h4 class=\"elementor-heading-title elementor-size-large\">&bdquo;Jocul este forma cea mai inalta a cercetarii\", <br \/><span style=\"display: block; text-align: right;\">spunea Albert Einstein<\/span><\/h4>\r\n<p>In perioada rece organizam in spatiul interior zilnic ateliere pentru copii de toate varstele, intre orele 16.00-20.00 (la cerere putem organiza si ateliere in prima parte a zilei pentru cei mai mici dintre copii 1-4 ani), iar pe perioada calda, atelierele au loc in gradina, va rugam consultati mereu Calendarul . Propunem Ateliere Montessori cu personal acreditat, ateliere de creatie tematice, desen, pictura, kraft, dezvoltare personala, dans, zumba, etc. Fiecare atelier are inclus in program si o ora \"liber la joaca\" in intreaga locatie dupa finalizarea atelierul care dureaza o ora.<\/p>",
-		"name": "Content Events",
-		"url_key": "content-events"
-	},
-	"category_id_12": {
-		"html": "<h6 class=\"elementor-heading-title talign-center\">Str. Varful Berivoiul Mare, nr 72A , sector 1, Bucuresti<\/h6>",
-		"name": "Content Contact",
-		"url_key": "content-contact"
-	},
-	"category_id_13": {
-		"html": "asdasdasd sdf sdfAS DGFDFSg",
-		"name": "Content test",
-		"url_key": "content-test"
-	}
+    "Name": "Nume",
+    "Abbreviation": "Abreviere",
+    "DefaultLanguage": "Limba Implicita",
+    "Save": "Salveaza",
+    "menu": {
+        "home": "Acasa",
+        "roles": "Roluri",
+        "master_users": "Master Utilizatori",
+        "permissions_page": "Declarare Permisiuni",
+        "spoken_languages": "Limbi Vorbite",
+        "properties_types": "Tipuri de Proprietati",
+        "breakfast_types": "Tipuri de Breakfast",
+        "facilities_categories": "Categorii Facilitati",
+        "facilities_list": "Lista Facilitati",
+        "rooms_types": "Tipuri de Camere",
+        "rooms": "Camere",
+        "beds": "Paturi",
+        "surroundings_categories": "Declarare Categorii Imprejurimi",
+        "surroundings": "Declarare Elemente Imprejurimi",
+        "cards": "Declarare Carduri",
+        "departments": "Declarare Departamente",
+        "messages_folders": "Foldere Mesaje",
+        "users": "Utilizatori",
+        "users_permissions": "Permisiuni Utilizatori",
+        "hotel_facilities": "Facilitati",
+        "images": "Poze",
+        "general_info": "Informatii Generale",
+        "property_info": "Informatiile Proprietatii",
+        "property_surroundings": "Informatii Imprejurimi",
+        "property_rooms": "Camere",
+        "rooms_policy": "Politici generale hotel",
+        "hotel_prices": "Preturi",
+        "hotel_availability": "Disponibilitati",
+        "messages": "Mesaje",
+        "property_payment_options": "Preferinte de plata",
+        "hotel_contacts": "Informatii Contact",
+        "property_reservations_declaration": "Declarare Rezervari",
+        "property_reservations": "Rezervari",
+        "property_company": "Date Companie",
+        "property_financial_info": "Date Financiare Proprietate",
+        "property_bills": "Facturi",
+        "property_comments": "Comentarii Clienti",
+        "property_statistics": "Statistici"
+    },
+    "general": {
+        "private": "Doar Webmaster",
+        "save": "Salveaza",
+        "actions": "Actiuni",
+        "close": "Inchide",
+        "option_select": "Va rugam sa selectati",
+        "delete": "Eliminati",
+        "yes": "Da",
+        "no": "Nu",
+        "add": "Adauga",
+        "all_days": "Toate zilele",
+        "view": "Vizualizare",
+        "select_all": "Selectati toate",
+        "deselect_all": "Deselectati toate",
+        "define_rooms": "Creati cel putin o camera!",
+        "invalid_post": "Datele introduse nu sunt corecte",
+        "all_rights_reserved": "Toate drepturile rezervate - tkid.ro",
+        "name": "Nume"
+    },
+    "languages": {
+        "IsTranslated": "Are Traducere",
+        "abbreviation": "Abreviere1",
+        "new_item": "Adauga limba noua",
+        "edit_item": "Editare limba"
+    },
+    "hotel_contacts": {
+        "item_deleted": "Contactul a fost sters",
+        "item_saved": "Contactul a fost salvat",
+        "item_copied": "Contactul a fost creat",
+        "confirm_delete": "Esti sigur ca vrei sa stergi acest contact?"
+    },
+    "upload": {
+        "error_max_file_size": "Dimensiunea maximima acceptata a fisierului atasat este {0}",
+        "ErrorUploadFile": "Eroare la upload",
+        "ErrorServer": "Eroare de server"
+    },
+    "category_id_10": {
+        "name": "Content Events",
+        "html": "<h4 class=\"elementor-heading-title elementor-size-large\">&bdquo;Jocul este forma cea mai inalta a cercetarii\", <br \/><span style=\"display: block; text-align: right;\">spunea Albert Einstein<\/span><\/h4>\r\n<p>In perioada rece organizam in spatiul interior zilnic ateliere pentru copii de toate varstele, intre orele 16.00-20.00 (la cerere putem organiza si ateliere in prima parte a zilei pentru cei mai mici dintre copii 1-4 ani), iar pe perioada calda, atelierele au loc in gradina, va rugam consultati mereu Calendarul . Propunem Ateliere Montessori cu personal acreditat, ateliere de creatie tematice, desen, pictura, kraft, dezvoltare personala, dans, zumba, etc. Fiecare atelier are inclus in program si o ora \"liber la joaca\" in intreaga locatie dupa finalizarea atelierul care dureaza o ora.<\/p>"
+    },
+    "category_id_12": {
+        "name": "Content Contact",
+        "html": "<h6 class=\"elementor-heading-title talign-center\">Str. Varful Berivoiul Mare, nr 72A , sector 1, Bucuresti<\/h6>"
+    },
+    "category_id_13": {
+        "name": "Content Motto",
+        "html": "In spatele fiecarui Copil Lumina e un Parinte Soare..."
+    },
+    "category_id_9": {
+        "name": "Content About",
+        "html": "<h4 class=\"elementor-heading-title elementor-size-large\">&bdquo;Atunci cand esti liber, te poti juca, iar cand te joci, devii liber!\"<br \/><span style=\"display: block; text-align: right;\">Heidi Kaduson<\/span><\/h4>\r\n<p>the Kid este un spatiu unic in Bucuresti, care imbina \"joaca de calitate\" cu creatia si distractia copiilor cu relaxarea parintilor.<\/p>\r\n<p>Pentru tine-COPIL frumos, pentru tine- PARINTE drag, pentru TINE- oricine ai fi si vrei sa simti bucurie, relaxare si energie pozitiva...<\/p>\r\n<p>Unde? Langa Padurea Baneasa, intr-o gradina de 1000 mp plina de verdeata, pomi si flori multicolore si intr-un spatiu interior de 150 mp pentru joaca si ateliere, special creat pentru copii!<\/p>\r\n<p>De ce spun &ldquo;unic&rdquo;?! Pentru ca este creat de o mama de junior care nu a gasit nicaieri tot ceea ce se regaseste aici. Am creat un spatiu complex , unde sa vii sa stai la un ceai, o prajitura si o carte buna, iar copilul tau sa aiba parte de un loc frumos amenajat, cu jucarii de calitate ,educative si creative,cu spatii atent create pentru ca el sa se simta in largul lui si sa fie fericit. Poti sa iti lasi singur copilul la ateliere in functie de varsta , iar la plecare ne dorim sa il auzim zicand: mami, tati, cand ne reintoarcem in acest minunat loc?...Poti oricand sa te alaturi si tu atelierelor si sa creati impreuna lucruri frumoase.<\/p>\r\n<h4 class=\"elementor-heading-title elementor-size-large\">&bdquo;Cel mai bun lucru pe care poti sa-l cheltuiesti pentru copiii tai este timpul tau.&rdquo; <br \/><span style=\"display: block; text-align: right;\">Louise Hart<\/span><\/h4>\r\n<p>the Kid este impartit in 2 spatii: cel exterior , unde se organizeaza aniversari\/petreceri (adulti si copii) in aer liber langa superba Padure Baneasa, cu loc de joaca exterior pentru copii, locuri de luat masa , spatii de relaxare pentru parinti. Spatiul interior beneficiaza de un loc comun pentru parinti si copii pentru petreceri si alte camere individuale, unde vor avea loc atelierele special concepute pentru copii ( pictura, desen, colaj, modelaj in lut\/nisip kinetic, design vestimentar, dezvoltare personala, ateliere Montessori cu personal acreditat, Learn with music, Lego room, teatru, cinema pentru copii, dans, zumba, adaugand ateliere noi in permanenta).<\/p>"
+    }
 }
