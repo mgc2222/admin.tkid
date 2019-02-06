@@ -15,6 +15,7 @@
 /app/config/fixconfig.php
 /app/config/dbconfig.php
 /app/config/defconfig.php
+/app/langs/*.json
 
 #.env
 .env.dusk.*
