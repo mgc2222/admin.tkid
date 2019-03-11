@@ -109,6 +109,9 @@ class Events extends AdminController
             'bootstrap_calendar/css/calendar.css',
             'bootstrap_calendar/css/custom.css'
         );
+        $calendarLanguageJsFile = (file_exists('bootstrap_calendar/js/language/'.str_replace('_', '-', $this->webpage->language->abbreviation_iso).'.js')) ?
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/js/language/'.str_replace('_', '-', $this->webpage->language->abbreviation_iso).'.js' :
+            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/js/language/ro-RO.js' ;
 		array_push($this->webpage->ScriptsFooter,
 			//'lib/jquery/jquery-ui.min.js',
 			'lib/toastr/toastr.min.js',
@@ -126,7 +129,7 @@ class Events extends AdminController
 
             //'lib/jstimezonedetect/jstz.min.js',
             _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/components/jstimezonedetect/jstz.min.js',
-            _JS_OUTSIDE_JS_FOLDER.'bootstrap_calendar/js/language/ro-RO.js',
+            $calendarLanguageJsFile,
 
             //'lib/bootstrapcalendar/language/ro-RO.js',
             //'lib/bootstrapcalendar/calendar.js',
