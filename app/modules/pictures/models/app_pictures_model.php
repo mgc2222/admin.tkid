@@ -100,7 +100,7 @@ class AppPicturesModel extends AbstractModel
 		//echo'<pre>';print_r($categoryId);echo'</pre>';die;
         $order = ($order) ?: 'id';
 		$cond = 'ti.app_category_id='.$categoryId;
-		$sql = "SELECT * FROM {$this->tableImages} ti LEFT JOIN {$this->table} t ON ti.id=t.app_image_id WHERE {$cond} ORDER BY {$order}";
+        $sql = "SELECT ti.*, t.app_image_id, t.app_category_id, t.image_alt, t.image_title, t.image_caption, t.image_description, t.image_button_link_text, t.image_button_link_href, t.order_index FROM {$this->tableImages} ti LEFT JOIN {$this->table} t ON ti.id=t.app_image_id WHERE {$cond} ORDER BY {$order}";
 		$rows = $this->dbo->GetRows($sql);
 			
 		return $rows;
@@ -125,9 +125,9 @@ class AppPicturesModel extends AbstractModel
 	{
 		//echo'<pre>IMAGE ID:';print_r($imageId);echo'</pre>';die;
 		$id = $this->GetAppImageMetaIdByAppImageId($imageId);
-		$data = array('app_image_id'=>$imageId, 'app_category_id'=>$categoryId);
+		$data = array('id'=> 0, 'app_image_id'=>$imageId, 'app_category_id'=>$categoryId, 'image_caption'=> null, 'image_description'=>null, 'image_button_link_text'=>null, 'image_button_link_href'=>null, 'order_index'=>0);
 		if (!$id) {
-			
+
 			$this->dbo->InsertRow($this->table, $data);
 		}
 		else {

@@ -47,23 +47,31 @@ function Pictures()
 	function initControls()
 	{
 		$('.delete').click(function() {
-			if (confirm(trans['delete_image']))
-				frm.FormSubmitAction('Delete', $(this).attr('data'));
+			if (confirm(trans['delete_image'])){
+                addCategoryIdToFormAction();
+                frm.FormSubmitAction('Delete', $(this).attr('data'));
+			}
 		});
 		
 		$('.delete_all').click(function() {
-			if (confirm(trans['delete_images_all']))
-				frm.FormSubmitAction('DeleteProductImages');
+			if (confirm(trans['delete_images_all'])){
+                addCategoryIdToFormAction();
+                frm.FormSubmitAction('DeleteProductImages');
+			}
 		});
 
 		$('.delete_app_image').click(function() {
-			if (confirm(trans['delete_image']))
-				frm.FormSubmitAction('DeleteAppImage', $(this).attr('data'));
+			if (confirm(trans['delete_image'])){
+                addCategoryIdToFormAction();
+                frm.FormSubmitAction('DeleteAppImage', $(this).attr('data'));
+			}
 		});
 		
 		$('.delete_app_all').click(function() {
-			if (confirm(trans['delete_images_all']))
-				frm.FormSubmitAction('DeleteAppAllImages');
+			if (confirm(trans['delete_images_all'])){
+                addCategoryIdToFormAction();
+                frm.FormSubmitAction('DeleteAppAllImages');
+			}
 		});
 		$('#categoryId').change(function() {
 			frm.FormSubmitAction('FilterResults');
@@ -84,6 +92,10 @@ function Pictures()
 		var url = SITE_RELATIVE_URL + 'pictures';
 		frm.PostAjaxJson(url, params, function() { imgDragged.attr('onclick', imgDraggedOnclick);  } )
 	}
+
+	function addCategoryIdToFormAction() {
+        document.getElementById('mainForm').action = window.location.href+'/categoryId='+$('#categoryId').val();
+    }
 }
 
 var ctlPictures = new Pictures();
