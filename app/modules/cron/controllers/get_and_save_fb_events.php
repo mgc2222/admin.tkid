@@ -47,6 +47,8 @@ class GetAndSaveFBEvents extends AbstractController
     function GetTimestampInMilliseconds($dateString){
         $date = new DateTime($dateString);
         //$date = new DateTime(DateTime::createFromFormat('Y-m-d H:i:s', $dateString));
+        // $date->format('U') //seconds UTC
+        // $date->format('Uu')/1000); //miliseconds UTC
         return strval($date->format('Uu')/1000);
     }
 
